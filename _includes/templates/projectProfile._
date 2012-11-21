@@ -158,9 +158,7 @@
       <div class='icon forward'></div>
     </div>
     <!-- Captions -->
-    <div class='meta'>
-      <div class='meta-inner'></div>
-    </div>
+    <div class='meta'></div>
   </div>
   <div id='twitter-block' class='inner'>
     <div class='row-fluid'>

@@ -184,7 +184,6 @@ views.Map = Backbone.View.extend({
                     Math.round(that.scale(layer,f))
                 );
             };
-
         markers.sort(function(a,b){ return b.properties[layer] - a.properties[layer]; })
             .factory(clustr.scale_factory(radii, "rgba(0,85,170,0.6)", "#0B387C"));
     },
@@ -556,18 +555,18 @@ views.Map = Backbone.View.extend({
                         }
 
                         // Fill in date & description
-                        $('.meta-inner', $el).html('<span class="date">' + date + '</span>' +
+                        $('.meta', $el).html('<div class="meta-inner"><span class="date">' + date + '</span>' +
                             '<p>' + description +
-                            '<a href="' + url + 'in/photostream/" title="See our photos on Flickr"> Source</a></p>');
+                            '<a href="' + url + 'in/photostream/" title="See our photos on Flickr"> Source</a></p></div>');
 
                         insertPhoto(pHeight, pWidth, source);
                     });
                 });
 
             } else if (photos[x].date) {
-                $('.meta-inner', $el).html('<span class="date">' + photos[x].date.toLocaleDateString() + '</span>' +
+                $('.meta', $el).html('<div class="meta-inner"><span class="date">' + photos[x].date.toLocaleDateString() + '</span>' +
                     '<p>' + photos[x].description +
-                    '<a href="' + photos[x].link + '/in/photostream/" title="See our photos on Flickr"> Source</a></p>');
+                    '<a href="' + photos[x].link + '/in/photostream/" title="See our photos on Flickr"> Source</a></p></div>');
 
                 insertPhoto(photos[x].height, photos[x].width, photos[x].source);
 

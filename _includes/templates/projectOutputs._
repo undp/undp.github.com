@@ -13,39 +13,35 @@
                 <div class='span8'>
                     <% if (model.crs) { %>
                     <div class='row-fluid'>
-                        <div class='label'>Aid Classification</div>
-                        <span><%= model.crs_descr %></a></span>
+                      <div class='label'>Aid Classification</div>
+                      <span><%= model.crs_descr %></a></span>
                     </div>
                     <% } %>
                     <% if (model.gender_id) { %>
                     <div class='row-fluid'>
-                        <div class='label'>Gender Marker</div>
-                        <span><%= model.gender_descr %></span>
+                      <div class='label'>Gender Marker</div>
+                      <span><%= model.gender_descr %></span>
                     </div>
                     <% } %>
                     <div class='row-fluid'>
-                        <div class='label'>Funding Sources</div>
-                        <% _.each(model.donor_short, function(o, i) { %>
-                        <span><a href='#filter/donors-<%= model.donor_id[i] %>'><%= o %></a></span><% if (i != model.donor_short.length -1) { %>, <% } %>
-                        <% }); %>
+                      <div class='label'>Funding Sources</div>
+                      <% _.each(model.donor_short, function(o, i) { %>
+                      <span><a href='#filter/donors-<%= model.donor_id[i] %>'><%= o %></a></span><% if (i != model.donor_short.length -1) { %>, <% } %>
+                      <% }); %>
                     </div>
                 </div>
                 <div class='span4'>
                     <div class='row-fluid'>
-                        <div class='span12'>
-                            <% _.each(model.budget, function(o, i) { %>
-                              <div class='label'><%= model.fiscal_year[i] %> Budget</div>
-                              <div><%= accounting.formatMoney(o) %></div>
-                            <% }); %>
-                        </div>
+                      <% _.each(model.budget, function(o, i) { %>
+                        <div class='label'><%= model.fiscal_year[i] %> Budget</div>
+                        <div><%= accounting.formatMoney(o) %></div>
+                      <% }); %>
                     </div>
                     <div class='row-fluid'>
-                        <div class='span12'>
-                            <% _.each(model.expenditure, function(o, i) { %>
-                              <div class='label'><%= model.fiscal_year[i] %> Expenditure</div>
-                              <div><%= accounting.formatMoney(o) %></div>
-                            <% }); %>
-                        </div>
+                      <% _.each(model.expenditure, function(o, i) { %>
+                        <div class='label'><%= model.fiscal_year[i] %> Expenditure</div>
+                        <div><%= accounting.formatMoney(o) %></div>
+                      <% }); %>
                     </div>
                 </div>
             </div>

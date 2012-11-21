@@ -1,92 +1,89 @@
-<p data-option='title' class='option heading-title'><%= model.get('project_title').toLowerCase().toTitleCase() %></p>
+<%
+  var donors_id = _.chain(model.get('outputs'))
+      .map(function (o) { return o.donor_id })
+      .flatten()
+      .union()
+      .value();
+  var donors_short = _.chain(model.get('outputs'))
+      .map(function (o) { return o.donor_short })
+      .flatten()
+      .union()
+      .value();
+  var donors_long = _.chain(model.get('outputs'))
+      .map(function (o) { return o.donor_name })
+      .flatten()
+      .union()
+      .value();
+%>
 
-<div data-option='descr' id='project-descr' class='option'>
+<div data-option='title' class='option'>
+  <h2 class='heading-title'><%= model.get('project_title').toLowerCase().toTitleCase() %></h2>
+</div>
+
+<div data-option='descr' class='option'>
   <p class='heading-desc'><%= model.get('project_descr') %></p>
 </div>
 
-<div data-option='map' id='profilemap' class='map'></div>
+<div data-option='map' id='profilemap' class='map option'></div>
 
 <div data-option='stats' class='option'></div>
-  <div class='span7'>
-    <div class='row-fluid'>
-      <div class='span12 dates'>
-        <div class='label'>Project Timeline</div>
-        <div class='dates-label'>
-          <span class='start'><%= start %></span>
-          <span class='end'><%= end %></span>
-        </div>
-        <div id='progress' class='progress'>
-          <div class='bar'></div>
-        </div>
-      </div>
+  <div class='label'>Project Timeline</div>
+  <div class='dates'>
+    <div class='dates-label'>
+      <span class='start'><%= start %></span>
+      <span class='end'><%= end %></span>
     </div>
-    <div class='row-fluid stat'>
-      <div class='span12'>
-        <% _.each(model.get('budgetyears'), function(v,k) { %>
-          <div class='label'><%= k %> Budget</div>
-          <div><%= accounting.formatMoney(v) %></div>
-        <% }); %>
-      </div>
-    </div>
-    <div class='row-fluid stat'>
-      <div class='span12'>
-        <% _.each(model.get('expendyears'), function(v,k) { %>
-          <div class='label'><%= k %> Expenditure</div>
-          <div><%= accounting.formatMoney(v) %></div>
-        <% }); %>
-      </div>
-    </div>
-    <div class='row-fluid stat'>
-      <% if (model.get('inst_descr')) { %>
-      <div class='span12'>
-        <div class='label'>Implementing Organization</div>
-        <p><%= model.get('inst_descr') %></p>
-      </div>
-      <% } %>
-    </div>
-    <div class='row-fluid stat'>
-      <div class='span12'>
-        <div class='label'>Funding Sources</div>
-        <%
-          var donors_id = _.chain(model.get('outputs'))
-              .map(function (o) { return o.donor_id })
-              .flatten()
-              .union()
-              .value();
-          var donors_short = _.chain(model.get('outputs'))
-              .map(function (o) { return o.donor_short })
-              .flatten()
-              .union()
-              .value();
-          var donors_long = _.chain(model.get('outputs'))
-              .map(function (o) { return o.donor_name })
-              .flatten()
-              .union()
-              .value();
-          %>
-        <p>
-          <% if (donors_long.length < 5) {
-            _.each(donors_id, function(o,i) { %>
-          <a href='#filter/donors-<%= o %>'><%= donors_long[i] %></a><% if (i != donors_id.length -1) { %>, <% } %>
-          <% });
-            } else {
-                _.each(donors_id, function(o,i) { %>
-          <a href='#filter/donors-<%= o %>'><%= donors_short[i] %></a><% if (i != donors_id.length -1) { %>, <% } %>
-          <% });
-            } %>
-        </p>
-      </div>
+    <div id='progress' class='progress'>
+      <div class='bar'></div>
     </div>
   </div>
+
+  <table cellspacing='0' class='table'>
+    <tbody class='rows'>
+        <% _.each(model.get('budgetyears'), function(v, k) { %>
+          <tr>
+            <td><strong><%= k %> Budget</strong></td>
+            <td><%= accounting.formatMoney(v) %></td>
+          </tr>
+        <% }); %>
+        <% _.each(model.get('expendyears'), function(v,k) { %>
+          <tr>
+            <td><strong>Expenditure</strong></td>
+            <td><%= accounting.formatMoney(v) %></td>
+          </tr>
+        <% }); %>
+        <% if (model.get('inst_descr')) { %>
+          <tr>
+            <td><strong>Implementing Organization</strong></td>
+            <td><%= model.get('inst_descr') %></td>
+          </tr>
+        <% } %>
+        <tr>
+          <td><strong>Funding Sources</strong></td>
+          <td>
+            <% if (donors_long.length < 5) {
+                _.each(donors_id, function(o,i) { %>
+                  <%= donors_long[i] %><% if (i != donors_id.length -1) { %>, <% } %>
+                <% });
+              } else {
+                  _.each(donors_id, function(o,i) { %>
+                    <%= donors_short[i] %><% if (i != donors_id.length -1) { %>, <% } %>
+                  <% });
+              } %>
+          </td>
+        </tr>
+    </tbody>
+  </table>
 </div>
 
+<% if (!_.isEmpty(documents)) { %>
 <div data-option='documents' id='documents' class='option'>
-  <% if (!_.isEmpty(documents)) { %>
-  <div class='row-fluid'>
-    <div class='span12'>
-      <div class='label'>Documents</div>
-      <div id='documents' class='row-fluid'>
-        <div class='span12'>
+
+  <table cellspacing='0' class='table'>
+    <tbody class='rows'>
+      <tr>
+        <td><strong>Documents</strong></td>
+        <td>
           <ul class='unstyled'>
             <% _.each(documents, function(d) { %>
             <li><a href='<%= d.src %>'>
@@ -95,13 +92,12 @@
             </li>
             <% }); %>
           </ul>
-        </div>
-      </div>
-      <!--/ #documents -->
-    </div>
-  </div>
-  <% } %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
+<% } %>
 
 <div data-option='outputs' class='option'>
   <div class='separator' id='output-header'>

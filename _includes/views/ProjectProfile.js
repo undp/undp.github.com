@@ -5,8 +5,8 @@ views.ProjectProfile = Backbone.View.extend({
     },
 
     initialize: function() {
+        this.init = true;
         this.render();
-
         var outputID = this.options.gotoOutput;
         if (outputID) {
             window.setTimeout(function() { window.scrollTo(0, $('#output-' + outputID).offset().top); }, 0);
@@ -149,18 +149,21 @@ views.ProjectProfile = Backbone.View.extend({
     },
 
     requestIframe: function() {
-        var context = $('#widget'),
-            path = '#widget/',
-            widgetOpts = ['title', 'stats', 'map', 'descr'];
+        if (this.init) {
+            var context = $('#widget'),
+                path = '#widget/',
+                widgetOpts = ['title', 'stats', 'map', 'descr'];
 
-        if (location.hash !== '') {
-            path = location.hash.replace('project', 'widget/project');
+            if (location.hash !== '') {
+                path = location.hash.replace('project', 'widget/project');
+            }
+
+            widgetCode = '<iframe src="' + BASE_URL + 'embed.html' + path + '?' + widgetOpts.join('&') + '" width="500" height="360" frameborder="0"> </iframe>';
+
+            $('.widget-preview', context).html(widgetCode);
+            $('.widget-code', context).val(widgetCode);
+            this.init = false;
         }
-
-        widgetCode = '<iframe src="' + BASE_URL + 'embed.html' + path + '?' + widgetOpts.join('&') + '" width="500" height="360" frameborder="0"> </iframe>';
-
-        $('.widget-preview', context).html(widgetCode);
-        $('.widget-code', context).val(widgetCode);
     },
 
     loadMore: function(e) {

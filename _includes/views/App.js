@@ -12,6 +12,7 @@ views.App = Backbone.View.extend({
 
     initialize: function(options) {
         var view = this;
+        this.init = true;
 
         // Toggle country selector
         $(window).on('click', '#country-selector', _(this.showCountries).bind(this));
@@ -189,18 +190,21 @@ views.App = Backbone.View.extend({
     },
 
     requestIframe: function() {
-        var context = $('#widget'),
-            path = '#widget/',
-            widgetOpts = ['title', 'stats', 'map', 'descr'];
+        if (this.init) {
+            var context = $('#widget'),
+                path = '#widget/',
+                widgetOpts = ['title', 'stats', 'map', 'descr'];
 
-        if (location.hash !== '') {
-            path = location.hash.replace('filter', 'widget')
+            if (location.hash !== '') {
+                path = location.hash.replace('filter', 'widget')
+            }
+
+            widgetCode = '<iframe src="' + BASE_URL + 'embed.html' + path + '?' + widgetOpts.join('&') + '" width="500" height="360" frameborder="0"> </iframe>';
+
+            $('.widget-preview', context).html(widgetCode);
+            $('.widget-code', context).val(widgetCode);
+            this.init = false;
         }
-
-        widgetCode = '<iframe src="' + BASE_URL + 'embed.html' + path + '?' + widgetOpts.join('&') + '" width="500" height="360" frameborder="0"> </iframe>';
-
-        $('.widget-preview', context).html(widgetCode);
-        $('.widget-code', context).val(widgetCode);
     },
 
     submitForm: function(e) {

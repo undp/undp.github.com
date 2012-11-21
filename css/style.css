@@ -179,14 +179,6 @@ a {
   left:110px;
   top:35px;
   }
-#header h3 {
-  font-size:24px;
-  font-weight:normal;
-  position:absolute;
-  top:75px;
-  left:110px;
-  color:#fff;
-  }
 #header li, #footer li {
   line-height:3em;
   list-style:none;
@@ -1541,3 +1533,22 @@ Details: http: //perishablepress.com/press/2009/12/06/new-clearfix-hack*/
   }
 * html .clearfix { height:1%; }
 *:first-child + html .clearfix { min-height:1%; }
+
+
+/* Country selector */
+#country-list li {
+  line-height: normal;
+  }
+#country-list ul {
+  margin-left: 0;
+  }
+#country-list ul li.last {
+  margin: 0;
+  margin-top: 15px;
+}
+#country-list .close {
+  text-shadow: none;
+  line-height: normal;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  }

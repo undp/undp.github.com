@@ -176,10 +176,17 @@ views.App = Backbone.View.extend({
     },
 
     mapLayerswitch: function(e) {
+        e.preventDefault();
+        $('#chart-hdi').css('display','none');
         var $target = $(e.currentTarget);
         $('.map-btn').removeClass('active');
         $target.addClass('active');
         app.projects.map.updateMap($target.attr('data-value'));
+
+        if ($target.attr('data-value') === 'hdi' && app.hdi) {
+            $('#chart-hdi').css('display','block');
+        }
+
         return false;
     },
 

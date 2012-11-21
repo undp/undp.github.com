@@ -26,7 +26,7 @@ views.ProjectProfile = Backbone.View.extend({
 
     render: function() {
         $('#breadcrumbs ul').html(
-            '<li><a href="#">Home</a></li>' +
+            '<li><a href="http://www.undp.org/content/undp/en/home.html">Home</a></li>' +
             '<li><a href="' + BASE_URL + '">Our Projects</a></li>' +
             '<li><a href="#filter/operating_unit-' + this.model.get('operating_unit_id') + '">' + this.model.get("operating_unit") + '</a></li>' +
             '<li><a href="#project/' + this.model.get('id') + '">' + this.model.get('id') + '</a></li>'
@@ -114,6 +114,7 @@ views.ProjectProfile = Backbone.View.extend({
                 documents: documents,
                 model: this.model
             })).show();
+            this.model.attributes.docPhotos = this.docPhotos();
         }
 
         // If first load is a project page or output, don't animate
@@ -201,6 +202,6 @@ views.ProjectProfile = Backbone.View.extend({
             }
         });
 
-        this.model.attributes.docPhotos = photos;
+        return photos;
     }
 });

@@ -729,8 +729,8 @@ a {
   margin-top:10px;
   }
 .details #sparkline {
-  width:173px;
-  height:98px;
+  width: 516px;
+  height: 118px;
   background:#fff;
   border:1px solid #999;
   -webkit-box-shadow:inset 0 0 8px rgba(0, 0, 0, 0.25);
@@ -745,6 +745,26 @@ a {
   }
 #top-donors.chart .data > div {
   height: 17px;
+  }
+
+#chart-hdi .data .total:first-child {
+  margin-bottom: 0;
+  }
+
+#chart-hdi {
+  position: absolute;
+  top: 89px;
+  left: 0;
+  margin: 0;
+  height: 365px;
+  background: white;
+  padding: 10px;
+  z-index: 1000;
+  display: none;
+  border: 1px solid #B3B3B3;
+  -webkit-box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0 0 8px rgba(0,0,0,0.25);
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.25);
   }
 
 #chart-hdi .data .total,
@@ -840,8 +860,9 @@ a {
   margin: 0;
   float: none;
   position: absolute;
-  bottom: 0;
-  right: 0;
+  top: 140px;
+  left: 0;
+  width: 100%;
   }
 #chart-hdi .data > div.subdata {
   height: 7px;
@@ -1221,6 +1242,14 @@ form {
 #profile .glance {
   margin: 20px 0 0 0;
 }
+
+.about-data {
+  text-transform: none;
+  }
+.about-data i {
+  background-color: #05A;
+  border-radius: 30px;
+  }
 
 /* flickr gallery */
 #flickr {

@@ -52,6 +52,35 @@
         <!--The Map-->
         <div class='map-container'>
           <div id='homemap' class='map'></div>
+          <div class='span12 chart' id='chart-hdi'>
+            <div class='label'>
+              <h3>Human Development Index</h3>
+              <span class='chart-legend' style='font-size:0.8em; font-weight:normal; color:#999; margin-bottom:5px;'>
+                <div class='thick-bar clearfix' style='float:left; width:90px;'><span style='display:block; float:left; width:30px; height:15px; background:#c8dde4; margin-right:5px'></span>Country</div>
+                <div class='thin-bar' style='float:left;'><span style='display:block; float:left; width:30px; height:4px; background:#c8dde4; margin-right:5px; margin-top:5px;'></span>Global Avg</div>
+              </span>
+            </div>
+            <div class='hdic'>
+              <div class='caption'>
+                <div>HDI</div>
+                <div>Health</div>
+                <div>Education</div>
+                <div>Income</div>
+              </div>
+              <div class='data'> </div>
+              <div class='details'>
+                <div class='clearfix rankchange'>
+                  <div class='ranking'></div>
+                  <div class='change'></div>
+                </div>
+                <div id='sparkline'></div>
+                <div id='xlabel' style='font-size:9px;'>
+                  <span class='beginyear'>1980</span>
+                  <span class='endyear' style='float:right;'>2011</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -61,38 +90,6 @@
           <!--Chart Three-->
           <div class='row-fluid'>
             <ul id='chart-focus_area' class='chart stat-chart clearfix'></ul>
-          </div>
-          <!--Chart 1-->
-          <div class='row-fluid'>
-            <div class='span12 chart' id='chart-hdi'>
-              <div class='label'>
-                <h3>Human Development Index</h3>
-                <span class='chart-legend' style='font-size:0.8em; font-weight:normal; color:#999; margin-bottom:5px;'>
-                  <div class='thick-bar clearfix' style='float:left; width:90px;'><span style='display:block; float:left; width:30px; height:15px; background:#c8dde4; margin-right:5px'></span>Country</div>
-                  <div class='thin-bar' style='float:left;'><span style='display:block; float:left; width:30px; height:4px; background:#c8dde4; margin-right:5px; margin-top:5px;'></span>Global Avg</div>
-                </span>
-              </div>
-              <div class='hdic'>
-                <div class='caption'>
-                  <div>HDI</div>
-                  <div>Health</div>
-                  <div>Education</div>
-                  <div>Income</div>
-                </div>
-                <div class='data'> </div>
-                <div class='details'>
-                  <div class='clearfix rankchange'>
-                    <div class='ranking'></div>
-                    <div class='change'></div>
-                  </div>
-                  <div id='sparkline'></div>
-                  <div id='xlabel' style='font-size:9px;'>
-                    <span class='beginyear'>1980</span>
-                    <span class='endyear' style='float:right;'>2011</span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
           <div class='row-fluid'>
             <!--Chart Four -->

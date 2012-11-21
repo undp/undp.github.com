@@ -30,7 +30,11 @@
     <div class='span7'>
       <div class='row-fluid'>
         <div class='span12 dates'>
-          <div class='label'>Project Timeline</div>
+          <div class='label'>Project Timeline
+              <a data-toggle="modal" class="about-data pull-right" href="#about-data">
+                  <i class="icon-exclamation-sign icon-white"></i> About the data
+              </a>
+          </div>
           <div class='dates-label'>
             <span class='start'><%= start %></span>
             <span class='end'><%= end %></span>
@@ -182,3 +186,15 @@
     <a href='#' class='btn' data-dismiss='modal'>Close</a>
   </div>
 </div>
+<div class='modal hide fade' id='about-data'>
+  <div class='modal-header'>
+    <button type='button' class='close' data-dismiss='modal'>&times;</button>
+    <h3>About the data</h3>
+  </div>
+  <div class='modal-body'><p>Projects shown with end dates in the past are operationally-closed projects that were financially closed in the previous fiscal year. Any transactions shown are accounting entries made to facilitate this change or to reconcile accounts. Projects shown with negative expenditures are being managed at a different level or are undergoing reconciliation.</p>
+  </div>
+  <div class='modal-footer'>
+    <a href='#' class='btn' data-dismiss='modal'>Close</a>
+  </div>
+</div>
+

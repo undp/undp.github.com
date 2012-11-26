@@ -79,7 +79,7 @@
         return match.charAt(0).toUpperCase() + match.substr(1);
       })
         // Words that should be all caps
-        .replace(/Un /g, 'UN ')
+        .replace(/Un\b/g, 'UN ')
         .replace(/Undp/g, 'UNDP')
         .replace(/Unesco/g, 'UNESCO')
         .replace(/Unfip/g, 'UNFIP')
@@ -92,10 +92,15 @@
         .replace(/Unaids/g, 'UNAIDS')
         .replace(/Mdtfo\\jp_peace_building_fund/g, 'MDTFO / JP Peace Building Fund')
         .replace(/Aa for Jp/g, 'AA for JP')
-        .replace(/Gtz/g, 'GTZ')
-        .replace(/Mdg/g, 'MDG')
-        .replace(/Iii/g, 'III')
-        .replace(/Vi/g, 'VI');
+        .replace(/Gtz\b/g, 'GTZ')
+        .replace(/Mdg\b/g, 'MDG')
+        .replace(/Hiv\b/g, 'HIV')
+        .replace(/Bra\b/g, 'BRA')
+        .replace(/Ii\b/g, 'II')
+        .replace(/Iii\b/g, 'III')
+        .replace(/Iv\b/g, 'IV')
+        .replace(/Vi\b/g, 'VI')
+        .replace(/Vii\b/g, 'VII');
     };
 
     // Start the application

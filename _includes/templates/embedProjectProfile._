@@ -26,7 +26,7 @@
 
 <div data-option='map' id='profilemap' class='map option'></div>
 
-<div data-option='stats' class='option'></div>
+<div data-option='stats' class='option'>
   <div class='label'>Project Timeline</div>
   <div class='dates'>
     <div class='dates-label'>
@@ -86,9 +86,11 @@
         <td>
           <ul class='unstyled'>
             <% _.each(documents, function(d) { %>
-            <li><a href='<%= d.src %>'>
-              <span class='icon filetype filetype-<%= d.filetype %>'></span>
-              <%= d.title %></a>
+            <li>
+              <a href='<%= d.src %>'>
+                <span class='icon filetype filetype-<%= d.filetype %>'></span>
+                <%= d.title %>
+              </a>
             </li>
             <% }); %>
           </ul>
@@ -103,9 +105,9 @@
   <div class='separator' id='output-header'>
     <p class='heading-title'>
       <% if (model.get('outputs').length > 1) { %>
-        <span><%= model.get('outputs').length %>&nbsp;</span>
+        <span><%= model.get('outputs').length %></span>
       <% } %>
-      <% if (model.get('outputs').length === 1) { %>Subproject<% } else { %>Subprojects<% } %>
+      <% if (model.get('outputs').length === 1) { %>Output<% } else { %>Outputs<% } %>
     </p>
   </div>
   <div id='outputs'></div>

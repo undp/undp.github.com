@@ -6,15 +6,6 @@ views.Widget = Backbone.View.extend({
     },
 
     initialize: function () {
-        var view = this;
-        view.path = '#widget/';
-        view.widgetOpts = ['title', 'stats', 'map', 'descr'];
-
-        if (location.hash !== '') {
-            view.path = location.hash
-                .replace('filter', 'widget')
-                .replace('project', 'widget/project');
-        }
         this.render();
     },
 
@@ -36,19 +27,29 @@ views.Widget = Backbone.View.extend({
 
     widgetOptions: function(e) {
         var view = this;
+        view.path = '#widget/';
+
+        if (location.hash !== '') {
+            view.path = location.hash
+                .replace('filter', 'widget')
+                .replace('project', 'widget/project');
+        }
         var $el = $(e.target);
         var opt = $el.attr('data-value');
 
         if ($el.hasClass('active')) {
             $el.removeClass('active');
-            view.widgetOpts.splice(view.widgetOpts.indexOf(opt), 1);
+            widgetOpts.splice(widgetOpts.indexOf(opt), 1);
         } else {
             $el.addClass('active');
-            view.widgetOpts.push(opt);
+            widgetOpts.push(opt);
         }
 
-        if (view.widgetOpts.length !== 0) {
-            view.widgetCode = '<iframe src="' + BASE_URL + 'embed.html' + view.path + '?' + view.widgetOpts.join('&') + '" width="500" height="360" frameborder="0"> </iframe>';
+        if (widgetOpts.length !== 0) {
+            view.widgetCode = '<iframe src="' + BASE_URL +
+                'embed.html' + view.path + '?' +
+                widgetOpts.join('&') +
+                '" width="500" height="360" frameborder="0"> </iframe>';
 
             $('.widget-preview', view.$el).html(view.widgetCode);
             $('.widget-code', view.$el)

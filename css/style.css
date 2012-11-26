@@ -419,100 +419,90 @@ input.button {
   cursor: pointer;
   }
 .map .marker-popup {
-  min-width: 100px;
-  top: 10px;
-  float: left;
-  color: #333;
-  padding:10px 10px 20px;
+  background:#fff;
+  min-width:100px;
+  top:10px;
+  float:left;
+  color:#333;
+  padding:10px;
   margin:0 10px;
-  border:1px solid #bbb;
-  border-radius: 4px;
-  box-shadow: 2px 2px 5px -2px #424242;
-  -moz-box-shadow: 2px 2px 5px -2px #424242;
-  -webkit-box-shadow: 2px 2px 5px -2px #424242;
-  background: #fff;
-  background-image:-ms-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
-  background-image:-moz-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
-  background-image:-o-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
-  background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #eeeeee));
-  background-image:-webkit-linear-gradient(top, #ffffff 0%, #eeeeee 100%);
-  background-image:linear-gradient(to bottom, #ffffff 0%, #eeeeee 100%);
+  border-radius:4px;
   }
-.marker-popup:after {
-  border-width: 5px;
-  margin-left: -5px;
-  border-top-color: #eee;
-  }
-.marker-popup:before {
-  border-width: 6px;
-  margin-left: -6px;
-  border-top-color: #bbb;
-  }
-.marker-title {
-  font-size: 13px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  }
-.marker-title .subtitle {
-  color: #999;
-  font-size: 11px;
-  font-weight: normal;
-  margin-top: -5px;
-  }
-.marker-title .stat {
-  float: right;
-  }
-.marker-description {
-  float: left;
-  width: 100%;
-  font-size: 11px;
-  }
-.marker-description .stat {
-  line-height: 15px;
-  }
-.marker-description .stat .value {
-  font-weight: bold;
-  }
-.marker-description .data {
-  float: right;
-  width: 150px;
-  border-left:1px solid #CEDEDD;
-  padding: 5px 0;
-  }
-.marker-description .data-labels {
-  float: left;
-  text-align: right;
-  font-size: 0.8em;
-  color: #333;
-  font-weight: normal;
-  text-transform: none;
-  margin-right: 5px;
-  }
-.marker-description .data-labels > div {
-  height: 18px;
-  }
-.marker-description .data > div {
-  height: 12px;
-  font-size: 10px;
-  text-align: right;
-  line-height: 12px;
-  color: #fff;
-  padding-right: 0.5em;
-  }
-.marker-description .data > .subdata {
-  height: 3px;
-  margin-bottom: 3px;
-  }
-.flip .marker-popup:after {
-  top: -10px;
-  border-bottom-color: #fff;
-  border-top-color: transparent;
-}
-.flip .marker-popup:before {
-  top: -12px;
-  border-bottom-color: #bbb;
-  border-top-color: transparent;
-  }
+  .marker-popup:after {
+    border-width:5px;
+    margin-left:-5px;
+    border-top-color:#fff;
+    }
+  .marker-popup:before {
+    border-width:6px;
+    margin-left:-6px;
+    border-top-color:#b3b3b3;
+    }
+
+  .marker-title {
+    font-size:13px;
+    font-weight:bold;
+    }
+  .marker-title .subtitle {
+    color:#666;
+    font-size:11px;
+    font-weight:normal;
+    margin-top:-5px;
+    }
+  .marker-title .stat {
+    float:right;
+    }
+  .marker-description {
+    float:left;
+    width:100%;
+    font-size:11px;
+    }
+  .marker-description .stat {
+    line-height:15px;
+    }
+  .marker-description .stat .value {
+    font-weight:bold;
+    }
+  .marker-description .data {
+    float:right;
+    width:150px;
+    border-left:1px solid #b3b3b3;
+    padding:5px 0;
+    }
+  .marker-description .data-labels {
+    float:left;
+    text-align:right;
+    font-size:11px;
+    color:#333;
+    font-weight:normal;
+    text-transform:none;
+    margin-right:5px;
+    }
+  .marker-description .data-labels > div {
+    height:18px;
+    }
+  .marker-description .data > div {
+    height:12px;
+    font-size:10px;
+    text-align:right;
+    line-height:12px;
+    color:#fff;
+    padding-right:5px;
+    }
+  .marker-description .data > .subdata {
+    height:3px;
+    margin-bottom:3px;
+    }
+  .flip .marker-popup:after {
+    top:-10px;
+    border-bottom-color:#fff;
+    border-top-color:transparent;
+    }
+  .flip .marker-popup:before {
+    top:-12px;
+    border-bottom-color:#b3b3b3;
+    border-top-color:transparent;
+    }
 
 /*-----------------------------------
   Big number stats beside map
@@ -650,12 +640,44 @@ input.button {
     margin-right:10px;
     }
 
+.chart h3 {
+  display: inline-block;
+  margin-bottom: 15px;
+}
 .chart .chart-legend {
-  position: absolute;
-  left: 315px;
-  top: 0;
+  position: relative;
+  top: 7px;
+  float:right;
+  font-size:0.8em;
+  font-weight:normal;
+  color:#b3b3b3;
+  display: inline-block;
   }
-
+  .chart-legend .thick-bar, .chart-legend .thin-bar {
+    line-height: 10px;
+    }
+  .chart-legend .thick-bar {
+    width:90px;
+    margin-bottom: 2px;
+    }
+    .chart-legend span {
+      display:block;
+      float:left;
+      width:30px;
+      margin-right:5px;
+      }
+    .chart-legend .thick-bar span {
+      height:12px;
+      background:#0B387C;
+      }
+    .chart-legend .thin-bar span {
+      height:5px;
+      background:#96CCE6;
+      margin-top:3px;
+      }
+    #chart-hdi .thin-bar span {
+      background:#8DA5C8;
+    }
 #charts .chart {
   margin: 0;
   }
@@ -832,15 +854,6 @@ input.button {
   margin-right: 5px;
   margin-bottom: 1px;
 }
-#chart-hdi h3 {
-  display: inline-block;
-  }
-#chart-hdi .chart-legend {
-  position: relative;
-  left: 20px;
-  top: 7px;
-  display: inline-block;
-  }
 #chart-hdi .hdic {
   position: relative;
   top: 10px;
@@ -1243,10 +1256,6 @@ form {
 .about-data {
   text-transform: none;
   }
-.about-data i {
-  background-color: #05A;
-  border-radius: 30px;
-  }
 
 /* flickr gallery */
 #flickr {
@@ -1490,7 +1499,7 @@ form {
     text-align:center;
     display:block;
     padding:0 20px;
-    margin-top:120px;
+    margin-top:150px;
     font-weight:normal;
     }
 
@@ -1515,13 +1524,6 @@ form {
 -------------------------------------*/
 .embed-container {
   margin:10px;
-  }
-#embed-map {
-  width:100%;
-  height:360px;
-  position:relative;
-  bottom:0;
-  left:0;
   }
 #embed .option {
   display:none;

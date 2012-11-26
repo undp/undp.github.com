@@ -27,8 +27,8 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="16"
-     inkscape:cx="12.801753"
+     inkscape:zoom="1"
+     inkscape:cx="24.872821"
      inkscape:cy="59.784471"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -471,60 +471,46 @@
     <path
        inkscape:connector-curvature="0"
        id="path4298"
-       d="m 28,984.36218 0,17.00002 15,0 0,-14.00002 -4,0 0,-3 z m 12,0 0,2 3,0 0,-2 z"
+       d="m 27,984.36218 0,18.00002 16,0 0,-15.00002 -4,0 0,-3 z m 13,0 0,2 3,0 0,-2 z"
        style="fill:#dd4b39;fill-opacity:1;stroke:none"
        sodipodi:nodetypes="cccccccccccc" />
     <path
        style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       d="m 31,990.36218 0,6.00002 1,0 0,-2.00002 1,0 1,0 0,-3 0,-1 -2,0 -1,0 z m 1,1 1,0 0,2 -1,0 0,-2 z"
+       d="m 30,991.36218 0,6.00002 1,0 0,-2.00002 1,0 1,0 0,-3 0,-1 -2,0 -1,0 z m 1,1 1,0 0,2 -1,0 0,-2 z"
        id="rect3054"
        inkscape:connector-curvature="0" />
     <path
        style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       d="m 35,990.36218 0,6.00002 1,0 1,0 1,-1 0,-4.00002 -1,-1 -1,0 -1,0 z m 1,1 1,0 0,4.00002 -1,0 0,-4.00002 z"
+       d="m 34,991.36218 0,6.00002 1,0 1,0 1,-1 0,-4.00002 -1,-1 -1,0 -1,0 z m 1,1 1,0 0,4.00002 -1,0 0,-4.00002 z"
        id="rect3062"
        inkscape:connector-curvature="0" />
     <path
        style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       d="m 39,990.36218 0,6.00002 1,0 0,-2.00002 1,0 0,-1 -1,0 0,-2 1,0 0,-1 -1,0 -1,0 z"
+       d="m 38,991.36218 0,6.00002 1,0 0,-2.00002 1,0 0,-1 -1,0 0,-2 1,0 0,-1 -1,0 -1,0 z"
        id="rect3071"
        inkscape:connector-curvature="0" />
     <path
        sodipodi:nodetypes="cccccccccccc"
        style="fill:#0493c9;fill-opacity:1;stroke:none"
-       d="m 3,984.36218 0,17.00002 15,0 0,-14.00002 -4,0 0,-3 z m 12,0 0,2 3,0 0,-2 z"
+       d="m 2,984.36218 0,18.00002 16,0 0,-15.00002 -4,0 0,-3 z m 13,0 0,2 3,0 0,-2 z"
        id="path3870"
        inkscape:connector-curvature="0" />
     <path
        inkscape:connector-curvature="0"
        id="path3874"
-       d="m 6,990.36218 0,6.00002 1,0 1,0 1,-1 0,-4.00002 -1,-1 -1,0 -1,0 z m 1,1 1,0 0,4.00002 -1,0 0,-4.00002 z"
+       d="m 5,991.36218 0,6.00002 1,0 1,0 1,-1 0,-4.00002 -1,-1 -1,0 -1,0 z m 1,1 1,0 0,4.00002 -1,0 0,-4.00002 z"
        style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     <path
        style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       d="m 10,990.36218 0,1 0,4 0,1 3,0 0,-1 0,-4 0,-1 z m 1,1 1,0 0,4 -1,0 z"
+       d="m 9,991.36218 0,1 0,4 0,1 3,0 0,-1 0,-4 0,-1 z m 1,1 1,0 0,4 -1,0 z"
        id="rect3878"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccccccccccccc" />
     <path
        style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       d="m 15,990.36218 -1,0 0,6 1,0 1,0 0,-1 -1,0 0,-4 1,0 0,-1 z"
+       d="m 14,991.36218 -1,0 0,6 1,0 1,0 0,-1 -1,0 0,-4 1,0 0,-1 z"
        id="rect3894"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccccccc" />
-    <rect
-       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="rect3906"
-       width="1"
-       height="1"
-       x="4"
-       y="995.36218" />
-    <rect
-       y="995.36218"
-       x="29"
-       height="1"
-       width="1"
-       id="rect3908"
-       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
   </g>
 </svg>

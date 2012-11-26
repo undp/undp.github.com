@@ -61,7 +61,7 @@ routers.App = Backbone.Router.extend({
         }
 
         // Save default description
-        app.defaultDescription = app.defaultDescription || $('#intro p').html();
+        app.defaultDescription = app.defaultDescription || $('#description p').html();
 
         // Parse hash
         var parts = (route) ? route.split('/') : [];
@@ -93,9 +93,9 @@ routers.App = Backbone.Router.extend({
                 that.app.views = {};
                 // Load filters
                 _(facets).each(function (facet) {
+                    var collection = new models.Filters();
                     $('#filter-items').append('<div id="' + facet.id + '" class="topics"></div>');
 
-                    var collection = new models.Filters();
                     _(facet).each(function (v, k) {
                         collection[k] = v;
                     });
@@ -145,7 +145,7 @@ routers.App = Backbone.Router.extend({
                             });
                         } else {
                             that.projects.map = new views.Map({
-                                el: '#embed-map',
+                                el: '#homemap',
                                 collection: that.projects,
                                 embed: embed
                             });
@@ -172,12 +172,12 @@ routers.App = Backbone.Router.extend({
                 $('#chart-focus_area').show();
             }
 
-            if (app.description.length > 1) {
+            if (app.description && app.description.length > 1) {
                 $('#applied-filters').html('Selected Projects');
-                $('#intro p').html(app.description.shift() + app.description.join(',') + '.');
+                $('#description p').html(app.description.shift() + app.description.join(',') + '.');
             } else {
                 $('#applied-filters').html('All Projects');
-                $('#intro p').html(app.defaultDescription);
+                $('#description p').html(app.defaultDescription);
             }
             app.description = false;
         }

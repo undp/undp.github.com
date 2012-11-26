@@ -23,8 +23,9 @@ models.Filters = Backbone.Collection.extend({
                 return (collection.id === filter.collection);
             });
 
-        _(collection.where({active: true }))
-            .each(function(model) { model.set('active', false); });
+        _(collection.where({active: true })).each(function(model) {
+            model.set('active', false);
+        });
 
         if (active) {
             var model = this.get(active.id);
@@ -50,7 +51,6 @@ models.Filters = Backbone.Collection.extend({
             });
         }
         this.trigger('update');
-
     },
     model: models.Filter,
     comparator: function(model) {

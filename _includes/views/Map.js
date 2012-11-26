@@ -16,7 +16,7 @@ views.Map = Backbone.View.extend({
     render: function() {
         $('#chart-hdi').css('display','none');
         app.hdi = false;
-        var that = this,
+        var view = this,
             layer,
             unit = (this.collection) ? this.collection : this.model.get('operating_unit_id');
 
@@ -39,10 +39,14 @@ views.Map = Backbone.View.extend({
                 return res;
             }, {});
 
-            if (that.collection) {
-                layer = $('.map-btn.active').attr('data-value');
-                that.collection.hdi = hdiArray;
-                that.collection.hdiWorld = hdiWorld;
+            if (view.collection) {
+                if (!view.options.embed) {
+                    layer = $('.map-btn.active').attr('data-value');
+                } else {
+                    layer = 'count'
+                }
+                view.collection.hdi = hdiArray;
+                view.collection.hdiWorld = hdiWorld;
                 if ($('#operating_unit .filter').hasClass('active')) {
                     var hdi = _.filter(data, function(d) {
                         return d.id == _.keys(unit.operating_unit);
@@ -53,8 +57,8 @@ views.Map = Backbone.View.extend({
                     if (_.size(hdiArray) > 0) {
                         $('#hdi').html(_.last(hdi.hdi)[1]);
                         app.hdi = true;
-                        that.hdiChart(hdi,hdiWorld);
-                        that.hdiDetails(hdi);
+                        view.hdiChart(hdi,hdiWorld);
+                        view.hdiDetails(hdi);
                     } else {
                         $('#hdi').html('no data');
                     }
@@ -64,12 +68,12 @@ views.Map = Backbone.View.extend({
                 }
             } else {
                 layer = 'budget';
-                that.model.set('hdi',hdiArray[unit]);
-                that.model.set('hdiWorld',hdiWorld);
+                view.model.set('hdi',hdiArray[unit]);
+                view.model.set('hdiWorld',hdiWorld);
             }
         }).success(function() {
-                that.$el.empty().append('<div class="inner-shadow"></div>');
-                that.buildMap(layer);
+                view.$el.empty().append('<div class="inner-shadow"></div>');
+                view.buildMap(layer);
         });
 
         return this;
@@ -77,7 +81,7 @@ views.Map = Backbone.View.extend({
     mapClick: function(e) {
         var $target = $(e.target),
             drag = false,
-            that = this;
+            view = this;
 
         this.map.addCallback('panned', function() {
             drag = true;
@@ -90,7 +94,7 @@ views.Map = Backbone.View.extend({
                 e.preventDefault();
             } else {
                 if ($target.hasClass('simplestyle-marker')) {
-                    path = '#filter/operating_unit-' + that.model.get('operating_unit_id');
+                    path = '#filter/operating_unit-' + view.model.get('operating_unit_id');
                 } else {
                     path = '#filter/operating_unit-' + $target.attr('id');
                 }
@@ -175,21 +179,21 @@ views.Map = Backbone.View.extend({
     },
 
     updateMap: function(layer) {
-        var that = this,
+        var view = this,
             markers = this.map.layers[2],
 
             radii = function(f) {
-                f.properties.description = that.tooltip(layer,f.properties);
+                f.properties.description = view.tooltip(layer,f.properties);
                 return clustr.area_to_radius(
-                    Math.round(that.scale(layer,f))
+                    Math.round(view.scale(layer,f))
                 );
             };
         markers.sort(function(a,b){ return b.properties[layer] - a.properties[layer]; })
-            .factory(clustr.scale_factory(radii, "rgba(0,85,170,0.6)", "#0B387C"));
+            .factory(clustr.scale_factory(radii, "rgba(0,85,170,0.6)", "#FFF"));
     },
 
     buildMap: function(layer) {
-        var that = this,
+        var view = this,
             locations = [],
             count, sources, budget, title, hdi, hdi_health, hdi_education, hdi_income,
             unit = (this.collection) ? this.collection
@@ -199,21 +203,22 @@ views.Map = Backbone.View.extend({
             homepage = _.isObject(unit);
 
         mapbox.auto(this.el, 'undp.map-6grwd0n3', function(map) {
-            that.map = map;
+            view.map = map;
             map.setZoomRange(2, 17);
 
             var radii = function(f) {
-                f.properties.description = that.tooltip(layer,f.properties);
+                f.properties.description = view.tooltip(layer,f.properties);
                 return clustr.area_to_radius(
-                    Math.round(that.scale(layer,f))
+                    Math.round(view.scale(layer,f))
                 );
             };
 
             var markers = mapbox.markers.layer();
 
             if (homepage) {
-                markers.factory(clustr.scale_factory(radii, "rgba(0,85,170,0.6)", "#0B387C"))
-                    .sort(function(a,b){ return b.properties[layer] - a.properties[layer]; });
+                markers.factory(clustr.scale_factory(radii, "rgba(0,85,170,0.6)", "#FFF")).sort(function(a, b) {
+                    return b.properties[layer] - a.properties[layer];
+                });
             }
 
             $.getJSON('api/operating-unit-index.json', function(data) {
@@ -222,7 +227,7 @@ views.Map = Backbone.View.extend({
                     if ((homepage) ? unit.operating_unit[o.id] : o.id === unit) {
 
                         if (!homepage) {
-                            that.getwebData(o);
+                            view.getwebData(o);
                             $('#country-summary').html(templates.ctrySummary(o));
                         }
 
@@ -235,10 +240,10 @@ views.Map = Backbone.View.extend({
                             } else {
                                 count = false;
                                 sources = false;
-                                budget = that.model.get('budget');
-                                expenditure = that.model.get('expenditure');
+                                budget = view.model.get('budget');
+                                expenditure = view.model.get('expenditure');
                             }
-                            if ((homepage) ? unit.hdi[o.id] : that.model.get('hdi')) {
+                            if ((homepage) ? unit.hdi[o.id] : view.model.get('hdi')) {
                                 if (homepage) {
                                     hdi = _.last(unit.hdi[o.id].hdi)[1];
                                     hdi_health = _.last(unit.hdi[o.id].health)[1];
@@ -246,11 +251,11 @@ views.Map = Backbone.View.extend({
                                     hdi_income = _.last(unit.hdi[o.id].income)[1];
                                     hdi_rank = unit.hdi[o.id].rank;
                                 } else {
-                                    hdi = _.last(that.model.get('hdi').hdi)[1];
-                                    hdi_health = _.last(that.model.get('hdi').health)[1];
-                                    hdi_education = _.last(that.model.get('hdi').education)[1];
-                                    hdi_income = _.last(that.model.get('hdi').income)[1];
-                                    hdi_rank = that.model.get('hdi').rank;
+                                    hdi = _.last(view.model.get('hdi').hdi)[1];
+                                    hdi_health = _.last(view.model.get('hdi').health)[1];
+                                    hdi_education = _.last(view.model.get('hdi').education)[1];
+                                    hdi_income = _.last(view.model.get('hdi').income)[1];
+                                    hdi_rank = view.model.get('hdi').rank;
                                 }
                             } else {
                                 hdi = hdi_health = hdi_education = hdi_income = hdi_rank = 'no data';
@@ -265,7 +270,7 @@ views.Map = Backbone.View.extend({
                                 },
                                 properties: {
                                     id: o.id,
-                                    project: (homepage) ? '' : that.model.get('project_title'),
+                                    project: (homepage) ? '' : view.model.get('project_title'),
                                     name: o.name,
                                     count: count,
                                     sources: sources,
@@ -351,7 +356,7 @@ views.Map = Backbone.View.extend({
     },
 
     getwebData: function(data) {
-        var that = this,
+        var view = this,
             photos = this.model.get('docPhotos') || [],
             baseUrl = '',
             coContact = {
@@ -367,7 +372,7 @@ views.Map = Backbone.View.extend({
                 fbAccts = [];
 
             _.each(g.feed.entry, function(row) {
-                if (row.gsx$type.$t === 'Global' || (row.gsx$type.$t === 'HQ' && row.gsx$id.$t === that.model.get('region_id'))
+                if (row.gsx$type.$t === 'Global' || (row.gsx$type.$t === 'HQ' && row.gsx$id.$t === view.model.get('region_id'))
                     ) {
                     if (row.gsx$twitter.$t) twitterAccts.push(row.gsx$twitter.$t.replace('@',''));
                     if (row.gsx$flickr.$t) flickrAccts.push(row.gsx$flickr.$t);
@@ -389,8 +394,8 @@ views.Map = Backbone.View.extend({
                 }
             });
 
-            that.twitter(twitterAccts, function(twPhotos) {
-                that.flickr(flickrAccts,photos.concat(twPhotos));
+            view.twitter(twitterAccts, function(twPhotos) {
+                view.flickr(flickrAccts,photos.concat(twPhotos));
             });
 
             contacts(coContact);

@@ -181,7 +181,7 @@ views.Filters = Backbone.View.extend({
                                 return memo + project.get('donor_expend')[donorIndex];
                             }, 0).value() : 0;
                     var budget = accounting.formatMoney(
-                                (donor && view.collection.id === 'operating_unit') ? donorBudget : model.get('budget') / 1000000
+                                ((donor && view.collection.id === 'operating_unit') ? donorBudget : model.get('budget')) / 1000000
                             ) + 'M';
 
                     var budgetWidth = (donor && view.collection.id === 'operating_unit') ? (donorBudget / max * 100) : (model.get('budget')/ max * 100);

@@ -2,12 +2,12 @@
   <h2 id='applied-filters' class='heading-title'>All Projects</h2>
 </div>    
 
-<div data-option='descr' class='option'>
+<div data-option='descr' id='description' class='option'>
   <p class='heading-title'>Welcome to open.undp.org, which presents detailed information on the UNDP’s 6,000+ development projects in 177 countries and territories worldwide. Browse the summaries, click a filter on the right, or search through the full list of projects. <a href='#about/open'>Read more...</a></p>
 </div>
 
 <div data-option='map' class='option'>
-  <div id='embed-map' class='map'></div>
+  <div id='homemap' class='map'></div>
 </div>
 
 <div data-option='stats' class='option'>
@@ -20,7 +20,7 @@
         <!--Chart Four -->
         <div class='span6 chart stat-chart' id='chart-donors'>
           <h3>Top Funding Sources</h3>
-          <span class='chart-legend' style='font-size:0.8em; font-weight:normal; color:#999; margin-bottom:5px;'>
+          <span class='chart-legend' style='font-size:10px; font-weight:normal; color:#b3b3b3; margin-bottom:5px;'>
             <div class='thick-bar clearfix' style='float:left; width:90px;'><span style='display:block; float:left; width:30px; height:15px; background:#c8dde4; margin-right:5px; margin-top: 3px;'></span>Budget</div>
             <div class='thin-bar' style='float:left;'><span style='display:block; float:left; width:30px; height:4px; background:#c8dde4; margin-right:5px; margin-top: 9px;'></span>Expenditure</div>
           </span>

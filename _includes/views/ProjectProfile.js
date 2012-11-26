@@ -5,7 +5,6 @@ views.ProjectProfile = Backbone.View.extend({
     },
 
     initialize: function() {
-        this.init = true;
         this.render();
         var outputID = this.options.gotoOutput;
         if (outputID) {
@@ -74,18 +73,21 @@ views.ProjectProfile = Backbone.View.extend({
         var end = new Date(e[0],e[1]-1,e[2]).format('M d, Y');
 
         // Filter out any image files from showing up
-        var filterDocuments = _(this.model.get('document_name')[1]).filter(function(d) {
-            return !(/\.(gif|jpg|jpeg|tiff|png)$/i).test(d);
-        });
         var documents = [];
 
-        if (filterDocuments.length !== 0) {
-            _(filterDocuments).each(function(d, i) {
-                documents[i] = {};
-                documents[i].title = (d.split('/').pop()).split(/(.)[^.]*$/)[0].replace('_', ' ');
-                documents[i].filetype = d.split('.').pop();
-                documents[i].src = d;
+        if (this.model.get('document_name')) {
+            var filterDocuments = _(this.model.get('document_name')[1]).filter(function(d) {
+                return !(/\.(gif|jpg|jpeg|tiff|png)$/i).test(d);
             });
+
+            if (filterDocuments.length !== 0) {
+                _(filterDocuments).each(function(d, i) {
+                    documents[i] = {};
+                    documents[i].title = (d.split('/').pop()).split(/(.)[^.]*$/)[0].replace('_', ' ');
+                    documents[i].filetype = d.split('.').pop();
+                    documents[i].src = d;
+                });
+            }
         }
 
         window.setTimeout(function() { $('html, body').scrollTop(0); }, 0);
@@ -148,22 +150,42 @@ views.ProjectProfile = Backbone.View.extend({
         return this;
     },
 
-    requestIframe: function() {
-        if (this.init) {
-            var context = $('#widget'),
-                path = '#widget/',
-                widgetOpts = ['title', 'stats', 'map', 'descr'];
+    docPhotos: function() {
+        var photos = [];
 
-            if (location.hash !== '') {
-                path = location.hash.replace('project', 'widget/project');
-            }
+        if (this.model.get('document_name')) {
+            _.each(this.model.get('document_name')[0], function (photo, i) {
 
-            widgetCode = '<iframe src="' + BASE_URL + 'embed.html' + path + '?' + widgetOpts.join('&') + '" width="500" height="360" frameborder="0"> </iframe>';
+                var filetype = photo.split('.')[1].toLowerCase(),
+                    source = that.model.get('document_name')[1][i];
 
-            $('.widget-preview', context).html(widgetCode);
-            $('.widget-code', context).val(widgetCode);
-            this.init = false;
+                if (filetype === 'jpg' || filetype === 'jpeg' || filetype === 'png' || filetype === 'gif') {
+                    var img = new Image();
+                    var goodImg = function() {
+                        photos.push({
+                            'title': photo.split('.')[0],
+                            'source': source,
+                            'image': img
+                        });
+                    };
+
+                    img.onload = goodImg;
+                    img.src = source;
+                }
+            });
         }
+        return photos;
+    },
+
+    requestIframe: function() {
+        var context = $('#widget');
+
+        // Reset things each time the widget
+        // is requested to the page.
+        widgetOpts = []
+        $('.widget-preview', context).html('<h3 class="empty">To use this widget choose some options on the left.</h3>');
+        $('.widget-code', context).hide();
+        $('.widget-options a', context).removeClass('active');
     },
 
     loadMore: function(e) {
@@ -181,30 +203,6 @@ views.ProjectProfile = Backbone.View.extend({
         }
 
         return false;
-    },
-
-    docPhotos: function() {
-        var photos = [];
-        _.each(this.model.get('document_name')[0], function (photo, i) {
-
-            var filetype = photo.split('.')[1].toLowerCase(),
-                source = that.model.get('document_name')[1][i];
-
-            if (filetype === 'jpg' || filetype === 'jpeg' || filetype === 'png' || filetype === 'gif') {
-                var img = new Image();
-                var goodImg = function() {
-                    photos.push({
-                        'title': photo.split('.')[0],
-                        'source': source,
-                        'image': img
-                    });
-                };
-
-                img.onload = goodImg;
-                img.src = source;
-            }
-        });
-
-        return photos;
     }
+
 });

@@ -80,7 +80,7 @@ print "Processing..."
 print "Processed %d rows" % row_count
 hdi_index_sort = sorted(hdi_index, key = lambda x: x['rank'])
 print hdi_index_sort
-hdi_writeout = json.dumps(hdi_index_sort, sort_keys=True, indent=4)
+hdi_writeout = json.dumps(hdi_index_sort, sort_keys=True, separators=(',',':'))
 
 hdi_out = open('../api/hdi.json', 'wb')
 hdi_out.writelines(hdi_writeout)

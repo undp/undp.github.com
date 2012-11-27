@@ -260,7 +260,7 @@ print "Project Process Count: %d" % row_count
 file_count = 0
 for row in projectsFull:
     file_count = file_count + 1
-    writeout = json.dumps(row, sort_keys=True, indent=4)
+    writeout = json.dumps(row, sort_keys=True, separators=(',',':'))
     f_out = open('../api/projects/%s.json' % row['project_id'], 'wb')
     f_out.writelines(writeout)
     f_out.close()
@@ -322,7 +322,7 @@ for award,summary in groupby(projectSum_sort, lambda x: x['awardID']):
 
 print "Project Summary Process Count: %d" % row_count
 
-writeout = json.dumps(projectSummary, sort_keys=True, indent=4)
+writeout = json.dumps(projectSummary, sort_keys=True, separators=(',',':'))
 f_out = open('../api/project_summary.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
@@ -389,7 +389,7 @@ for c,crs in groupby(outputsCRS_sort, lambda x: x['crs']):
         crs_index.append(dict(zip(crsHeader, index)))
 
 print "CRS Index Process Count: %d" % row_count
-writeout = json.dumps(crs_index, sort_keys=True, indent=4)
+writeout = json.dumps(crs_index, sort_keys=True, separators=(',',':'))
 f_out = open('../api/crs-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
@@ -416,7 +416,7 @@ for don,donor in groupby(donor_index_sort, lambda x: x['donorID']):
         donor_index.append(dict(zip(donorIndexHeader, index)))
 
 print "Donor Index Process Count: %d" % row_count
-writeout = json.dumps(donor_index, sort_keys=True, indent=4)
+writeout = json.dumps(donor_index, sort_keys=True, separators=(',',':'))
 f_out = open('../api/donor-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
@@ -439,7 +439,7 @@ for don,donor in groupby(donor_types_sort, lambda x: x['donor_type_lvl1']):
         dtype_index.append(dict(zip(dtypeHeader, index)))
 
 print "Donor Type Index Process Count: %d" % row_count
-writeout = json.dumps(dtype_index, sort_keys=True, indent=4)
+writeout = json.dumps(dtype_index, sort_keys=True, separators=(',',':'))
 f_out = open('../api/donor-type-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
@@ -468,7 +468,7 @@ for don,donor in groupby(donor_country_sort, lambda x: x['donor_type_lvl3']):
         dctry_index.append(dict(zip(dctryHeader, index)))
 
 print "Donor Country Index Process Count: %d" % row_count
-writeout = json.dumps(dctry_index, sort_keys=True, indent=4)
+writeout = json.dumps(dctry_index, sort_keys=True, separators=(',',':'))
 f_out = open('../api/donor-country-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
@@ -491,7 +491,7 @@ for fa,focus in groupby(outputsFA_sort, lambda x: x['focus_area']):
         fa_index.append(dict(zip(faHeader, index)))
 
 print "Focus Area Index Process Count: %d" % row_count
-writeout = json.dumps(fa_index, sort_keys=True, indent=4)
+writeout = json.dumps(fa_index, sort_keys=True, separators=(',',':'))
 f_out = open('../api/focus-area-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
@@ -529,7 +529,7 @@ for un,unit in groupby(unitsIndex_sort, lambda x: x['operating_unit']):
                     
                 opUnit_index.append(dict(zip(opUnitHeader, index)))
 
-writeout = json.dumps(opUnit_index, sort_keys=True, indent=4)
+writeout = json.dumps(opUnit_index, sort_keys=True, separators=(',',':'))
 f_out = open('../api/operating-unit-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
@@ -551,7 +551,7 @@ for g in donor_gross_sort:
     gross['amount'] = g['amount']
     gross_list.append(gross)
 
-writeout = json.dumps(gross_list, sort_keys=True, indent=4)
+writeout = json.dumps(gross_list, sort_keys=True, separators=(',',':'))
 f_out = open('../api/top-donor-gross-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
@@ -564,7 +564,7 @@ for g in donor_local_sort:
     local['amount'] = g['amount']
     local_list.append(local)
     
-writeout = json.dumps(local_list, sort_keys=True, indent=4)
+writeout = json.dumps(local_list, sort_keys=True, separators=(',',':'))
 f_out = open('../api/top-donor-local-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
@@ -601,7 +601,7 @@ for i in index:
     index_print.append(dict(zip(regionHeader, i)))
     
 print "Region Index Process Count: %d" % row_count
-writeout = json.dumps(index_print, sort_keys=True, indent=4)
+writeout = json.dumps(index_print, sort_keys=True, separators=(',',':'))
 f_out = open('../api/region-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()

@@ -1,7 +1,7 @@
 ---
 ---
 (function() {
-    var BASE_URL = '/',
+    var BASE_URL = 'http://open.undp.org/',
         models = {},
         views = {},
         routers = {},

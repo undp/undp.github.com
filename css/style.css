@@ -293,6 +293,9 @@ input.button {
 /*-----------------------------------
   Global Layout
 -------------------------------------*/
+#main {
+  position:relative;
+  }
 #top-navigation {
   padding:0;
   margin:0;
@@ -311,6 +314,7 @@ input.button {
 #breadcrumbs {
   position:absolute;
   margin:0;
+  left:0;
   }
 
 #app .view {
@@ -645,13 +649,10 @@ input.button {
   margin-bottom: 15px;
 }
 .chart .chart-legend {
-  position: relative;
-  top: 7px;
   float:right;
-  font-size:0.8em;
+  font-size:10px;
   font-weight:normal;
-  color:#b3b3b3;
-  display: inline-block;
+  color:#666;
   }
   .chart-legend .thick-bar, .chart-legend .thin-bar {
     line-height: 10px;
@@ -665,19 +666,18 @@ input.button {
       float:left;
       width:30px;
       margin-right:5px;
+      position:relative;
+      top:1px;
       }
     .chart-legend .thick-bar span {
       height:12px;
-      background:#0B387C;
+      background:#c8dde4;
       }
     .chart-legend .thin-bar span {
       height:5px;
-      background:#96CCE6;
+      background:#c8dde4;
       margin-top:3px;
       }
-    #chart-hdi .thin-bar span {
-      background:#8DA5C8;
-    }
 #charts .chart {
   margin: 0;
   }
@@ -710,12 +710,12 @@ input.button {
   float: none;
   }
 .chart .caption {
-  text-align: left;
+  text-align:left;
   text-transform:capitalize;
   font-weight:normal;
-  font-size: 11px;
-  line-height: 13px;
-  color:#05A;
+  font-size:11px;
+  line-height:13px;
+  color:#666;
   }
 .chart .data {
   min-width: 60px;
@@ -755,13 +755,13 @@ input.button {
   margin-top:10px;
   }
 .details #sparkline {
-  width: 516px;
+  width:516px;
   height: 118px;
   background:#fff;
   border:1px solid #999;
-  -webkit-box-shadow:inset 0 0 8px rgba(0, 0, 0, 0.25);
-     -moz-box-shadow:inset 0 0 8px rgba(0, 0, 0, 0.25);
-          box-shadow:inset 0 0 8px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow:inset 0 0 4px rgba(0, 0, 0, 0.25);
+     -moz-box-shadow:inset 0 0 4px rgba(0, 0, 0, 0.25);
+          box-shadow:inset 0 0 4px rgba(0, 0, 0, 0.25);
   }
   #xlabel {
     font-size:11px;
@@ -855,31 +855,28 @@ input.button {
   margin-bottom: 1px;
 }
 #chart-hdi .hdic {
-  position: relative;
-  top: 10px;
-  height: 123px;
-  margin-bottom: 30px;
+  position:relative;
+  height:120px;
+  margin-bottom:30px;
   }
 #chart-hdi .caption {
-  position: absolute;
-  top: 0;
-  left: 0;
-  line-height: 29px;
-  text-align: right;
+  line-height:29px;
+  text-align:right;
+  float:left;
+  width:10%;
+  margin-right:2%;
   }
 #chart-hdi .data {
-  position: absolute;
-  top: 0;
-  left: 58px;
-  width: 450px;
+  width:78%;
+  float:left;
   }
 #chart-hdi .details {
-  margin: 0;
-  float: none;
-  position: absolute;
-  top: 140px;
-  left: 0;
-  width: 100%;
+  margin:0;
+  float:none;
+  position:absolute;
+  top:140px;
+  left:0;
+  width:100%;
   }
 #chart-hdi .data > div.subdata {
   height: 7px;
@@ -1394,7 +1391,7 @@ form {
   font-weight: bold;
   color: #333;
   }
-#donor-gross-table {
+.donor-gross-table {
   margin-bottom: 20px;
   }
 #download code {
@@ -1537,6 +1534,27 @@ form {
   font-size:16px;
   line-height:24px;
   }
+#embed .stats .total {
+  font-weight:normal;
+  font-size:13px;
+  }
+#embed .stats td {
+  border-bottom:1px solid #ccc;
+  }
+#embed #chart-hdi {
+  position:static;
+  display:block;
+  }
+#embed #sparkline {
+  width:417px;
+  }
+  #embed .endyear {
+    margin-left:377px;
+    }
+  #embed #chart-hdi .change {
+    margin-left:317px;
+    float:left;
+    }
 
 /*-----------------------------------
   Clearfix

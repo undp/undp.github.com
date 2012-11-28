@@ -101,7 +101,7 @@ views.ProjectProfile = Backbone.View.extend({
             }));
 
             // Depending on the options passed into the array add a fade
-            // in class to all elements containing a data-iotion attribute
+            // in class to all elements containing a data-option attribute
             if (this.options.embed) {
                 _(this.options.embed).each(function (o) {
                     $('[data-option="' + o + '"]').show();
@@ -132,16 +132,18 @@ views.ProjectProfile = Backbone.View.extend({
         $('#progress').find('.bar').css('width', progress + '%');
 
         this.$('#outputs').empty();
-        var outputs = this.model.attributes.outputs.slice(0, 9);
-        _(outputs).each(function(model) {
-            this.$('#outputs').append(templates.projectOutputs({ model: model }));
-        });
-
-        // Project Outputs
-        if (this.model.attributes.outputs.length < 10) {
-            $('.load').hide();
-        } else {
-            $('.load').show();
+        if (this.model.attributes.outputs) {
+            var outputs = this.model.attributes.outputs.slice(0, 9);
+            _(outputs).each(function(model) {
+                this.$('#outputs').append(templates.projectOutputs({ model: model }));
+            });
+    
+            // Project Outputs
+            if (this.model.attributes.outputs.length < 10) {
+                $('.load').hide();
+            } else {
+                $('.load').show();
+            }
         }
 
         // Append menu items to the breadcrumb

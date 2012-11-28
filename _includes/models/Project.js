@@ -13,8 +13,10 @@ models.Projects = Backbone.Collection.extend({
         this.sortOrder = this.sortOrder || 'desc';
     },
     watch: function() {
+        var collection = this;
         this.update();
         this.on('reset', this.update, this);
+        setTimeout(_(this.cb).bind(collection), 1);
     },
     update: function() {
 
@@ -41,57 +43,29 @@ models.Projects = Backbone.Collection.extend({
             }, {});
         }
 
+
         // Count projects for each facet
         _(facets).each(function(facet) {
             if (facet.id == 'donor_countries') {
                 this[facet.id] = _(this.pluck(facet.id))
                     .chain()
-                    .reduce(function(res, obj, i) {
-                        res[i] = _.uniq(obj);
-                        return res;
-                    }, [])
+                    .map(function(v) {
+                        return _(v.sort()).uniq(true);
+                    })
                     .flatten()
-                    .groupBy(function(n) { return n; })
-                    .reduce(function (obj, v, k) {
-                        obj[k] = v.length;
-                        return obj;
-                    }, {})
+                    .countBy(function(n) { return n; })
                     .value();
             } else {
-            
                 this[facet.id] = _(this.pluck(facet.id))
                     .chain()
                     .flatten()
-                    .groupBy(function(n) { return n; })
-                    .reduce(function (obj, v, k) {
-                        obj[k] = v.length;
-                        return obj;
-                    }, {})
+                    .countBy(function(n) { return n; })
                     .value();
-                
-                if (facet.id == 'operating_unit') {
-                    this[facet.id + 'Sources'] = _(this.models)
-                        .chain()
-                        .reduce(function (res,obj) {
-                            if (!(obj.attributes[facet.id] in res)) {
-                                res[obj.attributes[facet.id]] = _.uniq(obj.attributes.donors);
-                            } else {
-                                res[obj.attributes[facet.id]] = _.union(res[obj.attributes[facet.id]],_.uniq(obj.attributes.donors));
-                            }
-                            return res;
-                        }, {})
-                        .reduce(function (obj, v, k) {
-                            obj[k] = v.length;
-                            return obj;
-                        }, {})
-                        .value();
-                }
             }
-                
             calc(this,facet.id,'budget');
             calc(this,facet.id,'expenditure');
-            
         }, this);
+
 
         // Total budget
         this.budget = this.reduce(function(memo, project) {
@@ -123,7 +97,6 @@ models.Projects = Backbone.Collection.extend({
         
         this.trigger('update');
     },
-    url: 'api/project_summary.json',
     model: models.Project,
     comparator: function(model) {
         if (this.sortOrder == 'desc') {

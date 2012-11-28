@@ -1,7 +1,7 @@
 views.Map = Backbone.View.extend({
     events: {
-        'mousedown img.mapmarker': 'mapClick',
-        'mousedown img.simplestyle-marker': 'mapClick',
+        'click img.mapmarker': 'mapClick',
+        'click img.simplestyle-marker': 'mapClick',
         'mouseover img.mapmarker': 'tooltipFlip'
     },
 
@@ -14,7 +14,6 @@ views.Map = Backbone.View.extend({
     },
 
     render: function() {
-        $('#chart-hdi').css('display','none');
         app.hdi = false;
         var view = this,
             layer,
@@ -26,7 +25,7 @@ views.Map = Backbone.View.extend({
             var hdiWorld = _.find(data,function(d){return d.name == 'World';});
             hdiWorld.count = _.max(data,function(d){return d.rank;}).rank;
 
-            var hdiArray = _.reduce(data, function(res,obj) {
+            var hdiArray = _.reduce(data, function(res, obj) {
                 if (((_.isObject(unit)) ? unit.operating_unit[obj.id] : obj.id === unit) && obj.hdi) {
                     res[obj.id] = {
                         hdi: obj.hdi,
@@ -43,11 +42,11 @@ views.Map = Backbone.View.extend({
                 if (!view.options.embed) {
                     layer = $('.map-btn.active').attr('data-value');
                 } else {
-                    layer = 'count'
+                    layer = 'budget'
                 }
                 view.collection.hdi = hdiArray;
                 view.collection.hdiWorld = hdiWorld;
-                if ($('#operating_unit .filter').hasClass('active')) {
+                if ($('#operating_unit .filter').hasClass('active') || view.options.embed) {
                     var hdi = _.filter(data, function(d) {
                         return d.id == _.keys(unit.operating_unit);
                     })[0];
@@ -61,6 +60,7 @@ views.Map = Backbone.View.extend({
                         view.hdiDetails(hdi);
                     } else {
                         $('#hdi').html('no data');
+                        $('#chart-hdi').css('display','none');
                     }
                 } else {
                     $('#hdi').html(_.last(hdiWorld.hdi)[1]);
@@ -188,8 +188,11 @@ views.Map = Backbone.View.extend({
                     Math.round(view.scale(layer,f))
                 );
             };
-        markers.sort(function(a,b){ return b.properties[layer] - a.properties[layer]; })
-            .factory(clustr.scale_factory(radii, "rgba(0,85,170,0.6)", "#FFF"));
+
+        if (markers) {
+            markers.sort(function(a,b){ return b.properties[layer] - a.properties[layer]; })
+                .factory(clustr.scale_factory(radii, "rgba(0,85,170,0.6)", "#FFF"));
+        }
     },
 
     buildMap: function(layer) {
@@ -234,7 +237,7 @@ views.Map = Backbone.View.extend({
                         if (o.lon) {
                             if (homepage) {
                                 count = unit.operating_unit[o.id];
-                                sources = unit.operating_unitSources[o.id];
+                                sources = false;
                                 budget = unit.operating_unitBudget[o.id];
                                 expenditure = unit.operating_unitExpenditure[o.id];
                             } else {
@@ -306,42 +309,26 @@ views.Map = Backbone.View.extend({
         });
     },
 
-    tooltip: function(layer,data) {
-        var description;
-        if (layer === 'hdi') {
-            description = '<div class="data-labels"><div>HDI</div><div>Health</div><div>Education</div><div>Income</div></div>' +
-                '<div class="data"><div class="total" style="width:' + data.hdi*150 + 'px">' + data.hdi + '</div>' +
-                '<div class="subdata total" style="width:' + _.last(this.collection.hdiWorld.hdi)[1]*150 + 'px;"></div>' +
-                '<div class="health" style="width:' + data.hdi_health*150 + 'px">' + data.hdi_health + '</div>' +
-                '<div class="subdata health" style="width:' + _.last(this.collection.hdiWorld.health)[1]*150 + 'px;"></div>' +
-                '<div class="education" style="width:' + data.hdi_education*150 + 'px">' + data.hdi_education + '</div>' +
-                '<div class="subdata education" style="width:' + _.last(this.collection.hdiWorld.education)[1]*150 + 'px;"></div>' +
-                '<div class="income" style="width:' + data.hdi_income*150 + 'px">' + data.hdi_income + '</div>' +
-                '<div class="subdata income" style="width:' + _.last(this.collection.hdiWorld.income)[1]*150 + 'px;"></div></div>';
+    tooltip: function(layer, data) {
+        var description = '<div class="stat">Budget: <span class="value">' +
+            accounting.formatMoney(data.budget) + '</span></div>' +
+            '<div class="stat">Expenditure: <span class="value">' +
+            accounting.formatMoney(data.expenditure) + '</span></div>';
 
-            data.title = data.name + '<div class="subtitle">rank: ' + data.hdi_rank + '</div>';
-        } else {
-            description = '<div class="stat">Budget: <span class="value">' +
-                accounting.formatMoney(data.budget) + '</span></div>' +
-                '<div class="stat">Expenditure: <span class="value">' +
-                accounting.formatMoney(data.expenditure) + '</span></div>';
+        data.title = data.project + '<div class="subtitle">' + data.name + '</div>';
 
-            data.title = data.project + '<div class="subtitle">' + data.name + '</div>';
+        // add this if we're counting projects (on homepage)
+        if (data.count) {
+            description = '<div class="stat">Projects: <span class="value">' +
+                 data.count + '</span></div>' +
+                 ((data.sources > 1) ? ('<div class="stat">Funding Sources: <span class="value">' +
+                 data.sources + '</span></div>') : '') +
+                 description +
+                 '<div class="stat">HDI: <span class="value">' +
+                 data.hdi + '</span></div>';
 
-            // add this if we're counting projects (on homepage)
-            if (data.count) {
-                description = '<div class="stat">Projects: <span class="value">' +
-                     data.count + '</span></div>' +
-                     ((data.sources > 1) ? ('<div class="stat">Funding Sources: <span class="value">' +
-                     data.sources + '</span></div>') : '') +
-                     description +
-                     '<div class="stat">HDI: <span class="value">' +
-                     data.hdi + '</span></div>';
-
-                data.title = data.name;
-            }
+            data.title = data.name;
         }
-
         return description;
     },
 

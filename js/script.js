@@ -1,7 +1,8 @@
 ---
 ---
-(function() {
+$(function() {
     var BASE_URL = 'http://open.undp.org/',
+        widgetOts = [],
         models = {},
         views = {},
         routers = {},
@@ -142,4 +143,4 @@
         app = new routers.App();
         Backbone.history.start();
     });
-})();
+});

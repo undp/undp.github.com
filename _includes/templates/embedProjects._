@@ -1,6 +1,6 @@
 <div data-option='title' class='option'>
   <h2 id='applied-filters' class='heading-title'>All Projects</h2>
-</div>    
+</div>
 
 <div data-option='descr' id='description' class='option'>
   <p class='heading-title'>Welcome to open.undp.org, which presents detailed information on the UNDP’s 6,000+ development projects in 177 countries and territories worldwide. Browse the summaries, click a filter on the right, or search through the full list of projects. <a href='#about/open'>Read more...</a></p>
@@ -11,6 +11,44 @@
 </div>
 
 <div data-option='stats' class='option'>
+
+   <table cellspacing='0' class='table stats table-unstyled'>
+    <tbody class='rows'>
+      <tr>
+        <td><strong>2011 Budget</strong></td>
+        <td data-value='budget'>
+          <span id='total-budget' class='total'></span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>2011 Expenditure</strong></td>
+        <td data-value='expenditure'>
+          <span id='total-expenditure' class='total'></span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Projects</strong></td>
+        <td data-value='count'>
+          <span id='total-count' class='total'></span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Funding Sources</strong></td>
+        <td data-value='sources'>
+          <span id='total-donors' class='total'></span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>HDI Global</strong></td>
+        <td data-value='hdi'>
+          <span id='hdi' class='total'>0.682</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div data-option='charts' class='option'>
   <div class='row-fluid' id='charts'>
     <div class='span12'>
       <div class='row-fluid'>
@@ -43,8 +81,8 @@
   </div>
 </div>
 
-<div data-option='hdi' class='option'>
-  <div class='span12 chart' id='chart-hdi'>
+<div data-option='hdi' class='option clearfix'>
+  <div class='chart' id='chart-hdi'>
     <div class='label'>
       <h3>Human Development Index</h3>
       <span class='chart-legend'>
@@ -68,7 +106,7 @@
         <div id='sparkline'></div>
         <div id='xlabel' style='font-size:9px;'>
           <span class='beginyear'>1980</span>
-          <span class='endyear' style='float:right;'>2011</span>
+          <span class='endyear'>2011</span>
         </div>
       </div>
     </div>
@@ -78,4 +116,4 @@
 
 <div data-option='projects' class='option'>
   <div id='project-items'></div>
-</div>  
+</div>

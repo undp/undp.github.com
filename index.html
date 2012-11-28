@@ -14,8 +14,23 @@
     <link href='{{base}}/css/global.css' rel='stylesheet'>
     <link href='{{base}}/ext/bootstrap/css/bootstrap.min.css' rel='stylesheet' />
     <link href='{{base}}/ext/bootstrap/css/bootstrap-responsive.min.css' rel='stylesheet'>
-    <link href='http://api.tiles.mapbox.com/mapbox.js/v0.6.6/mapbox.css' rel='stylesheet' />
+    <link href='http://api.tiles.mapbox.com/mapbox.js/v0.6.7-dev/mapbox.css' rel='stylesheet' />
     <link href='{{base}}/css/style.css' rel='stylesheet' />
+
+    <!--[if IE]><script src='{{base}}/ext/excanvas.js'></script><![endif]-->
+    <script src='{{base}}/ext/jquery.js'></script>
+    <script src='{{base}}/ext/jquery.tweet.js'></script>
+    <script src='{{base}}/ext/jquery.flot.js'></script>
+    <script src='{{base}}/ext/spin.js'></script>
+    <script src='{{base}}/ext/bootstrap/js/bootstrap.js'></script>
+    <script src='{{base}}/ext/underscore.js'></script>
+    <script src='{{base}}/ext/backbone.js'></script>
+    <script src='{{base}}/ext/accounting.js'></script>
+    <script src='{{base}}/ext/chrono.js'></script>
+    <script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.7-dev/mapbox.js'></script>
+    <script src='{{base}}/ext/clustr.min.js'></script>
+    <script src='{{base}}/api/project_summary.js'></script>
+    <script src='{{base}}/js/script.js'></script>
 </head>
 <!--[if lt IE 7 ]> <body class='ie ie6'> <![endif]-->
 <!--[if IE 7 ]>    <body class='ie ie7'> <![endif]-->
@@ -112,10 +127,10 @@
         <div id='top-donors' class='col-540 content view chart'>
           <h1 class='title-story'>Top Contributing Countries to the UNDP General Fund</h1>
           <p class='heading-desc'>Gross income received in 2011 based on income received for regular resources.</p>
-          <table class='table table-unstyled' id='donor-gross-table'></table>
+          <table class='table table-unstyled donor-gross-table'></table>
           <h3>Support from Programme Country Governments</h3>
           <p class='heading-desc'>Top 10 contibutors to local resources in 2011</p>
-          <table class='table table-unstyled' id='donor-local-table'></table>
+          <table class='table table-unstyled donor-local-table'></table>
         </div>
 
         <div id='about' class='col-540 content view'>
@@ -150,12 +165,12 @@
         </div>
         <div class='modal-body'>
             <p class='heading-desc'>Gross income received in 2011 based on income received for regular resources.</p>
-            <table class='table' id='donor-gross-table'>
+            <table class='table donor-gross-table'>
             </table>
             <p class='heading-desc'>Support from Programme Country Governments<br />
             Top 10 contibutors to local resources in 2011
             </p>
-            <table class='table' id='donor-local-table'>
+            <table class='table donor-local-table'>
             </table>
         </div>
     </div>
@@ -229,22 +244,6 @@
 
   <div id='templates'>
   {% include templates.html %}
-  </div>
-
-  <div id='scripts'>
-    <!--[if IE]><script src='{{base}}/ext/excanvas.js'></script><![endif]-->
-    <script src='{{base}}/ext/jquery.js'></script>
-    <script src='{{base}}/ext/jquery.tweet.js'></script>
-    <script src='{{base}}/ext/jquery.flot.js'></script>
-    <script src='{{base}}/ext/spin.js'></script>
-    <script src='{{base}}/ext/bootstrap/js/bootstrap.js'></script>
-    <script src='{{base}}/ext/underscore.js'></script>
-    <script src='{{base}}/ext/backbone.js'></script>
-    <script src='{{base}}/ext/accounting.js'></script>
-    <script src='{{base}}/ext/chrono.js'></script>
-    <script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.6/mapbox.js'></script>
-    <script src='{{base}}/ext/clustr.min.js'></script>
-    <script src='{{base}}/js/script.js'></script>
   </div>
 
 </body>

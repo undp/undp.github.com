@@ -43,11 +43,6 @@ views.Projects = Backbone.View.extend({
             $('#total-donors').parent().show();
             $('#total-donors').html(accounting.formatNumber(_(this.collection.donors).size()));
         }
-
-        $('#total-donors').html(
-            (donor) ? 1 :
-            accounting.formatNumber(_(this.collection.donors).size())
-        );
         $('#total-budget').html(
             (donor) ?  accounting.formatMoney(this.collection.donorBudget[donor.id] / 1000000) + 'M' :
             accounting.formatMoney(this.collection.budget / 1000000) + 'M'

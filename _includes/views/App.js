@@ -57,7 +57,7 @@ views.App = Backbone.View.extend({
     setFilter: function(e) {
         var $target = $(e.target),
             path = '',
-            parts = $target.attr('id').split('-'),
+            parts = ($target.attr('id')) ? $target.attr('id').split('-') : '',
             filters = [{
                 collection: parts[0],
                 id: parts[1]
@@ -84,6 +84,8 @@ views.App = Backbone.View.extend({
             .value().join('/');
 
         path = (filters.length) ? 'filter/' + filters : 'filter/';
+        
+        
 
         e.preventDefault();
 

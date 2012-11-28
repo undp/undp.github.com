@@ -60,14 +60,14 @@
           <% }); %>
         </div>
       </div>
+      <% if (model.get('inst_descr')) { %>
       <div class='row-fluid stat'>
-        <% if (model.get('inst_descr')) { %>
         <div class='span12'>
           <div class='label'>Implementing Organization</div>
           <p><%= model.get('inst_descr') %></p>
         </div>
-        <% } %>
       </div>
+      <% } %>
       <div class='row-fluid stat'>
         <div class='span12'>
           <div class='label'>Funding Sources</div>

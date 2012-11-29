@@ -70,7 +70,7 @@
       <% } %>
       <div class='row-fluid stat'>
         <div class='span12'>
-          <div class='label'>Funding Sources</div>
+          <div class='label'>Budget Sources</div>
           <%
             var donors_id = _.chain(model.get('outputs'))
                 .map(function (o) { return o.donor_id })

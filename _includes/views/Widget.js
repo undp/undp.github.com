@@ -2,17 +2,19 @@ views.Widget = Backbone.View.extend({
     el: '#widget',
 
     events: {
-       'click .widget-options a': 'widgetOptions'
+       'click .widget-options a': 'widgetOptions',
+       'click .widget-code': 'inputSelect'
     },
 
     initialize: function () {
+        this.destroy();
         this.render();
     },
 
     render: function(keypress) {
         var view = this;
 
-        this.$el.empty().append(templates.widget());
+        $(this.el).empty().append(templates.widget());
 
         if (view.options.context === 'projects') {
             $('.proj-opt', view.$el).hide();
@@ -23,6 +25,11 @@ views.Widget = Backbone.View.extend({
         }
 
         return this;
+    },
+
+    destroy: function() {
+        this.undelegateEvents();
+        $(this.el).removeData().unbind();
     },
 
     widgetOptions: function(e) {
@@ -55,7 +62,6 @@ views.Widget = Backbone.View.extend({
             $('.widget-code', view.$el)
                 .show()
                 .val(view.widgetCode)
-                .focus()
                 .select();
         } else {
             $('.widget-preview', view.$el).html('<h3 class="empty">To use this widget choose some options on the left.</h3>');
@@ -64,5 +70,9 @@ views.Widget = Backbone.View.extend({
         }
 
         return false;
+    },
+
+    inputSelect: function(e) {
+        $(e.target).select();
     }
 });

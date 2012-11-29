@@ -29,10 +29,10 @@ views.Filters = Backbone.View.extend({
         } else {
             this.collection.sort();
 
-            filterModels = this.collection.chain().first(50).filter(function(model) {
+            filterModels = this.collection.chain().filter(function(model) {
                     var length = (model.collection.where({ visible: true }).length > 100) ? 1 : 0;
                     return (model.get('visible') && model.get('count') > length);
-                }).value();
+                }).first(50).value();
 
             chartModels = this.collection.chain()
                 .sortBy(function(model) {
@@ -142,57 +142,74 @@ views.Filters = Backbone.View.extend({
                     $('.fa' + (model.id) + ' .pct').text(value + '%');
                 });
 
-                $el.prepend('<h3 id="focus">Focus Areas</h3>');
+                $el.prepend('<h3 id="focus">Focus Areas <span>% of budget</span></h3>');
             } else if (this.collection.id === 'operating_unit' || this.collection.id === 'donors') {
 
                 donor = (_(app.app.filters).find(function(filter) {
                         return filter.collection === 'donors';
                     }) || {id: 0}).id;
 
-                var max = (donor) ? app.projects.chain()
-                        .map(function(project) {
-                            return project.get('donor_budget');
-                        })
-                        .flatten()
-                        .max()
-                        .value() : chartModels[0].get(chartType),
+                var max = '',
                     view = this,
                     rows = [],
                     newWidth = 1;
 
                 $('#chart-' + this.collection.id + ' .rows').html('');
                 _(chartModels).each(function(model) {
-                    var donorBudget = (donor) ? app.projects.chain()
-                            .filter(function(project) {
-                                return project.get('operating_unit') === model.id;
-                            })
-                            .reduce(function(memo, project) {
+
+                    if (view.collection.id === 'donors') {
+                        donor = model.id;
+
+                        var donorProjects = (donor) ? app.projects.chain()
+                            .map(function(project) {
                                 var donorIndex = _(project.get('donors')).indexOf(donor);
-                                if (donorIndex === -1) return memo;
-                                return memo + project.get('donor_budget')[donorIndex];
-                            }, 0).value() : 0;
-                    var donorExpenditure = (donor) ? app.projects.chain()
-                            .filter(function(project) {
-                                return project.get('operating_unit') === model.id;
-                            })
-                            .reduce(function(memo, project) {
-                                var donorIndex = _(project.get('donors')).indexOf(donor);
-                                if (donorIndex === -1) return memo;
-                                return memo + project.get('donor_expend')[donorIndex];
-                            }, 0).value() : 0;
+                                if (donorIndex === -1) return;
+                                return {
+                                    budget: project.get('donor_budget')[donorIndex],
+                                    expenditure: project.get('donor_expend')[donorIndex]
+                                };
+                            }, 0).compact().value() : [];
+
+                        var donorBudget = _(donorProjects).chain().pluck('budget')
+                            .reduce(function(memo, num){ return memo + num; }, 0).value();
+
+                        var donorExpenditure = _(donorProjects).chain().pluck('expenditure')
+                            .reduce(function(memo, num){ return memo + num; }, 0).value();
+
+                    } else {
+                        var donorBudget = (donor) ? app.projects.chain()
+                                .filter(function(project) {
+                                    return project.get('operating_unit') === model.id;
+                                })
+                                .reduce(function(memo, project) {
+                                    var donorIndex = _(project.get('donors')).indexOf(donor);
+                                    if (donorIndex === -1) return memo;
+                                    return memo + project.get('donor_budget')[donorIndex];
+                                }, 0).value() : 0;
+                        var donorExpenditure = (donor) ? app.projects.chain()
+                                .filter(function(project) {
+                                    return project.get('operating_unit') === model.id;
+                                })
+                                .reduce(function(memo, project) {
+                                    var donorIndex = _(project.get('donors')).indexOf(donor);
+                                    if (donorIndex === -1) return memo;
+                                    return memo + project.get('donor_expend')[donorIndex];
+                                }, 0).value() : 0;
+                    }
+
                     var budget = accounting.formatMoney(
-                                ((donor && view.collection.id === 'operating_unit') ? donorBudget : model.get('budget')) / 1000000
+                                ((donor) ? donorBudget : model.get('budget')) / 1000000
                             ) + 'M';
 
-                    var budgetWidth = (donor && view.collection.id === 'operating_unit') ? (donorBudget / max * 100) : (model.get('budget')/ max * 100);
-                    var expenditureWidth = (donor && view.collection.id === 'operating_unit') ? (donorExpenditure / max * 100) : (model.get('expenditure')/ max * 100);
+                    var budgetWidth = (donor) ? (donorBudget) : (model.get('budget'));
+                    var expenditureWidth = (donor) ? (donorExpenditure) : (model.get('expenditure'));
 
                     var caption = '<a href="#filter/' + model.collection.id + '-' + model.get('id') +
                         '">' + model.get('name').toLowerCase().toTitleCase() + '</a>';
-                    var bar = '<div style="width: ' + budgetWidth + '%"></div>' + '<div class="subdata" style="width: ' + expenditureWidth + '%"></div>';
+                    var bar = '<div class="budgetdata" data-budget="' + budgetWidth + '"></div>' + '<div class="subdata" data-expenditure="' + expenditureWidth + '"></div>';
 
                     rows.push({
-                        sort: -1 * ((donor && view.collection.id === 'operating_unit') ? donorBudget : model.get('budget') / 1000000),
+                        sort: -1 * ((donor) ? donorBudget : model.get('budget')),
                         content: '<tr>' +
                             '    <td>' + caption + '</td>' +
                             '    <td class="right">' + budget + '</td>' +
@@ -202,8 +219,15 @@ views.Filters = Backbone.View.extend({
 
                 });
 
-                _(rows).chain().sortBy('sort').each(function(row) {
+                rows = _(rows).sortBy('sort');
+                max = rows[0].sort * -1;
+
+                _(rows).each(function(row) {
                     $('#chart-' + view.collection.id + ' .rows').append(row.content);
+                });
+                $('#chart-' + view.collection.id + ' .rows tr').each(function() {
+                    $('.data .budgetdata', this).width(($('.data .budgetdata', this).attr('data-budget') / max * 100) + '%');
+                    $('.data .subdata', this).width(($('.data .subdata', this).attr('data-expenditure') / max * 100) + '%');
                 });
 
             }

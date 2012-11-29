@@ -7,9 +7,10 @@ views.App = Backbone.View.extend({
         'click #projects-tab .reset': 'clearSearch',
         'click .map-btn': 'mapLayerswitch',
         'click .widget-config': 'requestIframe',
-        'submit .form-search': 'submitForm'
+        'submit .form-search': 'submitForm',
+        'click .nav-tabs a': 'tabSwitch'
     },
-
+    
     initialize: function(options) {
         var view = this;
 
@@ -212,5 +213,11 @@ views.App = Backbone.View.extend({
     hideCountries: function(e) {
         e.preventDefault();
         $('#country-list').css('display', 'none');
-    }
+    },
+    
+    tabSwitch: function(e) {
+        if ($(e.target).attr('href') === '#summary-tab') {
+            app.projects.map.map.requestRedraw();
+        }
+    },
 });

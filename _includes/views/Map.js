@@ -53,7 +53,7 @@ views.Map = Backbone.View.extend({
 
                     $('.map-btn[data-value="hdi"] .total-caption').html('HDI');
 
-                    if (_.size(hdiArray) > 0) {
+                    if (hdi && _.size(hdiArray) > 0) {
                         $('#hdi').html(_.last(hdi.hdi)[1]);
                         app.hdi = true;
                         view.hdiChart(hdi,hdiWorld);
@@ -183,7 +183,7 @@ views.Map = Backbone.View.extend({
             markers = this.map.layers[2],
 
             radii = function(f) {
-                f.properties.description = view.tooltip(layer,f.properties);
+                f.properties.description = view.tooltip(layer, f.properties);
                 return clustr.area_to_radius(
                     Math.round(view.scale(layer,f))
                 );
@@ -191,7 +191,7 @@ views.Map = Backbone.View.extend({
 
         if (markers) {
             markers.sort(function(a,b){ return b.properties[layer] - a.properties[layer]; })
-                .factory(clustr.scale_factory(radii, "rgba(0,85,170,0.6)", "#FFF"));
+                .factory(clustr.scale_factory(radii, 'rgba(0,85,170,0.6)', '#FFF'));
         }
     },
 
@@ -210,7 +210,7 @@ views.Map = Backbone.View.extend({
             map.setZoomRange(2, 17);
 
             var radii = function(f) {
-                f.properties.description = view.tooltip(layer,f.properties);
+                f.properties.description = view.tooltip(layer, f.properties);
                 return clustr.area_to_radius(
                     Math.round(view.scale(layer,f))
                 );
@@ -219,7 +219,7 @@ views.Map = Backbone.View.extend({
             var markers = mapbox.markers.layer();
 
             if (homepage) {
-                markers.factory(clustr.scale_factory(radii, "rgba(0,85,170,0.6)", "#FFF")).sort(function(a, b) {
+                markers.factory(clustr.scale_factory(radii, 'rgba(0,85,170,0.6)', '#FFF')).sort(function(a, b) {
                     return b.properties[layer] - a.properties[layer];
                 });
             }
@@ -237,7 +237,7 @@ views.Map = Backbone.View.extend({
                         if (o.lon) {
                             if (homepage) {
                                 count = unit.operating_unit[o.id];
-                                sources = false;
+                                sources = unit.operating_unitSources[o.id];
                                 budget = unit.operating_unitBudget[o.id];
                                 expenditure = unit.operating_unitExpenditure[o.id];
                             } else {
@@ -337,7 +337,8 @@ views.Map = Backbone.View.extend({
             top = $target.offset().top - this.$el.offset().top;
         if (top <= 150) {
             var tipSize = $('.marker-popup').height() + 50;
-            $('.marker-tooltip').addClass('flip')
+            $('.marker-tooltip')
+                .addClass('flip')
                 .css('margin-top',tipSize + $target.height());
         }
     },

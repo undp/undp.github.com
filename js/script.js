@@ -35,7 +35,7 @@ $(function() {
             {
                 id: 'donors',
                 url: 'api/donor-index.json',
-                name: 'Funding Source'
+                name: 'Budget Source'
             }
         ];
 

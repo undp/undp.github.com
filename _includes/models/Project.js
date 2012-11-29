@@ -61,6 +61,26 @@ models.Projects = Backbone.Collection.extend({
                     .flatten()
                     .countBy(function(n) { return n; })
                     .value();
+
+                // Needs optimization
+                if (facet.id == 'operating_unit') {
+                    this[facet.id + 'Sources'] = _(this.models)
+                        .chain()
+                        .reduce(function (res,obj) {
+                            if (!(obj.attributes[facet.id] in res)) {
+                                res[obj.attributes[facet.id]] = _.uniq(obj.attributes.donors);
+                            } else {
+                                res[obj.attributes[facet.id]] = _.union(res[obj.attributes[facet.id]],_.uniq(obj.attributes.donors));
+                            }
+                            return res;
+                        }, {})
+                        .reduce(function (obj, v, k) {
+                            obj[k] = v.length;
+                            return obj;
+                        }, {})
+                        .value();
+                }
+
             }
             calc(this,facet.id,'budget');
             calc(this,facet.id,'expenditure');

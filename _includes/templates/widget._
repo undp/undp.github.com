@@ -5,7 +5,7 @@
 <div class='modal-body'>
   <ul class='widget-options'>
     <li class='proj-opt main-opt title-opt'><a href='' data-value='title'>Title</a></li>
-    <li class='proj-opt main-opt descr-opt'><a href='' data-value='descr'>Description</a></li>
+    <li class='proj-opt descr-opt'><a href='' data-value='descr'>Description</a></li>
     <li class='proj-opt main-opt map-opt'><a href='#' data-value='map'>Map</a></li>
     <li class='proj-opt main-opt stats-opt'><a href='#' data-value='stats'>Stats</a></li>
     <li class='proj-opt documents-opt'><a href='#' data-value='documents'>Documents</a></li>
@@ -20,5 +20,6 @@
   <div class='widget-intro'>
     To embed this page on a website select features you want on the left, then copy and paste the code below.
   </div>
-  <input type='text' class='widget-code' style='display:none;'></input>
+
+  <input class='widget-code' autocomplete='off' readonly='readonly' title='copy me' type='text' value='https://www.everlane.com/n/e1r6ek'>
 </div>

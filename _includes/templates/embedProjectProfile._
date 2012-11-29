@@ -59,7 +59,7 @@
           </tr>
         <% } %>
         <tr>
-          <td><strong>Funding Sources</strong></td>
+          <td><strong>Budget Sources</strong></td>
           <td>
             <% if (donors_long.length < 5) {
                 _.each(donors_id, function(o,i) { %>

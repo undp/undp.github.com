@@ -18,6 +18,7 @@ models.Filters = Backbone.Collection.extend({
         app.projects.on('update', this.update, this);
     },
     update: function() {
+
         var collection = this,
             active = _(app.app.filters).find(function(filter) {
                 return (collection.id === filter.collection);
@@ -38,6 +39,7 @@ models.Filters = Backbone.Collection.extend({
                 budget: budget,
                 expenditure: expenditure
             });
+
         } else {
             collection.each(function(model) {
                 var count = app.projects[collection.id][model.id];

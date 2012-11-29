@@ -42,7 +42,7 @@ views.Map = Backbone.View.extend({
                 if (!view.options.embed) {
                     layer = $('.map-btn.active').attr('data-value');
                 } else {
-                    layer = 'budget'
+                    layer = 'budget';
                 }
                 view.collection.hdi = hdiArray;
                 view.collection.hdiWorld = hdiWorld;

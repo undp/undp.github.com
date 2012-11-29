@@ -106,12 +106,14 @@ routers.App = Backbone.Router.extend({
                                 el: '#' + facet.id,
                                 collection: collection
                             });
+
                             _.each(filters, function (obj) {
                                 if (obj.collection === facet.id) {
                                     that.app.views[facet.id].active = true;
                                 }
                             });
-                            setTimeout(_(collection.watch).bind(collection), 1);
+
+                            collection.watch();
 
                             counter++;
                             if (counter === facets.length) updateDescription();
@@ -143,52 +145,54 @@ routers.App = Backbone.Router.extend({
             if (!this.allProjects) {
                 this.allProjects = new models.Projects(SUMMARY);
 
-                setTimeout(function() {
-                    that.projects = new models.Projects(that.allProjects.filter(filter));
-                    that.projects.view = new views.Projects({ collection: that.projects });
-                    that.projects.cb = _(loadFilters).bind(that);
+                that.projects = new models.Projects(that.allProjects.filter(filter));
+                that.projects.view = new views.Projects({ collection: that.projects });
+                that.projects.cb = _(loadFilters).bind(that);
 
-                    setTimeout(_(that.projects.watch).bind(that.projects), 1);
-                }, 0);
+                that.projects.watch();
 
             } else {
                 // if projects are already present
+                this.projects.cb = updateDescription;
                 this.projects.reset(this.allProjects.filter(filter));
-                updateDescription();
             }
         }
 
         function updateDescription() {
+            setTimeout(function() {
 
-            // Clear search values on refresh
-            $('#filters-search, #projects-search').val('');
+                // Clear search values on refresh
+                $('#filters-search, #projects-search').val('');
+    
+                if (_(filters).find(function(f) {
+                    return f.collection === 'focus_area';
+                })) {
+                    $('#chart-focus_area').hide();
+                } else {
+                    $('#chart-focus_area').show();
+                }
+    
+                if (app.description && app.description.length > 1) {
+                    $('#applied-filters').html('Selected Projects');
+                    $('#description p').html(app.description.shift() + app.description.join(',') + '.');
+                } else {
+                    $('#applied-filters').html('All Projects');
+                    $('#description p').html(app.defaultDescription);
+                }
+                app.description = false;
+    
+                // if filtered on operating_unit & on HDI layer, show chart
+                if ($('#operating_unit').hasClass('filtered') && $('.map-btn[data-value="hdi"]').hasClass('active')) {
+                    $('#chart-hdi').css('display','block');
+                } else {
+                    $('#chart-hdi').css('display','none');
+                }
+        
+                $('#browser .summary').removeClass('off');
 
-            if (_(filters).find(function(f) {
-                return f.collection === 'focus_area';
-            })) {
-                $('#chart-focus_area').hide();
-            } else {
-                $('#chart-focus_area').show();
-            }
-
-            if (app.description && app.description.length > 1) {
-                $('#applied-filters').html('Selected Projects');
-                $('#description p').html(app.description.shift() + app.description.join(',') + '.');
-            } else {
-                $('#applied-filters').html('All Projects');
-                $('#description p').html(app.defaultDescription);
-            }
-            app.description = false;
+            }, 0);
         }
         
-        // if filtered on operating_unit & on HDI layer, show chart
-        if ($('#operating_unit').hasClass('filtered') && $('.map-btn[data-value="hdi"]').hasClass('active')) {
-            $('#chart-hdi').css('display','block');
-        } else {
-            $('#chart-hdi').css('display','none');
-        }
-
-        $('#browser .summary').removeClass('off');
     },
 
     project: function (id, output, embed) {

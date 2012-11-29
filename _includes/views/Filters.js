@@ -36,7 +36,7 @@ views.Filters = Backbone.View.extend({
     
                 setTimeout(function() {
                     filterModels = view.collection.chain().filter(function(model) {
-                            return model.get('visible');
+                            return (model.get('visible') && model.get('count') > 0);
                         }).first(50).value();
 
                     filterCallback();

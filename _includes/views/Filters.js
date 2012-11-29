@@ -109,6 +109,14 @@ views.Filters = Backbone.View.extend({
                 } else {
                     view.$el.empty();
                 }
+
+                if (app.filtercounter !== facets.length ) {
+                    app.filtercounter = (app.filtercounter) ? app.filtercounter + 1 : 2;
+                } else {
+                    app.filtercounter = 0;
+                    app.projects.map.render();
+                }
+
             }
     
             $('#chart-' + view.collection.id + '.rows').empty();

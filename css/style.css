@@ -1600,7 +1600,5 @@ Details: http: //perishablepress.com/press/2009/12/06/new-clearfix-hack*/
   filter: alpha(opacity=100);
   }
 
-body.ie .inner-shadow,
-body.ie9 .inner-shadow {
-  display: none;
-  }
+body.ie .inner-shadow { display: none; }
+body.ie8 #chart-hdi .details { display: none; }

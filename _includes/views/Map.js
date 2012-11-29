@@ -6,77 +6,75 @@ views.Map = Backbone.View.extend({
     },
 
     initialize: function() {
-        this.render();
-
-        if (this.collection) {
-            this.collection.on('update', this.render, this);
-        }
     },
 
     render: function() {
-        app.hdi = false;
-        var view = this,
-            layer,
-            unit = (this.collection) ? this.collection : this.model.get('operating_unit_id');
-
-        // Get HDI data
-        $.getJSON('api/hdi.json', function(data) {
-
-            var hdiWorld = _.find(data,function(d){return d.name == 'World';});
-            hdiWorld.count = _.max(data,function(d){return d.rank;}).rank;
-
-            var hdiArray = _.reduce(data, function(res, obj) {
-                if (((_.isObject(unit)) ? unit.operating_unit[obj.id] : obj.id === unit) && obj.hdi) {
-                    res[obj.id] = {
-                        hdi: obj.hdi,
-                        health: obj.health,
-                        education: obj.education,
-                        income: obj.income,
-                        rank: obj.rank
-                    };
-                }
-                return res;
-            }, {});
-
-            if (view.collection) {
-                if (!view.options.embed) {
-                    layer = $('.map-btn.active').attr('data-value');
-                } else {
-                    layer = 'budget';
-                }
-                view.collection.hdi = hdiArray;
-                view.collection.hdiWorld = hdiWorld;
-                if ($('#operating_unit .filter').hasClass('active') || view.options.embed) {
-                    var hdi = _.filter(data, function(d) {
-                        return d.id == _.keys(unit.operating_unit);
-                    })[0];
-
-                    $('.map-btn[data-value="hdi"] .total-caption').html('HDI');
-
-                    if (hdi && _.size(hdiArray) > 0) {
-                        $('#hdi').html(_.last(hdi.hdi)[1]);
-                        app.hdi = true;
-                        view.hdiChart(hdi,hdiWorld);
-                        view.hdiDetails(hdi);
+        view = this;
+        setTimeout(function() {
+            app.hdi = false;
+            var layer,
+                unit = (view.collection) ? view.collection : view.model.get('operating_unit_id');
+    
+            // Get HDI data
+            $.getJSON('api/hdi.json', function(data) {
+    
+                var hdiWorld = _.find(data,function(d){return d.name == 'World';});
+                hdiWorld.count = _.max(data,function(d){return d.rank;}).rank;
+    
+                var hdiArray = _.reduce(data, function(res, obj) {
+                    if (((_.isObject(unit)) ? unit.operating_unit[obj.id] : obj.id === unit) && obj.hdi) {
+                        res[obj.id] = {
+                            hdi: obj.hdi,
+                            health: obj.health,
+                            education: obj.education,
+                            income: obj.income,
+                            rank: obj.rank
+                        };
+                    }
+                    return res;
+                }, {});
+    
+                if (view.collection) {
+                    if (!view.options.embed) {
+                        layer = $('.map-btn.active').attr('data-value');
                     } else {
-                        $('#hdi').html('no data');
-                        $('#chart-hdi').css('display','none');
+                        layer = 'budget';
+                    }
+                    view.collection.hdi = hdiArray;
+                    view.collection.hdiWorld = hdiWorld;
+                    if ($('#operating_unit .filter').hasClass('active') || view.options.embed) {
+                        var hdi = _.filter(data, function(d) {
+                            return d.id == _.keys(unit.operating_unit);
+                        })[0];
+    
+                        $('.map-btn[data-value="hdi"] .total-caption').html('HDI');
+    
+                        if (hdi && _.size(hdiArray) > 0) {
+                            $('#hdi').html(_.last(hdi.hdi)[1]);
+                            app.hdi = true;
+                            view.hdiChart(hdi,hdiWorld);
+                            view.hdiDetails(hdi);
+                        } else {
+                            $('#hdi').html('no data');
+                            $('#chart-hdi').css('display','none');
+                        }
+                    } else {
+                        $('#hdi').html(_.last(hdiWorld.hdi)[1]);
+                        $('.map-btn[data-value="hdi"] .total-caption').html('HDI Global');
                     }
                 } else {
-                    $('#hdi').html(_.last(hdiWorld.hdi)[1]);
-                    $('.map-btn[data-value="hdi"] .total-caption').html('HDI Global');
+                    layer = 'budget';
+                    view.model.set('hdi',hdiArray[unit]);
+                    view.model.set('hdiWorld',hdiWorld);
                 }
-            } else {
-                layer = 'budget';
-                view.model.set('hdi',hdiArray[unit]);
-                view.model.set('hdiWorld',hdiWorld);
-            }
-        }).success(function() {
-                view.$el.empty().append('<div class="inner-shadow"></div>');
-                view.buildMap(layer);
-        });
+            }).success(function() {
+                    var IE = $.browser.msie;
+                    view.$el.empty();
+                    if (!IE) view.$el.append('<div class="inner-shadow"></div>');
+                    view.buildMap(layer);
+            });
+        }, 0);
 
-        return this;
     },
     mapClick: function(e) {
         var $target = $(e.target),

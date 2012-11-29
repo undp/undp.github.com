@@ -137,6 +137,36 @@ $(function() {
         .replace(/Vi\b/g, 'VI')
         .replace(/Vii\b/g, 'VII');
     };
+    
+    //localize map tilejson
+    var TJ = {
+        attribution: "<a href='http://mapbox.com/about/maps' target='_blank'>Terms & Feedback</a>",
+        bounds: [
+            -180,
+            -85,
+            180,
+            85
+        ],
+        center: [
+            0,
+            0,
+            2
+        ],
+        id: "undp.map-6grwd0n3",
+        maxzoom: 17,
+        minzoom: 2,
+        name: "UNDP base layer",
+        private: true,
+        scheme: "xyz",
+        tilejson: "2.0.0",
+        tiles: [
+            "http://a.tiles.mapbox.com/v3/undp.map-6grwd0n3/{z}/{x}/{y}.png",
+            "http://b.tiles.mapbox.com/v3/undp.map-6grwd0n3/{z}/{x}/{y}.png",
+            "http://c.tiles.mapbox.com/v3/undp.map-6grwd0n3/{z}/{x}/{y}.png",
+            "http://d.tiles.mapbox.com/v3/undp.map-6grwd0n3/{z}/{x}/{y}.png"
+        ],
+        webpage: "http://tiles.mapbox.com/undp/map/map-6grwd0n3"
+    };
 
     // Start the application
     $(function() {

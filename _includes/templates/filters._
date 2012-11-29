@@ -1,6 +1,9 @@
-<div class="row-fluid">
-   <div class="span12">
-       <div class="label"><%= collection.name %><span class="arrow"></span></div>
-       <ul class="filter-items unstyled"></ul>
+<div class='row-fluid'>
+   <div class='span12'>
+     <a href='#' data-category='<%= collection.id %>' class='label'>
+        <span class='icon open'></span>
+        <%= collection.name %>
+       </a>
+       <ul class='filter-items'></ul>
    </div>
 </div>

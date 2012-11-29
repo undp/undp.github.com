@@ -1,130 +1,175 @@
-<div class="span9 raised summary">
-    <div class="row-fluid separator">
-        <div class="span12">
-            <p class="lead">We've made available detailed information about all of our current projects. Browse the summaries, click on a filter on the right, or search through the full projects below.</p>
-        </div>
+<div class='row-fluid separator'>
+  <div class='span12'>
+    <div id='applied-filters' class='heading-title'>All Projects</div>
+    <div class='col col-700' id='description'>
+      <p class='heading-title'>Welcome to open.undp.org, which presents detailed information on the UNDP’s 6,000+ development projects in 177 countries and territories worldwide. Browse the summaries, click a filter on the right, or search through the full list of projects. <a href='#about/open'>Read more...</a></p>
     </div>
-    <div class="row-fluid" id="main-container">
-        <div class="span6">
-            <div class="row-fluid stats">
-                <div class="span6">
-                    <p id="total-count" class="lead"></p>
-                    <p><strong>Projects</strong></p>
-                </div>
-                <div class="span6">
-                    <p id="total-budget" class="lead"></p>
-                    <p><strong>Budget</strong> <span class="date">2011</span></p>
-                </div>
-            </div>
-            <div class="row-fluid stats">
-                <div class="span6">
-                    <p id="total-donors" class="lead"></p>
-                    <p><strong>Funding Sources</strong></p>
-                </div>
-                <div class="span6">
-                    <p id="total-expenditure" class="lead"></p>
-                    <p><strong>Expenditure</strong> <span class="date">2011</span></p>
-                </div>
-            </div>
-            <div class="row-fuild">
-                <div class="span12">
-                    <div class="label visible-phone">Location</div>
-                    <div id="homemap" class="map"></div>
-                </div>
-            </div>
-        </div>
-        <div class="span6">
-            <div id="applied-filters">
-            </div>
-            <div class="row-fluid">
-                <div class="span12 chart-container" id="chart-operating_unit">
-                    <div class="label">Country Offices
-                        <div class="btn-operating_unit btn-group toggle" data-toggle="buttons-radio">
-                            <button class="btn btn-mini active" data-facet="operating_unit">Budget</button>
-                            <button class="btn btn-mini" data-facet="operating_unit">Count</button>
-                        </div>
-                    </div>
-                    <div class="chart">
-                        <div class="data"></div>
-                        <div class="caption"></div>
-                        <div class="placeholder lead"></div>
-                    </div>
-                </div>
-            </div>
+  </div>
+</div>
+<div class='tab-content col col-540 col-mar-10'>
+  <ul class='nav nav-tabs'>
+    <li class='active'><a data-toggle='tab' href='#summary-tab'>Summary</a></li>
+    <li><a data-toggle='tab' href='#projects-tab'>Project Listing</a></li>
+  </ul>
+  <div id='summary-tab' class='summary tab-pane active'>
+    <div class='clearfix row-fluid' id='main-container'>
+      <div id='map-view'>
+        <!--Layer Switcher on the Map-->
+        <ul class='layers clearfix'>
+          <li>
+            <a href='#' class='map-btn active' data-value='budget'>
+              <span id='total-budget' class='total'></span>
+              <span class='total-caption'>2011 Budget</span>
+            </a>
+          </li>
+          <li>
+            <a href='#' class='map-btn' data-value='expenditure'>
+              <span id='total-expenditure' class='total'></span>
+              <span class='total-caption'>2011 Expenditure</span>
+            </a>
+          </li>
+          <li>
+            <a href='#' class='map-btn' data-value='count'>
+              <span id='total-count' class='total'></span>
+              <span class='total-caption'>Projects</span>
+            </a>
+          </li>
+          <li>
+            <a href='#' class='map-btn' data-value='sources'>
+              <span id='total-donors' class='total'></span>
+              <span class='total-caption'>Budget Sources</span>
+            </a>
+          </li>
+          <li>
+            <a href='#' class='map-btn' data-value='hdi'>
+              <span id='hdi' class='total'>0.682</span>
+              <span class='total-caption'>HDI Global</span>
+            </a>
+          </li>
+        </ul>
+        <!--/ .layers -->
 
-            <div class="row-fluid">
-                <div class="span12 chart-container" id="chart-focus_area">
-                    <div class="label">Focus areas
-                        <div class="btn-focus_area btn-group toggle" data-toggle="buttons-radio">
-                            <button class="btn btn-mini active" data-facet="focus_area">Budget</button>
-                            <button class="btn btn-mini" data-facet="focus_area">Count</button>
-                        </div>
-                    </div>
-                    <div class="chart">
-                        <div class="data"></div>
-                        <div class="caption"></div>
-                        <div class="placeholder lead"></div>
-                    </div>
-                </div>
+        <!--The Map-->
+        <div class='map-container'>
+          <div id='homemap' class='map'></div>
+          <div class='span12 chart' id='chart-hdi'>
+            <div class='label'>
+              <h3>Human Development Index</h3>
+              <span class='chart-legend'>
+                <div class='thick-bar clearfix'><span></span>Country</div>
+                <div class='thin-bar'><span></span>Global Avg</div>
+              </span>
             </div>
-            
-            <div class="row-fluid">
-                <div class="span12 chart-container" id="chart-donors">
-                    <div class="label">Funding Sources
-                        <div class="btn-donors btn-group toggle" data-toggle="buttons-radio">
-                            <button class="btn btn-mini active hidden" data-facet="donors">Count</button>
-                        </div>
-                    </div>
-                    <div class="chart">
-                        <div class="data"></div>
-                        <div class="caption"></div>
-                        <div class="placeholder lead"></div>
-                    </div>
+            <div class='hdic'>
+              <div class='caption'>
+                <div>HDI</div>
+                <div>Health</div>
+                <div>Education</div>
+                <div>Income</div>
+              </div>
+              <div class='data'> </div>
+              <div class='details'>
+                <div class='clearfix rankchange'>
+                  <div class='ranking'></div>
+                  <div class='change'></div>
                 </div>
+                <div id='sparkline'></div>
+                <div id='xlabel' style='font-size:9px;'>
+                  <span class='beginyear'>1980</span>
+                  <span class='endyear' style='float:right;'>2011</span>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-    <div class="separator" id="projects-heading">
-        <p class="lead">Projects</p>
-    </div>
-    <div class="row-fluid">
-        <div id="projects" class="span12">
-            <div class="row-fluid">
-                <div class="span12">
-                    <form class="form-search">
-                        <input id="projects-search" type="search" class="input-xlarge" placeholder="Search for a project...">
-                        <i 
-                            id="help-search"
-                            class="icon-question-sign help-note"
-                            data-title="Search for projects"
-                            data-content='To search by project name, enter any word. To search by project ID, enter  "id: " followed by the project id number. For example: "id: 00061104"'></i>
-                    </form>
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span12">
-                    <div id="project-items"></div>
-                </div>
-            </div>
-        </div> <!--/ #projects -->
-    </div>
+      </div>
 
-</div> <!--/ #summary -->
-<div id="filters" class="span3 hidden-phone">
-    <div class="row-fluid">
-        <div class="span12">
-            <h3>Filter projects</h3>
+      <!--Chart View-->
+      <div class='row-fluid' id='charts'>
+        <div class='span12'>
+          <!--Chart Three-->
+          <div class='row-fluid'>
+            <ul id='chart-focus_area' class='chart stat-chart clearfix'></ul>
+          </div>
+          <div class='row-fluid'>
+            <!--Chart Four -->
+            <div class='span6 chart stat-chart' id='chart-donors'>
+              <h3>Top Budget Sources</h3>
+              <span class='chart-legend'>
+                <div class='thick-bar clearfix'><span></span>Budget</div>
+                <div class='thin-bar'><span></span>Expenditure</div>
+              </span>
+              <table class='table table-unstyled'>
+                <tbody class='rows'></tbody>
+              </table>
+            </div>
+            <div class='span6 chart stat-chart' id='chart-operating_unit'>
+              <h3>Top Recipient Offices</h3>
+              <span class='chart-legend'>
+                <div class='thick-bar clearfix'><span></span>Budget</div>
+                <div class='thin-bar'><span></span>Expenditure</div>
+              </span>
+              <table class='table table-unstyled'>
+                <tbody class='rows'></tbody>
+              </table>
+            </div>
+            <!--/ #chart-operating_unit -->
+          </div>
         </div>
+        <!--/ .span12 -->
+      </div>
+      <!--/ #charts -->
     </div>
-    <div class="row-fluid">
-        <div class="span12">
-            <form class="form-search">
-                <input id="filters-search" type="search" id="filter-field" class="input" placeholder="Find a filter...">
+    <!--/ #main-container -->
+  </div>
+  <!--/ #summary-tab -->
+  <div class='tab-pane' id='projects-tab'>
+    <div class='row-fluid'>
+      <div id='projects' class='span12'>
+        <div class='row-fluid'>
+          <div class='span12'>
+            <form class='form-search'>
+              <strong>Search for projects by title or ID:</strong>
+              <input id='projects-search' type='search' class='input-xlarge' placeholder='Search projects' />
+              <a href='#' class='icon reset hidden' title='Reset filter'>&times;</a>
             </form>
+          </div>
         </div>
-    </div>
-    <div class="row-fluid">
-        <div id="filter-items" class="span12">
+        <div class='row-fluid'>
+          <div class='span12'>
+            <div id='project-items'></div>
+          </div>
         </div>
+      </div>
+      <!--/ #projects -->
     </div>
-</div> <!--/ #filters -->
+    <!--/ .row-fluid -->
+  </div>
+  <!--/ #projects-tab -->
+</div>
+<!-- / .tab-content -->
+<div class='col col-240 col-end col-filter hidden-phone'>
+  <div id='filters'>
+    <div class='inner'>
+      <div class='row-fluid'>
+        <div class='span12'>
+          <h3>Filter projects</h3>
+        </div>
+      </div>
+      <div class='row-fluid'>
+        <div class='span12'>
+          <form class='form-search'>
+            <input id='filters-search' type='search' id='filter-field' class='input' placeholder='Find a filter' />
+            <a href='#' class='icon reset hidden' title='Reset filter'>&times;</a>
+          </form>
+        </div>
+      </div>
+      <div class='row-fluid'>
+        <div id='filter-items' class='span12'> </div>
+      </div>
+    </div>
+    <a href='#widget' class='widget-config' data-toggle='modal'>Embed<span class='icon embed'></span></a>
+  </div>
+  <!--/ #filters -->
+</div>
+<!-- / .col-240 -->

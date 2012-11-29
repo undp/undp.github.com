@@ -1,6 +1,6 @@
 auto: true
 server: true
-baseurl: /undp-projects
+baseurl: 
 exclude:
 prose:
   rooturl: "_posts"

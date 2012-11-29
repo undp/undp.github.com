@@ -35,7 +35,7 @@ donor_projects_sort = sorted(donor_projects, key = lambda x: x['awardID'])
 
 row_count = 0
 donorProject = []
-donorProjHeader = ['projectID','donorID','donorName','donorShort','donorTypeID','donorType']
+donorProjHeader = ['projectID','donorID','donorName','donorShort','donorTypeID','donorType','donorCtyID','donorCty','donorBudget','donorExpend']
 for don,donors in groupby(donor_projects_sort, lambda x: x['awardID']):
     row_count = row_count + 1
     donorList = [don]
@@ -44,17 +44,45 @@ for don,donors in groupby(donor_projects_sort, lambda x: x['awardID']):
     donorShort = []
     donorTypeID = []
     donorType = []
+    donorCtyID = []
+    donorCty = []
+    donorBudget = []
+    donorExpend = []
     for d in donors:
-        donorID.append(d['donorID'])
-        donorName.append(d['long_descr'])
-        donorShort.append(d['short_descr'])
-        donorTypeID.append(d['donor_type_lvl1'].replace(" ",""))
-        donorType.append(d['donor_type_lvl1_descr'])
+        if d['donorID'] in donorID and d['donorID'].replace(" ","") != "":
+            i = donorID.index(d['donorID'])
+            donorBudget[i] += float(d['budget'])
+            donorExpend[i] += float(d['expenditure'])
+        if d['donorID'] not in donorID and d['donorID'].replace(" ","") != "":
+            donorID.append(d['donorID'])
+            if d['donorID'] == '00012':
+                donorName.append('Voluntary Contributions')
+            else:
+                donorName.append(d['long_descr'])
+            donorShort.append(d['short_descr'])
+            donorTypeID.append(d['donor_type_lvl1'].replace(" ",""))
+            donorType.append(d['donor_type_lvl1_descr'])
+            if d['donor_type_lvl1'] == 'PROG CTY' or d['donor_type_lvl1'] == 'NON_PROG CTY':
+                donorCtyID.append(d['donor_type_lvl3'].replace(" ",""))
+                donorCty.append(d['donor_type_lvl3_descr'])
+            elif d['donor_type_lvl1'] == 'MULTI_AGY':
+                donorCtyID.append(d['donor_type_lvl1'].replace(" ",""))
+                donorCty.append(d['donor_type_lvl1_descr'])
+            else:
+                donorCtyID.append('OTH')
+                donorCty.append('OTHERS')
+            donorBudget.append(float(d['budget']))
+            donorExpend.append(float(d['expenditure']))
     donorList.append(donorID)
     donorList.append(donorName)
     donorList.append(donorShort)
     donorList.append(donorTypeID)
     donorList.append(donorType)
+    donorList.append(donorCtyID)
+    donorList.append(donorCty)
+    donorList.append(donorBudget)
+    donorList.append(donorExpend)
+    
     donorProject.append(donorList)
 
 print "Donors by Project Process Count: %d" % row_count
@@ -69,7 +97,7 @@ donor_outputs_sort = sorted(donor_outputs, key = lambda x: x['projectID'])
 
 row_count = 0
 donorOutput = []
-donorOutHeader = ['outputID','donorID','donorName','donorShort','donorTypeID','donorType']
+donorOutHeader = ['outputID','donorID','donorName','donorShort','donorTypeID','donorType','donorCtyID','donorCty','donorBudget','donorExpend']
 for don,donors in groupby(donor_outputs_sort, lambda x: x['projectID']):
     row_count = row_count + 1
     donorList = [don]
@@ -78,17 +106,44 @@ for don,donors in groupby(donor_outputs_sort, lambda x: x['projectID']):
     donorShort = []
     donorTypeID = []
     donorType = []
+    donorCtyID = []
+    donorCty = []
+    donorBudget = []
+    donorExpend = []
     for d in donors:
-        donorID.append(d['donorID'])
-        donorName.append(d['long_descr'])
-        donorShort.append(d['short_descr'])
-        donorTypeID.append(d['donor_type_lvl1'].replace(" ",""))
-        donorType.append(d['donor_type_lvl1_descr'])
+        if d['donorID'] in donorID and d['donorID'].replace(" ","") != "":
+            i = donorID.index(d['donorID'])
+            donorBudget[i] += float(d['budget'])
+            donorExpend[i] += float(d['expenditure'])
+        if d['donorID'] not in donorID and d['donorID'].replace(" ","") != "":
+            donorID.append(d['donorID'])
+            if d['donorID'] == '00012':
+                donorName.append('Voluntary Contributions')
+            else:
+                donorName.append(d['long_descr'])
+            donorShort.append(d['short_descr'])
+            donorTypeID.append(d['donor_type_lvl1'].replace(" ",""))
+            donorType.append(d['donor_type_lvl1_descr'])
+            if d['donor_type_lvl1'] == 'PROG CTY' or d['donor_type_lvl1'] == 'NON_PROG CTY':
+                donorCtyID.append(d['donor_type_lvl3'].replace(" ",""))
+                donorCty.append(d['donor_type_lvl3_descr'])
+            elif d['donor_type_lvl1'] == 'MULTI_AGY':
+                donorCtyID.append(d['donor_type_lvl1'].replace(" ",""))
+                donorCty.append(d['donor_type_lvl1_descr'])
+            else:
+                donorCtyID.append('OTH')
+                donorCty.append('OTHERS')
+            donorBudget.append(float(d['budget']))
+            donorExpend.append(float(d['expenditure']))
     donorList.append(donorID)
     donorList.append(donorName)
     donorList.append(donorShort)
     donorList.append(donorTypeID)
     donorList.append(donorType)
+    donorList.append(donorCtyID)
+    donorList.append(donorCty)
+    donorList.append(donorBudget)
+    donorList.append(donorExpend)
     donorOutput.append(donorList)
 
 print "Donors by Output Process Count: %d" % row_count
@@ -104,7 +159,7 @@ outputs_sort = sorted(outputs, key = lambda x: x['projectID'])
 row_count = 0
 outputs = []
 outputsFull = []
-outputsHeader = ['output_id','award_id','output_title','output_descr','gender_id','gender_descr','focus_area','focus_area_descr','crs','crs_descr','fiscal_year','budget','expenditure','donor_id','donor_short','donor_name','donor_type_id','donor_type']
+outputsHeader = ['output_id','award_id','output_title','output_descr','gender_id','gender_descr','focus_area','focus_area_descr','crs','crs_descr','fiscal_year','budget','expenditure','donor_id','donor_short','donor_name','donor_type_id','donor_type','donor_country_id','donor_country','donor_budget','donor_expend']
 for out,output in groupby(outputs_sort, lambda x: x['projectID']): 
     row_count = row_count + 1
     outputList = [out]
@@ -140,6 +195,10 @@ for out,output in groupby(outputs_sort, lambda x: x['projectID']):
             outputList.append(dOut['donorName'])
             outputList.append(dOut['donorTypeID'])
             outputList.append(dOut['donorType'])
+            outputList.append(dOut['donorCtyID'])
+            outputList.append(dOut['donorCty'])
+            outputList.append(dOut['donorBudget'])
+            outputList.append(dOut['donorExpend'])
     outputsFull.append(dict(zip(outputsHeader,outputList))) # this returns a list of dicts of output informaiton for each output
 
 print "Output Process Count: %d" % row_count
@@ -148,8 +207,8 @@ print "Output Process Count: %d" % row_count
 # ****************************************** 
 projects = csv.DictReader(open('download/undp_export/report_projects.csv', 'rb'), delimiter = ',', quotechar = '"')
 projects_sort = sorted(projects, key = lambda x: x['awardID'])
-units = csv.DictReader(open('download/undp_export/report_units_copy.csv', 'rb'), delimiter = ',', quotechar = '"')
-units_sort = sorted(units, key = lambda x: x['rollup_ou'])
+units = csv.DictReader(open('download/undp_export/report_units.csv', 'rb'), delimiter = ',', quotechar = '"')
+units_sort = sorted(units, key = lambda x: x['operating_unit'])
 bureau = csv.DictReader(open('download/undp_export/regions.csv', 'rb'), delimiter = ',', quotechar = '"')
 bureau_sort = sorted(bureau, key = lambda x: x['bureau'])
 
@@ -177,9 +236,9 @@ for award,project in groupby(projects_sort, lambda x: x['awardID']):
         if p['end_date'] not in projectList:
             projectList.append(p['end_date'].rstrip(' 00:00:00.0'))
         for op in units_sort:
-            if op['rollup_ou'] == p['operatingunit']:
+            if op['operating_unit'] == p['operatingunit']:
                 projectList.append(p['operatingunit'])
-                projectList.append(op['rollup_ou_description'])
+                projectList.append(op['ou_descr'])
         for b in bureau_sort:
             if b['bureau'] == p['bureau']:
                 projectList.append(p['bureau'])
@@ -201,7 +260,7 @@ print "Project Process Count: %d" % row_count
 file_count = 0
 for row in projectsFull:
     file_count = file_count + 1
-    writeout = json.dumps(row, sort_keys=True, indent=4)
+    writeout = json.dumps(row, sort_keys=True, separators=(',',':'))
     f_out = open('../api/projects/%s.json' % row['project_id'], 'wb')
     f_out.writelines(writeout)
     f_out.close()
@@ -212,9 +271,11 @@ print 'Processing complete. %d project files generated.' % file_count
 projectSum = csv.DictReader(open('download/undp_export/report_projects.csv', 'rb'), delimiter = ',', quotechar = '"')
 projectSum_sort = sorted(projectSum, key = lambda x: x['awardID'])
 
+regionsList = ['PAPP','RBA','RBAP','RBAS','RBEC','RBLAC']
+
 row_count = 0
 projectSummary = []
-projectSumHeader = ['id','name','operating_unit','region','budget','expenditure','crs','focus_area','donors','donor_types']
+projectSumHeader = ['id','name','operating_unit','region','budget','expenditure','crs','focus_area','donors','donor_types','donor_countries','donor_budget','donor_expend']
 for award,summary in groupby(projectSum_sort, lambda x: x['awardID']): 
     row_count = row_count + 1
     summaryList = [award]
@@ -223,7 +284,10 @@ for award,summary in groupby(projectSum_sort, lambda x: x['awardID']):
     for s in summary:
         summaryList.append(s['award_title'])
         summaryList.append(s['operatingunit'])
-        summaryList.append(s['bureau'])
+        if s['bureau'] not in regionsList:
+            summaryList.append('global')
+        else:
+            summaryList.append(s['bureau'])
         summaryList.append(float(s['budget']))
         summaryList.append(float(s['expenditure']))
     crsTemp = []
@@ -236,19 +300,76 @@ for award,summary in groupby(projectSum_sort, lambda x: x['awardID']):
                 faTemp.append(out['focus_area'])
     summaryList.append(crsTemp)
     summaryList.append(faTemp)
+    dTemp = []
+    dtypeTemp = []
+    dCtyTemp = []
+    dBudget = []
+    dExpend = []
     for dProj in donorProjects:
         if dProj['projectID'] == award:
-            summaryList.append(dProj['donorID'])
-            summaryList.append(dProj['donorTypeID'])
+            dTemp = dProj['donorID']
+            dtypeTemp = dProj['donorTypeID']
+            dCtyTemp = dProj['donorCtyID']
+            dBudget = dProj['donorBudget']
+            dExpend = dProj['donorExpend']
+    summaryList.append(dTemp)
+    summaryList.append(dtypeTemp)
+    summaryList.append(dCtyTemp)
+    summaryList.append(dBudget)
+    summaryList.append(dExpend)
+    
     projectSummary.append(dict(zip(projectSumHeader,summaryList))) # this joins the project summary information 
 
 print "Project Summary Process Count: %d" % row_count
 
-writeout = json.dumps(projectSummary, sort_keys=True, indent=4)
+writeout = json.dumps(projectSummary, sort_keys=True, separators=(',',':'))
 f_out = open('../api/project_summary.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
 print 'Processing complete. project_summary.json generated.' 
+
+## Process Operating Unit counts from Project Summary file
+# *****************************
+opUnitCount = csv.DictReader(open('download/undp_export/report_projects.csv', 'rb'), delimiter = ',', quotechar = '"')
+opUnitCount_sort = sorted(opUnitCount, key = lambda x: x['operatingunit'])
+
+row_count = 0
+opUnitCounts = []
+opUnitCountsHeader = ['operating_unit','project_count','funding_sources_count','budget_sum','expenditure_sum']
+for opunit,summary in groupby(opUnitCount_sort, lambda x: x['operatingunit']): 
+    row_count = row_count + 1
+    opUnitList = [opunit]
+    opUnitProj = []
+    opUnitBudget = []
+    opUnitDonor = []
+    projectFY = []
+    projCount = []
+    budgetSum = []
+    expendSum = []
+    donorCount = []
+    donors = []
+    for s in summary:
+        for dProj in donorProjects:
+            if dProj['projectID'] == s['awardID']:
+                projCount.append(1)
+                for d in dProj['donorID']:
+                    if d not in donors:
+                        donors.append(d)
+                budgetSum.append(float(s['budget']))
+                expendSum.append(float(s['expenditure']))
+    opUnitDonor.append(len(donors))
+#    opUnitBudget.append(sum(budgetSum))
+#    opUnitProj.append(sum(projCount))
+    opUnitList.append(sum(projCount))
+    opUnitList.append(sum(opUnitDonor))
+    opUnitList.append(sum(budgetSum))
+    opUnitList.append(sum(expendSum))
+    opUnitCounts.append(opUnitList)
+
+opUnitprint = []
+for o in opUnitCounts:
+    opUnitprint.append(dict(zip(opUnitCountsHeader,o))) # this joins the project summary information
+
 
 # Process CRS Index
 # *****************
@@ -268,7 +389,7 @@ for c,crs in groupby(outputsCRS_sort, lambda x: x['crs']):
         crs_index.append(dict(zip(crsHeader, index)))
 
 print "CRS Index Process Count: %d" % row_count
-writeout = json.dumps(crs_index, sort_keys=True, indent=4)
+writeout = json.dumps(crs_index, sort_keys=True, separators=(',',':'))
 f_out = open('../api/crs-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
@@ -288,16 +409,17 @@ for don,donor in groupby(donor_index_sort, lambda x: x['donorID']):
     if don.replace(" ","") != "":
         index.append(don)
         for d in donor:
-            index.append(d['long_descr'])
+            if don == '00012':
+                index.append('Voluntary Contributions')
+            else:
+                index.append(d['long_descr'])
         donor_index.append(dict(zip(donorIndexHeader, index)))
 
 print "Donor Index Process Count: %d" % row_count
-writeout = json.dumps(donor_index, sort_keys=True, indent=4)
+writeout = json.dumps(donor_index, sort_keys=True, separators=(',',':'))
 f_out = open('../api/donor-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
-
-print "Donor Index Process Count: %d" % row_count
 
 # Process Donor Type Index
 # ************************
@@ -317,18 +439,44 @@ for don,donor in groupby(donor_types_sort, lambda x: x['donor_type_lvl1']):
         dtype_index.append(dict(zip(dtypeHeader, index)))
 
 print "Donor Type Index Process Count: %d" % row_count
-writeout = json.dumps(dtype_index, sort_keys=True, indent=4)
+writeout = json.dumps(dtype_index, sort_keys=True, separators=(',',':'))
 f_out = open('../api/donor-type-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
 
+# Process Donor Country Index
+# ************************
+donor_country = csv.DictReader(open('download/undp_export/report_donors.csv', 'rb'), delimiter = ',', quotechar = '"')
+donor_country_sort = sorted(donor_country, key = lambda x: x['donor_type_lvl3'])
 
-print "Donor Type Index Process Count: %d" % row_count
+row_count = 0
+dctry_index = [
+    {"id": "OTH","name": "Others"},
+    {"id": "MULTI_AGY","name": "Multi-lateral Agency"}
+]
+dctryHeader = ['id','name']
+dlvl1_check = []
+for don,donor in groupby(donor_country_sort, lambda x: x['donor_type_lvl3']):
+    row_count = row_count + 1
+    index = []
+    for d in donor:
+        if d['donor_type_lvl1'] == 'PROG CTY' or d['donor_type_lvl1'] == 'NON_PROG CTY':
+            if don.replace(" ","") != "":
+                index.append(don.replace(" ",""))
+                index.append(d['donor_type_lvl3_descr'])
+    if index:
+        dctry_index.append(dict(zip(dctryHeader, index)))
+
+print "Donor Country Index Process Count: %d" % row_count
+writeout = json.dumps(dctry_index, sort_keys=True, separators=(',',':'))
+f_out = open('../api/donor-country-index.json', 'wb')
+f_out.writelines(writeout)
+f_out.close()
 
 # Process Focus Area Index
 # ************************
 outputsFA = csv.DictReader(open('download/undp_export/report_outputs.csv', 'rb'), delimiter = ',', quotechar = '"')
-outputsFA_sort = sorted(outputs, key = lambda x: x['focus_area'])
+outputsFA_sort = sorted(outputsFA, key = lambda x: x['focus_area'])
 
 row_count = 0
 fa_index = []
@@ -343,55 +491,120 @@ for fa,focus in groupby(outputsFA_sort, lambda x: x['focus_area']):
         fa_index.append(dict(zip(faHeader, index)))
 
 print "Focus Area Index Process Count: %d" % row_count
-writeout = json.dumps(fa_index, sort_keys=True, indent=4)
-f_out = open('test/focus-area-index.json', 'wb')
+writeout = json.dumps(fa_index, sort_keys=True, separators=(',',':'))
+f_out = open('../api/focus-area-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
 
 # Process Operating Unit Index
 # ****************************
-unitsIndex = csv.DictReader(open('download/undp_export/report_units_copy.csv', 'rb'), delimiter = ',', quotechar = '"')
-unitsIndex_sort = sorted(unitsIndex, key = lambda x: x['rollup_ou'])
+unitsIndex = csv.DictReader(open('download/undp_export/report_units.csv', 'rb'), delimiter = ',', quotechar = '"')
+unitsIndex_sort = sorted(unitsIndex, key = lambda x: x['operating_unit'])
 geo = csv.DictReader(open('country-centroids.csv', 'rb'), delimiter = ',', quotechar = '"')
 country_sort = sorted(geo, key = lambda x: x['iso3'])
 
 row_count = 0
 opUnit_index = []
-opUnitHeader = ['id','name','web','email','twitter','flickr','facebook','lat','lon']
-for un,unit in groupby(unitsIndex_sort, lambda x: x['rollup_ou']): 
+opUnitHeader = ['id','name','web','email','project_count','funding_sources_count','budget_sum','expenditure_sum','lat','lon']
+for un,unit in groupby(unitsIndex_sort, lambda x: x['operating_unit']): 
     index = []
     if un != "":
         index.append(un)
         for ctry in country_sort:
             if ctry['iso3'] == un:
                 row_count = row_count + 1
+                for u in unit:
+                    index.append(u['ou_descr'])
+                    index.append(u['web'])
+                    index.append(u['email'])
+                for x in opUnitprint:
+                    if x['operating_unit'] == un:
+                        index.append(x['project_count'])
+                        index.append(x['funding_sources_count'])
+                        index.append(x['budget_sum'])
+                        index.append(x['expenditure_sum'])
                 if ctry['lat'] != "":
-                    for u in unit:
-                        index.append(u['rollup_ou_description'])
-                        index.append(u['Web'])
-                        index.append(u['Email'])
-                        index.append(u['Twitter'])
-                        index.append(u['Flickr'])
-                        index.append(u['Facebook'])
                     index.append(float(ctry['lat']))
                     index.append(float(ctry['lon']))
-                else:
-                    for u in unit:
-                        index.append(u['rollup_ou_description'])
-                        index.append(u['Web'])
-                        index.append(u['Email'])
-                        index.append(u['Twitter'])
-                        index.append(u['Flickr'])
-                        index.append(u['Facebook'])
+                    
                 opUnit_index.append(dict(zip(opUnitHeader, index)))
 
-print "CRS Index Process Count: %d" % row_count
-writeout = json.dumps(opUnit_index, sort_keys=True, indent=4)
+writeout = json.dumps(opUnit_index, sort_keys=True, separators=(',',':'))
 f_out = open('../api/operating-unit-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
 
 print "Operating Unit Index Process Count: %d" % row_count
+
+# Top Donor Lists
+# ************************
+donor_gross = csv.DictReader(open('download/undp_export/donor_gross.csv', 'rb'), delimiter = ',', quotechar = '"')
+donor_gross_sort = sorted(donor_gross, key = lambda x: x['donor'])
+donor_local = csv.DictReader(open('download/undp_export/donor_local.csv', 'rb'), delimiter = ',', quotechar = '"')
+donor_local_sort = sorted(donor_local, key = lambda x: x['donor'])
+
+# Writeout donor gross list
+gross_list = []
+for g in donor_gross_sort:
+    gross = {}
+    gross['name'] = g['donor']
+    gross['amount'] = g['amount']
+    gross_list.append(gross)
+
+writeout = json.dumps(gross_list, sort_keys=True, separators=(',',':'))
+f_out = open('../api/top-donor-gross-index.json', 'wb')
+f_out.writelines(writeout)
+f_out.close()
+
+# Writeout donor local list
+local_list = []
+for g in donor_local_sort:
+    local = {}
+    local['name'] = g['donor']
+    local['amount'] = g['amount']
+    local_list.append(local)
+    
+writeout = json.dumps(local_list, sort_keys=True, separators=(',',':'))
+f_out = open('../api/top-donor-local-index.json', 'wb')
+f_out.writelines(writeout)
+f_out.close()
+
+# Region Index 
+# ************************
+exclude = ['PAPP','RBA','RBAP','RBAS','RBEC','RBLAC']
+
+regions = csv.DictReader(open('download/undp_export/report_units.csv', 'rb'), delimiter = ',', quotechar = '"')
+regions_sort = sorted(regions, key = lambda x: x['bureau'])
+
+row_count = 0
+region_index = []
+regionHeader = ['id','name']
+region_i = []
+index = []
+global_i = ['global','Global']
+for r,region in groupby(regions_sort, lambda x: x['bureau']): 
+    row_count = row_count + 1
+    if r in exclude:
+        region_i = [r]
+        for reg in region:
+            if reg['bureau'] == 'PAPP':
+                region_i.append(reg['ou_descr'])
+                index.append(region_i)
+            if reg['hq_co'] == 'HQ':
+                if reg['ou_descr'] not in region_i:
+                    region_i.append(reg['ou_descr'])
+                    index.append(region_i)
+
+index.append(global_i)
+index_print = []
+for i in index:
+    index_print.append(dict(zip(regionHeader, i)))
+    
+print "Region Index Process Count: %d" % row_count
+writeout = json.dumps(index_print, sort_keys=True, separators=(',',':'))
+f_out = open('../api/region-index.json', 'wb')
+f_out.writelines(writeout)
+f_out.close()
 
 t1 = time.time()
 total_time = t1-t0

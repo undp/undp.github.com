@@ -1,6 +1,9 @@
-<li><a 
-    id="<%= model.collection.id %>-<%= model.get('id') %>" 
-    class="filter" 
-    href="#">
-        <%= model.get('name').toLowerCase() %>  (<%= accounting.formatNumber(model.get('count')) %>)
-</a></li>
+<li>
+  <a
+    id='<%= model.collection.id %>-<%= model.get("id") %>'
+    class='filter'
+    href='#'>
+        <span class='count'><%= accounting.formatNumber(model.get("count")) %></span>
+        <%= model.get("name").toLowerCase().toTitleCase() %>
+  </a>
+</li>

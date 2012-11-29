@@ -1,11 +1,14 @@
-<table class="table">
-    <thead>
-        <tr>
-            <th>Project</th>
-            <th>Budget</th>
-            <th>Expenditure</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
+<table class='table' id='project-table'>
+  <thead>
+    <tr>
+      <th class='sort-header' data-sort='name'>Project</th>
+      <th class='sort-header sort-up' data-sort='budget'>Budget</th>
+      <th class='sort-header' data-sort='expenditure'>Expenditure</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
 </table>
+
+<div class='load'>
+  <a href='#' class='button'>Load More</a>
+</div>

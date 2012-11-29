@@ -206,19 +206,17 @@ span.int {
 	background:url("../img/global/bg-header.png") repeat-x;
 	position:relative;
 	z-index:1;
-}
-
-#header a {
-	color:#66c2ff;
-}
+  }
+#header ul li a {
+  color:#66c2ff;
+  }
 
 #header a:hover {
 	color:#fff;
-}
-
+  }
 #header ul li {
 	float:left;
-}
+  }
 
 #header .logo {
 	position:absolute;

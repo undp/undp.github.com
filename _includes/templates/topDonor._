@@ -1,0 +1,7 @@
+<tr>
+    <td><%= model.get('name') %></td>
+    <td class='right'><%= accounting.formatMoney(model.get('amount')) %></td>
+    <td class='data'>
+        <div style='width:<%= barWidth %>%'></div>
+    </td>
+</tr>

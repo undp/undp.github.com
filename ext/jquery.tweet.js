@@ -8,6 +8,7 @@
 }(function ($) {
   $.fn.tweet = function(o){
     var s = $.extend({
+      tweets: null,
       username: null,                           // [string or array] required unless using the 'query' option; one or more twitter screen names (use 'list' option for multiple names, where possible)
       list: null,                               // [string]   optional name of list belonging to username
       favorites: false,                         // [boolean]  display the user's favorites instead of his tweets
@@ -237,11 +238,9 @@
     function load(widget) {
       var loading = $('<p class="loading">'+s.loading_text+'</p>');
       if (s.loading_text) $(widget).not(":has(.tweet_list)").empty().append(loading);
-      $.getJSON(build_api_url(), function(data){
-        var tweets = $.map(data.results || data, extract_template_data);
-        tweets = $.grep(tweets, s.filter).sort(s.comparator).slice(0, s.count);
-        $(widget).trigger("tweet:retrieved", [tweets]);
-      });
+      var tweets = $.map(s.tweets.results || s.tweets, extract_template_data);
+      tweets = $.grep(tweets, s.filter).sort(s.comparator).slice(0, s.count);
+      $(widget).trigger("tweet:retrieved", [tweets]);
     }
 
     return this.each(function(i, widget){

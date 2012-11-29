@@ -1,0 +1,6 @@
+<ul>
+  <li>Projects <span><%= project_count %></span></li>
+  <li>Funding Sources <span><%= funding_sources_count %></span></li>
+  <li>Budget <span><%= accounting.formatMoney(budget_sum) %></span></li>
+  <li>Expenditure <span><%= accounting.formatMoney(expenditure_sum) %></span></li>
+</ul>

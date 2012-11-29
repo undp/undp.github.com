@@ -219,5 +219,5 @@ views.App = Backbone.View.extend({
         if ($(e.target).attr('href') === '#summary-tab') {
             app.projects.map.map.requestRedraw();
         }
-    },
+    }
 });

@@ -18,7 +18,9 @@
     <h3 class="empty">To use this widget choose some options on the left.</h3>
   </div>
   <div class='widget-intro'>
-    To embed this page on a website select features you want on the left, then copy and paste the code below.
+  {% for embed in site.categories.embed %}
+    {{embed.content}}
+  {% endfor %}
   </div>
 
   <input class='widget-code' autocomplete='off' readonly='readonly' title='copy me' type='text' value='https://www.everlane.com/n/e1r6ek'>

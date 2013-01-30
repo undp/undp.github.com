@@ -126,7 +126,9 @@
 
         <div id='top-donors' class='col-540 content view chart'>
           <h1 class='title-story'>Top Contributing Donors</h1>
-          <p class='heading-desc'>List of top donors is based on total income received for regular and other resources in 2011 (excluding contribution to local resources)</p>
+          {% for donor in site.categories.donors %}
+            {{donor.content}}
+          {% endfor %}
           <ul id='donor-nav'>
             <li><a href='#top-donors/regular'>Regular</a></li>
             <li><a href='#top-donors/other'>Other</a></li>
@@ -163,15 +165,16 @@
     </div>
     {% endfor %}
 
+
+  {% for feedback in site.categories.feedback %}
   <div class='modal hide fade' id='feedback'>
     <form class='form-horizontal' id='feedback-form'>
       <div class='modal-header'>
         <button type='button' class='close' data-dismiss='modal'>&times;</button>
-        <h3>Send feedback</h3>
+         <h3>{{feedback.title}}</h3>
       </div>
-
       <div class='modal-body'>
-        <p>You are viewing an early release of the UNDP Projects portal. Help us make it better by submitting your feedback.</p>
+        {{feedback.content}}
         <div class='control-group'>
           <label class='control-label' for='entry_0'>Name</label>
           <div class='controls'>
@@ -197,6 +200,8 @@
       </div>
     </form>
   </div>
+  {% endfor %}
+
 
     <!-- Widget modal -->
     <div class='modal hide fade' id='widget'></div>

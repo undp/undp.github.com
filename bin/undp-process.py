@@ -170,6 +170,9 @@ outputsHeader = ['output_id','award_id','output_title','output_descr','gender_id
 for out,output in groupby(outputs_sort, lambda x: x['projectID']): 
     row_count = row_count + 1
     outputList = [out]
+    outputAward = []
+    outputTitle = []
+    outputDescr = []
     outputGenID = []
     outputGenDescr = []
     outputFA = []
@@ -180,18 +183,37 @@ for out,output in groupby(outputs_sort, lambda x: x['projectID']):
     outputBudget = []
     outputExpend = []
     for o in output:
-        outputList.append(o['awardid'])
-        outputList.append(o['project_description'])
-        outputList.append(o['project_med_de'])
-        outputList.append(o['gender_marker'])
-        outputList.append(o['gender_marker_descr'])
-        outputList.append(o['focus_area'])
-        outputList.append(o['fa_description'])
-        outputList.append(o['crs'])
-        outputList.append(o['crs_descr'])
-        outputFY.append(o['fiscal_year'])
-        outputBudget.append(float(o['budget']))
-        outputExpend.append(float(o['expenditure']))
+        if o['awardid'] not in outputAward:
+            outputAward.append((o['awardid'] if o['awardid'] != "" else "-"))
+        if o['project_description'] not in outputTitle:
+            outputTitle.append((o['project_description'] if o['project_description'] != "" else "-"))
+        if o['project_med_de'] not in outputDescr:
+            outputDescr.append((o['project_med_de'] if o['project_med_de'] != "" else "-"))
+        if o['gender_marker'] not in outputGenID:
+            outputGenID.append((o['gender_marker'] if o['gender_marker'] != "" else "-"))
+        if o['gender_marker_descr'] not in outputGenDescr:
+            outputGenDescr.append((o['gender_marker_descr'] if o['gender_marker_descr'] != "" else "-"))
+        if o['focus_area'] not in outputFA:
+            outputFA.append((o['focus_area'] if o['focus_area'] != "" else "-"))
+        if o['fa_description'] not in outputFAdescr:
+            outputFAdescr.append((o['fa_description'] if o['fa_description'] != "" else "-"))
+        if o['crs'] not in outputCRS:
+            outputCRS.append((o['crs'] if o['crs'] != "" else "-"))
+        if o['crs_descr'] not in outputCRSdescr:
+            outputCRSdescr.append((o['crs_descr'] if o['crs_descr'] != "" else "-"))
+        if o['fiscal_year'] not in outputFY:
+            outputFY.append((o['fiscal_year'] if o['fiscal_year'] != "" else "-"))
+        outputBudget.append((float(o['budget']) if o['budget'] != "" else 0))
+        outputExpend.append((float(o['expenditure']) if o['expenditure'] != "" else 0))
+    outputList.append(outputAward[0])
+    outputList.append(outputTitle[0])
+    outputList.append(outputDescr[0])
+    outputList.append(outputGenID[0])
+    outputList.append(outputGenDescr[0])
+    outputList.append(outputFA[0])
+    outputList.append(outputFAdescr[0])
+    outputList.append(outputCRS[0])
+    outputList.append(outputCRSdescr[0])
     outputList.append(outputFY)
     outputList.append(outputBudget)
     outputList.append(outputExpend)
@@ -228,31 +250,65 @@ projectsHeader = ['project_id','project_title','project_descr','inst_id','inst_d
 for award,project in groupby(projects_sort, lambda x: x['awardID']): 
     row_count = row_count + 1
     projectList = [award]
-    projectFY = []
     docTemp = []
     subnationalTemp = []
+    award_title = []
+    award_description = [] 
+    institutionid = []
+    inst_descr = []
+    inst_type = []
+    inst_type_descr = []
+    projectFY = []
+    start_date = []
+    end_date = []
+    operatingunit = []
+    ou_descr = []
+    bureau = []
+    bureau_description = []
     for p in project:
-        projectList.append(p['award_title'])
-        projectList.append(p['award_description'])
-        projectList.append(p['institutionid'])
-        projectList.append(p['inst_descr'])
-        projectList.append(p['inst_type'])
-        projectList.append(p['inst_type_descr'])
+        if p['award_title'] not in award_title:
+            award_title.append(p['award_title'])
+        if p['award_description'] not in award_description:
+            award_description.append(p['award_description'])
+        if p['institutionid'] not in institutionid:
+            institutionid.append(p['institutionid'])
+        if p['inst_descr'] not in inst_descr:
+            inst_descr.append(p['inst_descr'])
+        if p['inst_type'] not in inst_type:
+            inst_type.append(p['inst_type'])
+        if p['inst_type_descr'] not in inst_type_descr:
+            inst_type_descr.append(p['inst_type_descr'])
         if p['fiscal_year'] not in projectFY:
             projectFY.append(p['fiscal_year'])
-        projectList.append(projectFY)
-        if p['start_date'] not in projectList:
-            projectList.append(p['start_date'].rstrip(' 00:00:00.0'))
-        if p['end_date'] not in projectList:
-            projectList.append(p['end_date'].rstrip(' 00:00:00.0'))
+        if p['start_date'] not in start_date:
+            start_date.append(p['start_date'].rstrip(' 00:00:00.0'))
+        if p['end_date'] not in end_date:
+            end_date.append(p['end_date'].rstrip(' 00:00:00.0'))
         for op in units_sort:
             if op['operating_unit'] == p['operatingunit']:
-                projectList.append(p['operatingunit'])
-                projectList.append(op['ou_descr'])
+                if p['operatingunit'] not in operatingunit:
+                    operatingunit.append(p['operatingunit'])
+                if op['ou_descr'] not in ou_descr:
+                    ou_descr.append(op['ou_descr'])
         for b in bureau_sort:
             if b['bureau'] == p['bureau']:
-                projectList.append(p['bureau'])
-                projectList.append(b['bureau_description'])
+                if p['bureau'] not in bureau:
+                    bureau.append(p['bureau'])
+                if b['bureau_description'] not in bureau_description:
+                    bureau_description.append(b['bureau_description'])
+    projectList.append(award_title[0])
+    projectList.append(award_description[0])
+    projectList.append(institutionid[0])
+    projectList.append(inst_descr[0])
+    projectList.append(inst_type[0])
+    projectList.append(inst_type_descr[0])
+    projectList.append(projectFY)
+    projectList.append(start_date[0])
+    projectList.append(end_date[0])
+    projectList.append(operatingunit[0])
+    projectList.append(ou_descr[0])
+    projectList.append(bureau[0])
+    projectList.append(bureau_description[0])
     outputTemp = []
     for out in outputsFull:
         if out['award_id'] == award:
@@ -289,69 +345,85 @@ print '%d project files generated.' % file_count
 ## Process Project Summary file
 # *****************************
 projectSum = csv.DictReader(open('download/undp_export/report_projects.csv', 'rb'), delimiter = ',', quotechar = '"')
-projectSum_sort = sorted(projectSum, key = lambda x: x['awardID'])
+projectSum_sort = sorted(projectSum, key = lambda x: x['fiscal_year'])
 
 regionsList = ['PAPP','RBA','RBAP','RBAS','RBEC','RBLAC']
 
 row_count = 0
-projectSummary = []
-projectSumHeader = ['id','name','operating_unit','region','budget','expenditure','crs','focus_area','donors','donor_types','donor_countries','donor_budget','donor_expend']
-for award,summary in groupby(projectSum_sort, lambda x: x['awardID']): 
-    row_count = row_count + 1
-    summaryList = [award]
-    projectFY = []
-    docTemp = []
-    for s in summary:
-        summaryList.append(s['award_title'])
-        summaryList.append(s['operatingunit'])
-        if s['bureau'] not in regionsList:
-            summaryList.append('global')
-        else:
-            summaryList.append(s['bureau'])
-        summaryList.append(float(s['budget']))
-        summaryList.append(float(s['expenditure']))
-    crsTemp = []
-    faTemp = []
-    for out in outputsFull:
-        if out['award_id'] == award:
-            if out['crs'] not in crsTemp:
-                crsTemp.append(out['crs'])
-            if out['focus_area'] not in faTemp:
-                faTemp.append(out['focus_area'])
-    summaryList.append(crsTemp)
-    summaryList.append(faTemp)
-    dTemp = []
-    dtypeTemp = []
-    dCtyTemp = []
-    dBudget = []
-    dExpend = []
-    for dProj in donorProjects:
-        if dProj['projectID'] == award:
-            dTemp = dProj['donorID']
-            dtypeTemp = dProj['donorTypeID']
-            dCtyTemp = dProj['donorCtyID']
-            dBudget = dProj['donorBudget']
-            dExpend = dProj['donorExpend']
-    summaryList.append(dTemp)
-    summaryList.append(dtypeTemp)
-    summaryList.append(dCtyTemp)
-    summaryList.append(dBudget)
-    summaryList.append(dExpend)
-    
-    projectSummary.append(dict(zip(projectSumHeader,summaryList))) # this joins the project summary information 
+yearJson = []
+yearList = []
+projectSumHeader = ['fiscal_year','id','name','operating_unit','region','budget','expenditure','crs','focus_area','donors','donor_types','donor_countries','donor_budget','donor_expend']
+for year,projectYears in groupby(projectSum_sort, lambda x: x['fiscal_year']):
+    projectSummary = []
+    yearJson.append(year)
+    yearSummary = {'year':"",'summary':""} 
+    for award,summary in groupby(sorted(projectYears, key = lambda x: x['awardID']), lambda x: x['awardID']): 
+        row_count = row_count + 1
+        summaryList = [year]
+        summaryList.append(award)
+        projectFY = []
+        docTemp = []
+        for s in summary:
+            summaryList.append(s['award_title'])
+            summaryList.append(s['operatingunit'])
+            if s['bureau'] not in regionsList:
+                summaryList.append('global')
+            else:
+                summaryList.append(s['bureau'])
+            summaryList.append(float(s['budget']))
+            summaryList.append(float(s['expenditure']))
+        crsTemp = []
+        faTemp = []
+        for out in outputsFull:
+            if out['award_id'] == award:
+                if out['crs'] not in crsTemp:
+                    crsTemp.append(out['crs'])
+                if out['focus_area'] not in faTemp:
+                    faTemp.append(out['focus_area'])
+        summaryList.append(crsTemp)
+        summaryList.append(faTemp)
+        dTemp = []
+        dtypeTemp = []
+        dCtyTemp = []
+        dBudget = []
+        dExpend = []
+        for dProj in donorProjects:
+            if dProj['projectID'] == award:
+                dTemp = dProj['donorID']
+                dtypeTemp = dProj['donorTypeID']
+                dCtyTemp = dProj['donorCtyID']
+                dBudget = dProj['donorBudget']
+                dExpend = dProj['donorExpend']
+        summaryList.append(dTemp)
+        summaryList.append(dtypeTemp)
+        summaryList.append(dCtyTemp)
+        summaryList.append(dBudget)
+        summaryList.append(dExpend)
+        projectSummary.append(dict(zip(projectSumHeader,summaryList))) # this joins the project summary information 
+    yearSummary['year'] = year
+    yearSummary['summary'] = projectSummary 
+    yearList.append(yearSummary)
 
 print "Project Summary Process Count: %d" % row_count
 
-jsvalue = "var SUMMARY = "
-jsondump = json.dumps(projectSummary, sort_keys=True, separators=(',',':'))
-writeout = jsvalue + jsondump
-f_out = open('../api/project_summary.js', 'wb')
+for y in yearList:
+    jsvalue = "var SUMMARY = "
+    jsondump = json.dumps(y['summary'], sort_keys=True, separators=(',',':'))
+    writeout = jsvalue + jsondump
+    f_out = open('../api/project_summary_%s.js' % y['year'], 'wb')
+    f_out.writelines(writeout)
+    f_out.close()
+    f_out = open('../api/project_summary_%s.json' % y['year'], 'wb')
+    f_out.writelines(jsondump)
+    f_out.close()
+print 'Project Summary json files generated.' 
+
+# Make year index 
+yearJSvalue = "var year ="
+writeout = "%s %s" % (yearJSvalue, yearJson) 
+f_out = open('../api/year-index.js', 'wb')
 f_out.writelines(writeout)
 f_out.close()
-f_out = open('../api/project_summary.json', 'wb')
-f_out.writelines(jsondump)
-f_out.close()
-print 'project_summary.json generated.' 
 
 ## Process Operating Unit counts from Project Summary file
 # *****************************

@@ -44,21 +44,54 @@
           </div>
         </div>
       </div>
-      <div class='row-fluid stat'>
-        <div class='span12'>
-          <% _.each(model.get('budgetyears'), function(v,k) { %>
-            <div class='label'><%= k %> Budget</div>
-            <div><%= accounting.formatMoney(v) %></div>
-          <% }); %>
+      <div class='row-fluid stat finance'>
+        <div>
+          <div class='span2'>
+          </div>
+          <div class='span5'>
+            <div class='label'>Budget</div>
+          </div>
+          <div class='span5'>
+            <div class='label'>Expenditure</div>
+          </div>
         </div>
-      </div>
-      <div class='row-fluid stat'>
-        <div class='span12'>
-          <% _.each(model.get('expendyears'), function(v,k) { %>
-            <div class='label'><%= k %> Expenditure</div>
-            <div><%= accounting.formatMoney(v) %></div>
-          <% }); %>
-        </div>
+        <% var prevBudget = null,
+               prevExpend = null;
+           _.each(model.get('budgetyears'), function(v,k) { %>
+           <div>
+             <div class='span2'>
+               <div class='fiscalyear'><%= k %></div>
+             </div>
+             <div class='span5'>
+               <% if (k === '2010') { %>
+                 <div><em>no data</em>
+               <% } else { %>
+                 <div><%= accounting.formatMoney(v) %>
+               <% } %>
+                 <% if (prevBudget != null) { 
+                      var change = (((v - prevBudget)/prevBudget)*100),
+                          changeSign = (change > 0) ? '+' : '';
+                 %>
+                      <span class='fiscalchange'>(<%= changeSign %><%= (change >= 100) ? change.toFixed(0) : change.toFixed(1) %>%)</span>
+                 <% } %>
+               </div>
+             </div>
+             <div class='span5'>
+               <div><%= accounting.formatMoney(model.get('expendyears')[k]) %>
+                 <% if (prevExpend != null) { 
+                      var change = (((model.get('expendyears')[k] - prevExpend)/prevExpend)*100),
+                          changeSign = (change > 0) ? '+' : '';
+                 %>
+                      <span class='fiscalchange'>(<%= changeSign %><%= (change >= 100) ? change.toFixed(0) : change.toFixed(1) %>%)</span>
+                 <% } %>
+               </div>
+             </div>
+           </div>
+           <%
+           if (k != '2010') prevBudget = v;
+           prevExpend = model.get('expendyears')[k];
+           %>
+        <% }); %>
       </div>
       <% if (model.get('inst_descr')) { %>
       <div class='row-fluid stat'>

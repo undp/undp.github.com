@@ -984,6 +984,28 @@ input[readonly] {
   padding-bottom:10px;
   border-bottom:1px solid #b3b3b3;
   }
+#top-stats .finance [class*='span'] {
+  height: 19px;
+  min-height: 19px;
+}
+#top-stats .finance .span2 {
+  width: 10%;
+}
+#top-stats .finance .span5 {
+  width: 42.5%;
+}
+#top-stats .finance .fiscalyear {
+  font-weight: bold;
+}
+#top-stats .finance .fiscalchange {
+  font-size: 9px;
+  float: right;
+  line-height: 22px;
+  color: #666;
+}
+#outputs .fiscalyear {
+  margin-right: 8px;
+}
 .project .projid {
   min-width: 45px;
   margin-top: 5px;

@@ -32,16 +32,21 @@
                 </div>
                 <div class='span4'>
                     <div class='row-fluid'>
-                      <% _.each(model.budget, function(o, i) { %>
-                        <div class='label'><%= model.fiscal_year[i] %> Budget</div>
-                        <div><%= accounting.formatMoney(o) %></div>
-                      <% }); %>
+                      <div class='label'>Budget</div>
+                        <% var years = model.fiscal_year.reverse();
+                          _.each(model.budget.reverse(), function(o, i) { %>
+                            <% if (years[i] === '2010') { %>
+                            <div><span class='label fiscalyear'><%= years[i] %></span><em>no data</em></div>
+                            <% } else { %>
+                            <div><span class='label fiscalyear'><%= years[i] %></span><%= accounting.formatMoney(o) %></div>
+                            <% } %>
+                        <% }); %>
                     </div>
                     <div class='row-fluid'>
-                      <% _.each(model.expenditure, function(o, i) { %>
-                        <div class='label'><%= model.fiscal_year[i] %> Expenditure</div>
-                        <div><%= accounting.formatMoney(o) %></div>
-                      <% }); %>
+                      <div class='label'>Expenditure</div>
+                        <% _.each(model.expenditure.reverse(), function(o, i) { %>
+                          <div><span class='label fiscalyear'><%= years[i] %></span><%= accounting.formatMoney(o) %></div>
+                        <% }); %>
                     </div>
                 </div>
             </div>

@@ -117,9 +117,9 @@ views.ProjectMap = Backbone.View.extend({
     },
 
     tooltip: function(data, g) {
-        var scope = g.scope[data.scope].split(':')[0],
-            type = g.type[data.type].split(':')[0],
-            precision = g.precision[data.precision].split(' ')[0];
+        var scope = (g.scope[data.scope]) ? g.scope[data.scope].split(':')[0] : 'unknown',
+            type = (g.type[data.type]) ? g.type[data.type].split(':')[0] : 'unknown',
+            precision = (g.precision[data.precision]) ? g.precision[data.precision].split(' ')[0] : 'unknown';
 
         var description = '<div><b>Location type:</b> <span class="value">' + type + '</span></div>'
                         + '<div><b>Scope:</b> <span class="value">' + scope + '</span></div>'

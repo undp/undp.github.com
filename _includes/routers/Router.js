@@ -15,14 +15,15 @@ routers.App = Backbone.Router.extend({
     redirect: function(route) {
         //if url lacks a year, default to most recent
         if (route) {
-            this.navigate(FISCALYEARS[0] + '/filter/' + route, {trigger: true});
+        console.log(CURRENT_YR);
+            this.navigate(CURRENT_YR + '/filter/' + route, {trigger: true});
         } else {
-            this.navigate(FISCALYEARS[0], {trigger: true});
+            this.navigate(CURRENT_YR, {trigger: true});
         }
     },
     
     widgetRedirect: function(route) {
-        this.navigate(FISCALYEARS[0] + '/widget/' + route, {trigger: true});
+        this.navigate(CURRENT_YR + '/widget/' + route, {trigger: true});
     },
 
     mainApp: function () {

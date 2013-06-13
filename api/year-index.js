@@ -1,1 +1,1 @@
-var FISCALYEARS = ['2010', '2011'];
+var year = ['2010', '2011']

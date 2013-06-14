@@ -1,6 +1,5 @@
 auto: true
 server: true
-baseurl:
-exclude:
+baseurl: /akshay.github.com
 prose:
   rooturl: "_posts"

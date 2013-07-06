@@ -3,7 +3,7 @@ title: 'Using Open.undp.org'
 tag: 'usage'
 category: 'about'
 ---
-Open.undp.org is the central point of access to detailed information about UNDP’s more than 6,000 development projects and 8,000 outputs in 177countries and territories worldwide. It comprises data and information for active development projects and those that were financially closed in 2011. 
+Open.undp.org is the central point of access to detailed information about UNDP’s more than 6,000 development projects and 8,000 outputs in 177countries and territories worldwide. It comprises data and information for active development projects and those that were financially closed after 2011. 
 
 The presentation of  information in open.undp.org do not imply the expression of any opinion on the part of UNDP, concerning the legal status of any country, territory, city or area or of its authorities, or concerning the delimitation of its frontiers or boundaries.
 

@@ -13,7 +13,7 @@ UNDP also leads outreach efforts with partner countries and other UN agencies to
 - South-South cooperation information sharing
 - Alignment of aid information with budget and medium-term expenditure frameworks
 
-In 2013, UNDP started to publish quarterly project-level information, including sub-national geolocation and additional activity-level financial attributes. UNDP reviewed its Information Disclosure Policy and updated it according to the highest international standards.
+In 2013, UNDP started to publish quarterly project-level information, including sub-national geolocation and additional activity-level financial attributes. UNDP reviewed its [Information Disclosure Policy](http://www.undp.org/content/undp/en/home/operations/transparency/information_disclosurepolicy.html) and updated it according to the highest international standards.
 
 ###Notes on UNDP work
 

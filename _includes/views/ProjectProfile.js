@@ -25,7 +25,7 @@ views.ProjectProfile = Backbone.View.extend({
 
 	render: function() {
 		$('#breadcrumbs ul').html(
-			'<li><a href="http://akshaysinha.github.io/test/">Home</a></li>' +
+			'<li><a href="http://http://open.undp.org/">Home</a></li>' +
 			'<li><a href="' + BASE_URL + '">Our Projects</a></li>' +
 			'<li><a href="#filter/operating_unit-' + this.model.get('operating_unit_id') + '">' + this.model.get("operating_unit") + '</a></li>' +
 			'<li><a href="#project/' + this.model.get('id') + '">' + this.model.get('id') + '</a></li>'

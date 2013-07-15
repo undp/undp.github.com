@@ -36,7 +36,9 @@ views.Widget = Backbone.View.extend({
         var view = this;
         view.path = '#widget/';
 
-        if (location.hash !== '') {
+        if (location.hash.split('/').length === 1) {
+            view.path = location.hash + '/widget/';
+        } else {
             view.path = location.hash
                 .replace('filter', 'widget')
                 .replace('project', 'widget/project');

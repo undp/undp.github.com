@@ -1,7 +1,8 @@
 ---
 ---
+var CURRENT_YR = FISCALYEARS[0];
 $(function() {
-    var BASE_URL = 'http://open.undp.org/',
+    var BASE_URL = 'http://akshaysinha.github.io/test/',
         widgetOts = [],
         models = {},
         views = {},
@@ -62,6 +63,28 @@ $(function() {
     String.prototype.capitalize = function() {
         return this.charAt(0).toUpperCase() + this.slice(1);
     };
+    
+    // Script loader
+    function loadjsFile(filename, year, callback) {
+        $('#fiscalData').empty();
+        var fileref = document.createElement('script');
+        fileref.setAttribute('type', 'text/javascript');
+        fileref.setAttribute('id', 'y' + year);
+        fileref.setAttribute('src', filename);
+        
+        //calling a function after the js is loaded (IE)
+        var loadFunction = function() {  
+            if (this.readyState == 'complete' || this.readyState == 'loaded') {  
+                callback();
+            }  
+        };
+        fileref.onreadystatechange = loadFunction;  
+  
+        //calling a function after the js is loaded (Chrome/Firefox)  
+        fileref.onload = callback;
+        
+        document.getElementById('fiscalData').appendChild(fileref);
+    }
 
     // Via https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/indexOf
     if (!Array.prototype.indexOf) {

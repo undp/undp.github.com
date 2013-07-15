@@ -2,7 +2,7 @@
 ---
 var CURRENT_YR = FISCALYEARS[0];
 $(function() {
-    var BASE_URL = 'http://akshaysinha.github.io/test/',
+    var BASE_URL = 'http://open.undp.org/',
         widgetOts = [],
         models = {},
         views = {},

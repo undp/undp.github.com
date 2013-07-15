@@ -99,8 +99,8 @@ views.ProjectProfile = Backbone.View.extend({
 
         if (this.options.embed) {
             this.$el.empty().append(templates.embedProjectProfile({
-                start: start,
-                end: end,
+                start: this.model.get('start'),
+                end: this.model.get('end'),
                 documents: documents,
                 model: this.model
             }));
@@ -115,8 +115,8 @@ views.ProjectProfile = Backbone.View.extend({
 
         } else {
             this.$el.empty().append(templates.projectProfile({
-                start: start,
-                end: end,
+                start: this.model.get('start'),
+                end: this.model.get('end'),
                 base: BASE_URL,
                 documents: documents,
                 model: this.model

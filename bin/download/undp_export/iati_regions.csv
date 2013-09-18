@@ -1,0 +1,17 @@
+code,name,filter_unit
+89,"Europe, regional",EU
+189,"North of Sahara, regional",NS
+289,"South of Sahara, regional",SS
+298,"Africa, regional",AR
+380,"West Indies, regional",WI
+389,"North and Central America, regional",NC
+489,"South America, regional",SA
+498,"America, regional",AR
+589,"Middle East, regional",ME
+619,"Central Asia, regional",CA
+679,"South Asia, regional",SA
+689,"South and Central Asia, regional",SC
+789,"Far East Asia, regional",FE
+798,"Asia, regional",AA
+889,"Oceania, regional",OR
+998,"Bilateral, unspecified",NC

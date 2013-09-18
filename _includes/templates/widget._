@@ -1,11 +1,11 @@
 <div class='modal-header'>
   <button type='button' class='close' data-dismiss='modal'>&times;</button>
-  <h3>Widget</h3>
+  <p class='instruction'>Select the sections you would like to include in your website</p>
 </div>
 <div class='modal-body'>
   <ul class='widget-options'>
-    <li class='proj-opt main-opt title-opt'><a href='' data-value='title'>Title</a></li>
-    <li class='proj-opt descr-opt'><a href='' data-value='descr'>Description</a></li>
+    <li class='proj-opt main-opt title-opt'><a href='#' data-value='title'>Title</a></li>
+    <li class='proj-opt descr-opt'><a href='#' data-value='descr'>Description</a></li>
     <li class='proj-opt main-opt map-opt'><a href='#' data-value='map'>Map</a></li>
     <li class='proj-opt main-opt stats-opt'><a href='#' data-value='stats'>Stats</a></li>
     <li class='proj-opt documents-opt'><a href='#' data-value='documents'>Documents</a></li>
@@ -17,11 +17,8 @@
   <div class='widget-preview'>
     <h3 class="empty">To use this widget choose some options on the left.</h3>
   </div>
-  <div class='widget-intro'>
-  {% for embed in site.categories.embed %}
-    {{embed.content}}
-  {% endfor %}
-  </div>
-
-  <input class='widget-code' autocomplete='off' readonly='readonly' title='copy me' type='text' value='https://www.everlane.com/n/e1r6ek'>
+</div>
+<div class='modal-footer'>
+  <p class='instruction'>Copy the embed code</p>
+  <input class='widget-code' autocomplete='off' readonly='readonly' title='copy me' type='text' value=''>
 </div>

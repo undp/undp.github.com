@@ -1,7 +1,10 @@
 id,description
-1,Country level accuracy.
-2,"ADM1 = Sub-region (administrative division, state, district, province) level accuracy."
-3,"ADM2 = Town, city, village, post code/zip level accuracy."
-4,Street level (within 5 km of address) accuracy.
-5,"Longitude/Latitude, exact address, premise building name, property name, shopping center, etc.) level accuracy."
-0,Unknown accuracy of project location
+1,Exact location
+2,Near exact location
+3,Subnational – Admin2
+4,Subnational – Admin1
+5,Estimated coordinates
+6,Independent political entity
+7,Unclear – capital
+8,Local or national capital
+9,Unclear – country

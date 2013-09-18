@@ -1,3 +1,11 @@
 id,description
-1,"Activity: Refers to a location/area where the project is implemented, a workshop is held, etc."
-2,Intended Beneficiaries: Refers to a location/area that benefits from the project.
+ADM1,1st admin division
+ADM2,2nd admin division
+CNS,Concession area
+FRM,farm
+PCL,Political entity
+PPL,Populated place
+PPLA,Seat of 1st admin division
+PPLA2,Seat of 2nd admin division
+PPLC,Capital of a political entity
+RES,Reserve

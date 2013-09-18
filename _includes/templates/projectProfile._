@@ -1,26 +1,24 @@
 <div class='row-fluid separator' id='project-heading'>
-  <div class='span12'>
-    <p class='heading-title'><%= model.get('project_title').toLowerCase().toTitleCase() %></p>
-    <div class='col col-700' id='project-descr'>
+  <div class='col col-700'>
+    <h3 class='heading-title'><%= model.get('project_title').toLowerCase().toTitleCase() %></h3>
+    <div id='project-descr'>
       <p class='heading-desc'><%= model.get('project_descr') %></p>
     </div>
   </div>
 </div>
 
-<div class='col col-540 col-mar-10 projects summary'>
+<div class='col col-700 col-mar-10 projects summary'>
   <div id='top-stats' class='row-fluid'>
 
     <div class='span5'>
       <div class='row-fluid'>
-        <div class='span12'>
-          <div class='label visible-phone'>Location</div>
-          <div id='profilemap' class='map'></div>
-          <!-- Country at a Glance -->
-          <div class='row-fluid country-profile'>
-            <div class='span12 inner'>
-              <h3><%= model.get('operating_unit') %> at a glance</h3>
-              <div id='country-summary'></div>
-            </div>
+        <div class='label visible-phone'>Location</div>
+        <div id='profilemap' class='map'></div>
+        <!-- Country at a Glance -->
+        <div class='row-fluid country-profile'>
+          <div class='inner'>
+            <h3><%= model.get('operating_unit')%> at a glance in <%= model.get('fiscal_year')[0] %></h3>
+            <div id='country-summary'></div>
           </div>
         </div>
       </div>
@@ -36,8 +34,8 @@
               </a>
           </div>
           <div class='dates-label'>
-            <span class='start'><%= start?start:'' %></span>
-            <span class='end'><%= end?end:'' %></span>
+            <span class='start'><%= start %></span>
+            <span class='end'><%= end %></span>
           </div>
           <div id='progress' class='progress'>
             <div class='bar'></div>
@@ -153,16 +151,16 @@
         </div>
       </div>
       <% if (!_.isEmpty(documents)) { %>
-      <div class='row-fluid'>
+      <div class='row-fluid documents'>
         <div class='span12'>
           <div class='label'>Documents</div>
           <div id='documents' class='row-fluid'>
             <div class='span12'>
               <ul class='unstyled'>
-                <% _.each(documents, function(d) { %>
-                <li><a href='<%= d.src %>'>
-                  <span class='icon filetype filetype-<%= d.filetype %>'></span>
-                  <%= d.title %></a>
+                <% _.each(documents, function(doc) { %>
+                <li><a href='<%= doc.src %>'>
+                  <span class='icon filetype filetype-<%= doc.filetype %>'></span>
+                  <%= doc.title %></a>
                 </li>
                 <% }); %>
               </ul>
@@ -178,12 +176,12 @@
   <!--/ #top-stats -->
   <% if (model.get('outputs')) { %>
     <div class='separator' id='output-header'>
-      <p class='heading-title'>
-        <% if (model.get('outputs').length > 1) { %>
-        <span><%= model.get('outputs').length %></span>
+      <h2 class='heading-title'>
+        <% if (model.get('outputs').length === 1) { %>
+        <span>1</span> output<% } else { %>
+        <span><%= model.get('outputs').length %></span> outputs
         <% } %>
-        <% if (model.get('outputs').length === 1) { %>Output<% } else { %>Outputs<% } %>
-      </p>
+      </h3>
     </div>
     <div id='outputs'></div>
     <div class='load'>
@@ -193,7 +191,7 @@
 </div>
 <!--/ #summary -->
 
-<div id='content-right' class='col col-240 col-end hidden-phone'>
+<div id='content-right' class='col col-150 col-end hidden-phone'>
 
   <div id='flickr' class='row-fluid'>
     <div class='spin'></div>

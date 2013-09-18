@@ -15,7 +15,6 @@ routers.App = Backbone.Router.extend({
     redirect: function(route) {
         //if url lacks a year, default to most recent
         if (route) {
-        console.log(CURRENT_YR);
             this.navigate(CURRENT_YR + '/filter/' + route, {trigger: true});
         } else {
             this.navigate(CURRENT_YR, {trigger: true});
@@ -58,6 +57,7 @@ routers.App = Backbone.Router.extend({
     fiscalyear: function (year, route, embed) {
         var that = this;
         if (!$('#y' + year).length) {
+             //passing in year index js (json)
             loadjsFile('api/project_summary_' + year + '.js', year, function() {
                 that.browser(year, route, embed);
             });
@@ -67,6 +67,7 @@ routers.App = Backbone.Router.extend({
     },
 
     browser: function (year, route, embed) {
+
         var that = this,
             unit = false;
 
@@ -100,8 +101,8 @@ routers.App = Backbone.Router.extend({
         }
 
         // Save default description
-        app.defaultDescription = app.defaultDescription || $('#description p').html();
-
+        app.defaultDescription = app.defaultDescription || $('#description p.intro').html();
+        
         // Parse hash
         var parts = (route) ? route.split('/') : [];
         var filters = _(parts).map(function (part) {
@@ -118,13 +119,14 @@ routers.App = Backbone.Router.extend({
         if (_.isEqual(this.app.filters, filters) && app.fiscalYear === year) {
             $('html, body').scrollTop(0);
         } else {
+            // slicing the selected facets and getting the json items
             var filter = function (model) {
                 if (!filters.length) return true;
                 return _(filters).reduce(function (memo, filter) {
                     if (filter.collection === 'region') {
                         return memo && model.get(filter.collection) == filter.id;
                     } else {
-                        return memo && (model.get(filter.collection) && (model.get(filter.collection).toString()).indexOf(filter.id) >= 0);
+                        return memo && (model.get(filter.collection) && model.get(filter.collection).indexOf(filter.id) >= 0);
                     }
                 }, true);
             };
@@ -135,13 +137,14 @@ routers.App = Backbone.Router.extend({
                 that.app.views = {};
                 // Load filters
                 _(facets).each(function (facet) {
+
                     var collection = new models.Filters();
                     $('#filter-items').append('<div id="' + facet.id + '" class="topics"></div>');
 
                     _(facet).each(function (v, k) {
                         collection[k] = v;
                     });
-
+                   
                     collection.fetch({
                         success: function () {
                             that.app.views[facet.id] = new views.Filters({
@@ -154,7 +157,6 @@ routers.App = Backbone.Router.extend({
                                     that.app.views[facet.id].active = true;
                                 }
                             });
-
                             collection.watch();
 
                             counter++;
@@ -163,14 +165,12 @@ routers.App = Backbone.Router.extend({
                         }
                     });
                 });
-                
                 // Create summary map view
-                if (!embed) {
+                if (!embed){
                     that.projects.map = new views.Map({
                         el: '#homemap',
                         collection: that.projects
                     });
-
                     that.projects.widget = new views.Widget({
                         context: 'projects'
                     });
@@ -181,11 +181,11 @@ routers.App = Backbone.Router.extend({
                         embed: embed
                     });
                 }
-                
             };
 
             // Load projects
             if (!this.allProjects || app.fiscalYear != year) {
+                if (app.fiscalYear && app.fiscalYear != year){app.projects.map.map.remove();}
                 app.fiscalYear = year;
                 this.allProjects = new models.Projects(SUMMARY);
 
@@ -202,6 +202,24 @@ routers.App = Backbone.Router.extend({
                 this.projects.cb = updateDescription;
                 this.projects.reset(this.allProjects.filter(filter));
             }
+            
+            updateWhenOpUnit();
+        }
+
+        function updateWhenOpUnit(){
+            var opUnitFilter =_(app.app.filters).findWhere({collection:"operating_unit"});
+            $('.map-filter').removeClass('active') // reset the subfilter look
+            $('#map-filters').find('#type-10').addClass('active');
+            if(_.isObject(opUnitFilter)){
+                $('#map-filters').removeClass('disabled');//shows type sub-filter
+                $('.map-btn').removeClass('active');
+                $('ul.layers li').addClass('no-hover');
+                $('ul.layers li.hdi .graph').addClass('active');
+            } else {
+                $('#map-filters').addClass('disabled'); //hides type sub-filter
+                $('ul.layers li').removeClass('no-hover');
+                $('ul.layers li.hdi .graph').removeClass('active');
+            }
         }
 
         function updateDescription() {
@@ -217,17 +235,43 @@ routers.App = Backbone.Router.extend({
                 } else {
                     $('#chart-focus_area').show();
                 }
-    
-                if (app.description && app.description.length > 1) {
-                    $('#applied-filters').html('Selected Projects');
-                    $('#description p').html(app.description.shift() + app.description.join(',') + '.');
-                } else {
-                    $('#applied-filters').html('All Projects');
-                    $('#description p').html(app.defaultDescription);
+
+                // three kinds of descriptions
+                // 1. no filter --> defaultDescription
+                // 2. filter (no donor) --> start with "The above includes"
+                // 3. filter (with donor) --> start with "DONOR funds the above"
+                var counts = (app.projects.length === 1) ? 'project' : 'projects';
+                    projectCounts = 'There are <strong>' + app.projects.length +'</strong> ' + counts;
+
+                if (app.description && app.description.length === 0){
+                    if (app.donorDescription.length > 0) {
+                        $('#description p.desc').html(app.donorDescription + counts +' accoss the world.');
+                    } else {
+                        $('#description p.desc').html(app.defaultDescription);
+                    }
+                } else if (app.description && app.description.length > 0){
+                    if (app.donorDescription.length > 0) {
+                        $('#description p.desc').html(app.donorDescription + counts + ' ' + app.description.join(',') + '.');
+                    } else {
+                        $('#description p.desc').html(projectCounts + app.description.join(',') + '.');
+                    }
+                } else if (!app.description) {
+                    $('#description p.desc').html(app.defaultDescription);
                 }
+
+                // reset description
                 app.description = false;
-        
+                app.donorDescription = "";
+
                 $('#browser .summary').removeClass('off');
+
+                // defaultDescription is already populated
+                $('#description p.intro').empty();
+
+                // empty the sub loc content since
+                // on a DOM level since it is generated with the page/map
+                // instead of beforehdand
+                $('#description p.geography').empty();
 
             }, 0);
         }
@@ -243,6 +287,8 @@ routers.App = Backbone.Router.extend({
         } else {
             app.hdi = false;
             $('#chart-hdi').css('display','none');
+            $('ul.layers li.no-hover.hdi a').css('cursor','default');
+            $('ul.layers li.hdi .graph').removeClass('active');
             if (unit) {
                 $('#hdi').html('no data');
                 $('.map-btn[data-value="hdi"] .total-caption').html('HDI');
@@ -266,7 +312,6 @@ routers.App = Backbone.Router.extend({
             // Set up menu
             $('#app .view, #mainnav .browser').hide();
             $('#mainnav li').removeClass('active');
-            $('#browser .summary').addClass('off');
             $('#mainnav .profile').show();
             $('#mainnav li a[href="/"]').parent().addClass('active');
             $('#mainnav li.parent').removeClass('parent-active');
@@ -277,35 +322,7 @@ routers.App = Backbone.Router.extend({
             id: id
         });
 
-        var projectSuccess = function () {
-    		if (that.project.view) that.project.view.undelegateEvents();
-			that.project.view = new views.ProjectProfile({
-				el: (embed) ? '#embed' : '#profile',
-				model: that.project.model,
-				embed: embed || false,
-				gotoOutput: (output) ? output : false
-			});
-
-			if (!embed) {
-				that.project.widget = new views.Widget({
-					context: 'project'
-				});
-			}
-		};
-
         this.project.model.fetch({
-            success: projectSuccess,
-			error: function() {
-				that.project.model = new models.Project({
-					id: id.replace('000', '')
-				});
-				that.project.model.fetch({
-					success: projectSuccess
-				});
-			}
-        });
-
-        /*this.project.model.fetch({
             success: function () {
                 if (that.project.view) that.project.view.undelegateEvents();
                 that.project.view = new views.ProjectProfile({
@@ -321,7 +338,7 @@ routers.App = Backbone.Router.extend({
                     });
                 }
             }
-        });*/
+        });
     },
 
     widget: function (year, route) {

@@ -1,11 +1,11 @@
-donor,amount
-Argentina,318338539.5
-Brazil,63589335.44
-Egypt,52967014.35
-Colombia,39146655.15
-Venezuela,37831119.66
-El Salvador,28170963.45
-Mexico,25197527.77
-Cyprus,18452710.99
-Panama,18407244.43
-Paraguay,17685271.63
+donor,abbrev,amount
+Argentina,ARG,318338539.5
+Brazil,BRA,63589335.44
+Egypt,EGY,52967014.35
+Colombia,COL,39146655.15
+Venezuela,VEN,37831119.66
+El Salvador,SLV,28170963.45
+Mexico,MEX,25197527.77
+Cyprus,CYP,18452710.99
+Panama,PAN,18407244.43
+Paraguay,PRY,17685271.63

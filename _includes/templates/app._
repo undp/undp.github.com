@@ -1,13 +1,3 @@
-<div class='row-fluid separator'>
-  <div class='span12'>
-    <div id='applied-filters' class='heading-title'>All Projects</div>
-    <div class='col col-700' id='description'>
-      {% for intro in site.categories.intro %}
-        {{intro.content}}
-      {% endfor %}
-    </div>
-  </div>
-</div>
 <div class='tab-content col col-540 col-mar-10'>
   <ul class='nav nav-tabs'>
     <li class='active'><a data-toggle='tab' href='#summary-tab'>Summary</a></li>
@@ -15,11 +5,12 @@
   </ul>
   <div id='summary-tab' class='summary tab-pane active'>
     <div class='clearfix row-fluid' id='main-container'>
+      <!--beigin of upper-->
       <div id='map-view'>
         <!--Layer Switcher on the Map-->
         <ul class='layers clearfix'>
           <li>
-            <a href='#' class='map-btn active' data-value='budget'>
+            <a href='#' class='map-btn budget active' data-value='budget'>
               <span id='total-budget' class='total'></span>
               <span class='total-caption'><%= year %> Budget</span>
             </a>
@@ -42,10 +33,11 @@
               <span class='total-caption'>Budget Sources</span>
             </a>
           </li>
-          <li>
+          <li class='hdi'>
             <a href='#' class='map-btn' data-value='hdi'>
               <span id='hdi' class='total'>0.682</span>
               <span class='total-caption'>HDI Global</span>
+              <span class='graph'>Graph</span>
             </a>
           </li>
         </ul>
@@ -53,7 +45,22 @@
 
         <!--The Map-->
         <div class='map-container'>
-          <div id='homemap' class='map'></div>
+          <div id='homemap' class='map inner-shadow'></div>
+          <div id='map-filters' class='disabled'>
+            <ul>
+              <li>Filter on precision:</li>
+              <li><a id='type-10' class='map-filter active' href='#'>All</a></li>
+              <li><a id='type-4' class='map-filter' href='#'>Country</a></li>
+              <li><a id='type-3' class='map-filter' href='#'>Subnational</a></li>
+              <li><a id='type-1' class='map-filter' href='#'>Street</a></li>
+          <!--<li><a id='type-2' class='map-filter' href='#'>Near exact location</a></li>-->
+          <!--<li><a id='type-5' class='map-filter' href='#'>Estimated coordinates</a></li>-->
+          <!--<li><a id='type-6' class='map-filter' href='#'>Independent political entity</a></li>-->
+          <!--<li><a id='type-7' class='map-filter' href='#'>Unclear - capital</a></li>-->
+          <!--<li><a id='type-8' class='map-filter' href='#'>Local or national capital</a></li>-->
+          <!--<li><a id='type-9' class='map-filter' href='#'>Unclear</a></li>-->
+            </ul>
+          </div>
           <div class='span12 chart' id='chart-hdi'>
             <div class='label'>
               <h3>Human Development Index</h3>
@@ -85,44 +92,55 @@
           </div>
         </div>
       </div>
-
-      <!--Chart View-->
-      <div class='row-fluid' id='charts'>
+      <!--Description-->
+      <div class='row-fluid separator'>
         <div class='span12'>
-          <!--Chart Three-->
-          <div class='row-fluid'>
-            <ul id='chart-focus_area' class='chart stat-chart clearfix'></ul>
-          </div>
-          <div class='row-fluid'>
-            <!--Chart Four -->
-            <div class='span6 chart stat-chart' id='chart-operating_unit'>
-              <h3>Top Recipient Offices</h3>
-              <span class='chart-legend'>
-                <div class='thick-bar clearfix'><span></span>Budget</div>
-                <div class='thin-bar'><span></span>Expenditure</div>
-              </span>
-              <table class='table table-unstyled'>
-                <tbody class='rows'></tbody>
-              </table>
-            </div>
-            <div class='span6 chart stat-chart' id='chart-donors'>
-              <h3>Top Budget Sources</h3>
-              <span class='chart-legend'>
-                <div class='thick-bar clearfix'><span></span>Budget</div>
-                <div class='thin-bar'><span></span>Expenditure</div>
-              </span>
-              <table class='table table-unstyled'>
-                <tbody class='rows'></tbody>
-              </table>
-            </div>
-            <!--/ #chart-operating_unit -->
+          <div id='description'>
+            {% for intro in site.categories.intro %}
+            {{intro.content}}
+            {% endfor %}
+            <p class='desc'></p>
+            <p class='geography'></p>
           </div>
         </div>
-        <!--/ .span12 -->
       </div>
-      <!--/ #charts -->
     </div>
-    <!--/ #main-container -->
+    <!--end of main-container-->
+    <!--Chart View-->
+    <div class='row-fluid' id='charts'>
+      <div class='span12'>
+        <!--Chart Three-->
+        <div class='row-fluid'>
+          <ul id='chart-focus_area' class='chart stat-chart clearfix'></ul>
+        </div>
+        <div class='row-fluid'>
+          <!--Chart Four -->
+          <div class='span6 chart stat-chart' id='chart-operating_unit'>
+            <h3>Top Recipient Offices</h3>
+            <span class='chart-legend'>
+              <div class='thick-bar clearfix'><span></span>Budget</div>
+              <div class='thin-bar'><span></span>Expenditure</div>
+            </span>
+            <table class='table table-unstyled'>
+              <tbody class='rows'></tbody>
+            </table>
+          </div>
+          <div class='span6 chart stat-chart' id='chart-donors'>
+            <h3>Top Budget Sources</h3>
+            <span class='chart-legend'>
+              <div class='thick-bar clearfix'><span></span>Budget</div>
+              <div class='thin-bar'><span></span>Expenditure</div>
+            </span>
+            <table class='table table-unstyled'>
+              <tbody class='rows'></tbody>
+            </table>
+          </div>
+          <!--/ #chart-operating_unit -->
+        </div>
+      </div>
+      <!--/ .span12 -->
+    </div>
+    <!--/ #charts -->
   </div>
   <!--/ #summary-tab -->
   <div class='tab-pane' id='projects-tab'>
@@ -167,11 +185,6 @@
     </div>
     <div id='filters'>
       <div class='inner'>
-        <div class='row-fluid'>
-          <div class='span12'>
-            <h3>Filter projects</h3>
-          </div>
-        </div>
         <div class='row-fluid'>
           <div class='span12'>
             <form class='form-search'>

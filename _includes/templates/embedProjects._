@@ -1,11 +1,14 @@
-<div data-option='title' id='description' class='option'>
-  <p class='heading-title'>Welcome to open.undp.org, which presents detailed information on the UNDP’s 6,000+ development projects in 177 countries and territories worldwide. Browse the summaries, click a filter on the right, or search through the full list of projects. <a href='#about/open'>Read more...</a></p>
-</div>
-
 <div data-option='map' class='option'>
   <div id='homemap' class='map'></div>
 </div>
-
+<div data-option='title' id='description' class='option'>
+  <!--p class='heading-title'>Welcome to open.undp.org, which presents detailed information on the UNDP’s 6,000+ development projects in 177 countries and territories worldwide. Browse the summaries, click a filter on the right, or search through the full list of projects. <a href='#about/open'>Read more...</a></p-->
+  {% for intro in site.categories.intro %}
+  {{intro.content}}
+  {% endfor %}
+  <p class='desc'></p>
+  <p class='geography'></p>
+</div>
 <div data-option='stats' class='option'>
 
    <table cellspacing='0' class='table stats table-unstyled'>

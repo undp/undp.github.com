@@ -3,13 +3,15 @@
         <div class='span12'>
             <div class='row-fluid heading'>
               <% if (model.focus_area && model.focus_area != '-') { %>
-                <span class="icon icon-thumbnail <%= (model.focus_area_descr).replace(/\s+/g, '-').toLowerCase().split('-')[0] %>"></span>
+              <div class='focus'>
+                <span class="<%= (model.focus_area_descr).replace(/\s+/g, '-').toLowerCase().split('-')[0] %>"></span>
                 <a href='#filter/focus_area-<%= model.focus_area %>' class='focus-title'><%= model.focus_area_descr.toTitleCase() %></a>
+              </div>
               <% } %>
               <h3><%= model.output_title.toLowerCase().toTitleCase() %> <small><%= model.output_id %></small></h3>
               <p><%= model.output_descr %></p>
             </div>
-            <div class='row-fluid'>
+            <div class='row-fluid content'>
                 <div class='span5'>
                     <% if (model.crs) { %>
                     <div class='row-fluid'>

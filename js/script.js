@@ -1,6 +1,19 @@
 ---
 ---
 var CURRENT_YR = FISCALYEARS[0];
+
+function ctyBounds(coords) {
+    if (coords.length > 1) {
+        var polyline = L.polyline(_.flatten(_.flatten(coords,true),true));
+    } else {
+        var polyline = L.polyline(coords[0]);
+    }
+    var bbox = polyline.getBounds();
+    
+    return [[bbox.getSouthWest().lng, bbox.getSouthWest().lat],
+            [bbox.getNorthEast().lng, bbox.getNorthEast().lat]];
+}
+
 $(function() {
     var BASE_URL = 'http://open.undp.org/',
         widgetOts = [],
@@ -39,11 +52,14 @@ $(function() {
                 name: 'Budget Source'
             }
         ];
-
+    var IE = $.browser.msie;
+    if (IE) {var IE_VERSION = parseInt($.browser.version);} // should return 6, 7, 8, 9
     // Models
     {% include models/Filter.js %}
     {% include models/Project.js %}
     {% include models/TopDonor.js %}
+    {% include models/Subnational.js %}
+    {% include models/National.js %}
 
     // Views
     {% include views/App.js %}
@@ -166,7 +182,6 @@ $(function() {
     
     //localize map tilejson
     var TJ = {
-        attribution: "<a href='http://mapbox.com/about/maps' target='_blank'>Terms & Feedback</a>",
         bounds: [
             -180,
             -85,
@@ -179,7 +194,7 @@ $(function() {
             2
         ],
         id: "undp.map-6grwd0n3",
-        maxzoom: 17,
+        maxzoom: 7, //set to 7 to avoid zooming too much in order to get the granular markers on cluster markers
         minzoom: 2,
         name: "UNDP base layer",
         private: true,

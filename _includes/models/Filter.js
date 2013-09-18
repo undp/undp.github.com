@@ -23,8 +23,7 @@ models.Filters = Backbone.Collection.extend({
             active = _(app.app.filters).find(function(filter) {
                 return (collection.id === filter.collection);
             });
-
-        _(collection.where({active: true })).each(function(model) {
+            _(collection.where({active: true })).each(function(model) {
             model.set('active', false);
         });
 

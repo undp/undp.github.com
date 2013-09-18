@@ -1,2 +1,2 @@
 @rem Run Python processing script
-undp-process.py 
+undp-process-xml.py 

@@ -1,17 +1,17 @@
 # ------------------
-# UNDP Import Script 
+# UNDP Import Script
 # ------------------
 
 # This script runs Python commands to create the JSON API. 
 # Requirements: Python 2.6 or greater 
-
-import csv, sys, json, time, copy
+ 
+import csv, sys, json, time, copy, chardet
 from itertools import groupby
 
 t0 = time.time()
 
-# Process document file by Projects
-# ********************************* 
+#Process document file by Projects
+#********************************* 
 documents = csv.DictReader(open('download/undp_export/report_documents.csv', 'rb'), delimiter = ',', quotechar = '"')
 documents_sort = sorted(documents, key = lambda x: x['awardid'])
 
@@ -247,14 +247,21 @@ units = csv.DictReader(open('download/undp_export/report_units.csv', 'rb'), deli
 units_sort = sorted(units, key = lambda x: x['operating_unit'])
 bureau = csv.DictReader(open('download/undp_export/regions.csv', 'rb'), delimiter = ',', quotechar = '"')
 bureau_sort = sorted(bureau, key = lambda x: x['bureau'])
+iso = csv.DictReader(open('download/undp_export/country_iso.csv', 'rb'), delimiter = ',', quotechar = '"')
+iso_sort = sorted(iso, key = lambda x: x['iso3'])
 
 row_count = 0
 projects = []
 projectsFull = []
+projectsSmallFull = []
 projectsHeader = ['project_id','project_title','project_descr','inst_id','inst_descr','inst_type_id','inst_type_descr','fiscal_year','start','end','operating_unit_id','operating_unit','region_id','region_name','outputs','document_name','subnational']
+projectsSmallHeader = ['project_id','title','subnational']
 for award,project in groupby(projects_sort, lambda x: x['awardID']): 
     row_count = row_count + 1
     projectList = [award]
+    projectSmallList = {}
+    projectSmallList['id'] = award
+    projects = []
     docTemp = []
     subnationalTemp = []
     award_title = []
@@ -314,6 +321,7 @@ for award,project in groupby(projects_sort, lambda x: x['awardID']):
     projectList.append(ou_descr[0])
     projectList.append(bureau[0])
     projectList.append(bureau_description[0])
+    
     outputTemp = []
     for out in outputsFull:
         if out['award_id'] == award:
@@ -327,17 +335,60 @@ for award,project in groupby(projects_sort, lambda x: x['awardID']):
     for loc in subnational_sort:
         if loc['awardID'] == award or str(loc['awardID']) == award[3:]:
             locationTemp = {}
-            locationTemp['lat'] = loc['lat']
-            locationTemp['lon'] = loc['lon']
+            locationTemp['lat'] = float(loc['lat'])
+            locationTemp['lon'] = float(loc['lon'])
             locationTemp['type'] = loc['type']
             locationTemp['precision'] = loc['precision']
             locationTemp['scope'] = loc['scope']
             subnationalTemp.append(locationTemp)
     projectList.append(subnationalTemp)
     projectsFull.append(dict(zip(projectsHeader,projectList))) # this joins project information, output per project, and documents for each project
+    
+    # Add info to smaller object for op unit JSONs
+    projectSmallList['title'] = award_title[0]
+    projectSmallList['op_unit'] = operatingunit[0]
+    projectSmallList['subnational'] = subnationalTemp
+    projectsSmallFull.append(projectSmallList)
 
-print "Project Process Count: %d" % row_count
+# Sort projects by operating unit
+unitFinal = []
+unitHeader = ['op_unit','projects','iso_num']
+for unit, index in groupby(units_sort, lambda x: x['operating_unit']):  
+    info = []
+    listing = []
+    for i in index:
+        info.append(i['operating_unit'])
+        for proj in projectsSmallFull:
+            if i['operating_unit'] == proj['op_unit']:
+                listingTemp = {}
+                listingTemp['subnational'] = proj['subnational']
+                listingTemp['id'] = proj['id']
+                listingTemp['title'] = proj['title']
+                listing.append(listingTemp)
+        info.append(listing)   
+    # Grab the iso number for each operating unit to match to TopoJSON
+    for c in iso_sort:
+        # Correct encoding for the match below
+        numTemp = c['iso_num'].decode('utf-8')
+        numDecode = numTemp.encode('ascii','ignore')
+        isoTemp = c['iso3'].decode('utf-8')
+        isoDecode = isoTemp.encode('ascii', 'ignore')
+        if isoDecode == unit:
+            if numDecode != "":
+                info.append(numDecode)
+    unitFinal.append(dict(zip(unitHeader,info))) # this joins project information, output per project, and documents for each project
 
+# Generate JSONs for each operating unit
+file_count = 0
+for row in unitFinal:
+    file_count = file_count + 1
+    writeout = json.dumps(row, sort_keys=True, separators=(',',':'))
+    f_out = open('../api/units/%s.json' % row['op_unit'], 'wb')
+    f_out.writelines(writeout)
+    f_out.close()
+print '%d operating unit files generated...' % file_count
+
+# Generate JSONs for each project
 file_count = 0
 for row in projectsFull:
     file_count = file_count + 1
@@ -357,7 +408,8 @@ regionsList = ['PAPP','RBA','RBAP','RBAS','RBEC','RBLAC']
 row_count = 0
 yearJson = []
 yearList = []
-projectSumHeader = ['fiscal_year','id','name','operating_unit','region','budget','expenditure','crs','focus_area','donors','donor_types','donor_countries','donor_budget','donor_expend']
+projectSumHeaderReal = ['fiscal_year','id','name','operating_unit','region','budget','expenditure','crs','focus_area','donors','donor_types','donor_countries','donor_budget','donor_expend']
+projectSumHeader = ['fiscal_year','id','name','operating_unit','region','budget','expenditure','crs','focus_area']
 for year,projectYears in groupby(projectSum_sort, lambda x: x['fiscal_year']):
     projectSummary = []
     yearJson.append(year)
@@ -368,15 +420,15 @@ for year,projectYears in groupby(projectSum_sort, lambda x: x['fiscal_year']):
         summaryList.append(award)
         projectFY = []
         docTemp = []
-        for s in summary:
-            summaryList.append(s['award_title'])
-            summaryList.append(s['operatingunit'])
-            if s['bureau'] not in regionsList:
-                summaryList.append('global')
-            else:
-                summaryList.append(s['bureau'])
-            summaryList.append(float(s['budget']))
-            summaryList.append(float(s['expenditure']))
+        # for s in summary:
+        summaryList.append(row['project_title'])
+        summaryList.append(row['operating_unit'])
+        if row['region_id'] not in regionsList:
+            summaryList.append('global')
+        else:
+            summaryList.append(row['region_id'])
+        summaryList.append(float(row['budget']))
+        summaryList.append(float(s['expenditure']))
         crsTemp = []
         faTemp = []
         for out in outputsFull:
@@ -387,24 +439,24 @@ for year,projectYears in groupby(projectSum_sort, lambda x: x['fiscal_year']):
                     faTemp.append(out['focus_area'])
         summaryList.append(crsTemp)
         summaryList.append(faTemp)
-        dTemp = []
-        dtypeTemp = []
-        dCtyTemp = []
-        dBudget = []
-        dExpend = []
-        if year in donorYearList:
-            for dProj in donorYearList[year]:
-                if dProj['projectID'] == award:
-                    dTemp = dProj['donorID']
-                    dtypeTemp = dProj['donorTypeID']
-                    dCtyTemp = dProj['donorCtyID']
-                    dBudget = dProj['donorBudget']
-                    dExpend = dProj['donorExpend']
-        summaryList.append(dTemp)
-        summaryList.append(dtypeTemp)
-        summaryList.append(dCtyTemp)
-        summaryList.append(dBudget)
-        summaryList.append(dExpend)
+        # dTemp = []
+        # dtypeTemp = []
+        # dCtyTemp = []
+        # dBudget = []
+        # dExpend = []
+        # if year in donorYearList:
+        #     for dProj in donorYearList[year]:
+        #         if dProj['projectID'] == award:
+        #             dTemp = dProj['donorID']
+        #             dtypeTemp = dProj['donorTypeID']
+        #             dCtyTemp = dProj['donorCtyID']
+        #             dBudget = dProj['donorBudget']
+        #             dExpend = dProj['donorExpend']
+        # summaryList.append(dTemp)
+        # summaryList.append(dtypeTemp)
+        # summaryList.append(dCtyTemp)
+        # summaryList.append(dBudget)
+        # summaryList.append(dExpend)
         projectSummary.append(dict(zip(projectSumHeader,summaryList))) # this joins the project summary information 
     yearSummary['year'] = year
     yearSummary['summary'] = projectSummary 
@@ -416,10 +468,10 @@ for y in yearList:
     jsvalue = "var SUMMARY = "
     jsondump = json.dumps(y['summary'], sort_keys=True, separators=(',',':'))
     writeout = jsvalue + jsondump
-    f_out = open('../api/project_summary_%s.js' % y['year'], 'wb')
+    f_out = open('../api_new/project_summary_%s.js' % y['year'], 'wb')
     f_out.writelines(writeout)
     f_out.close()
-    f_out = open('../api/project_summary_%s.json' % y['year'], 'wb')
+    f_out = open('../api_new/project_summary_%s.json' % y['year'], 'wb')
     f_out.writelines(jsondump)
     f_out.close()
 print 'Project Summary json files generated...'
@@ -549,8 +601,8 @@ f_out = open('../api/donor-type-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
 
-# Process Donor Country Index
-# ************************
+# # Process Donor Country Index
+# # ************************
 donor_country = csv.DictReader(open('download/undp_export/report_donors.csv', 'rb'), delimiter = ',', quotechar = '"')
 donor_country_sort = sorted(donor_country, key = lambda x: x['donor_type_lvl3'])
 
@@ -695,7 +747,7 @@ writeout = jsvalue + jsondump
 f_out = open('../api/hdi.js', 'wb')
 f_out.writelines(writeout)
 f_out.close()
-
+  
 # Process Operating Unit Index
 # ****************************
 unitsIndex = csv.DictReader(open('download/undp_export/report_units.csv', 'rb'), delimiter = ',', quotechar = '"')
@@ -703,7 +755,7 @@ unitsIndex_sort = sorted(unitsIndex, key = lambda x: x['operating_unit'])
 
 row_count = 0
 opUnit_index = []
-opUnitHeader = ['id','name','web','email','project_count','funding_sources_count','budget_sum','expenditure_sum','lat','lon']
+opUnitHeader = ['id','name','web','email','project_count','funding_sources_count','budget_sum','expenditure_sum','lat','lon','iso_num']
 for un,unit in groupby(unitsIndex_sort, lambda x: x['operating_unit']): 
     index = []
     if un != "":
@@ -724,9 +776,16 @@ for un,unit in groupby(unitsIndex_sort, lambda x: x['operating_unit']):
                 if ctry['lat'] != "":
                     index.append(float(ctry['lat']))
                     index.append(float(ctry['lon']))
-                    
+                for c in iso_sort:
+                    # Correct encoding for the match below
+                    numTemp = c['iso_num'].decode('utf-8')
+                    numDecode = numTemp.encode('ascii','ignore')
+                    isoTemp = c['iso3'].decode('utf-8')
+                    isoDecode = isoTemp.encode('ascii', 'ignore')
+                    if isoDecode == ctry['iso3']:
+                        index.append(numDecode)
+                # Join values to header and append to final object
                 opUnit_index.append(dict(zip(opUnitHeader, index)))
-
 writeout = json.dumps(opUnit_index, sort_keys=True, separators=(',',':'))
 f_out = open('../api/operating-unit-index.json', 'wb')
 f_out.writelines(writeout)
@@ -746,6 +805,7 @@ gross_list = []
 for g in donor_gross_sort:
     gross = {}
     gross['name'] = g['donor']
+    gross['country'] = g['abbrev']
     gross['regular'] = g['regular']
     gross['other'] = g['other']
     gross['total'] = g['total']
@@ -760,6 +820,7 @@ f_out.close()
 local_list = []
 for g in donor_local_sort:
     local = {}
+    local['country'] = g['abbrev']
     local['name'] = g['donor']
     local['amount'] = g['amount']
     local_list.append(local)

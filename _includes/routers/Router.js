@@ -245,7 +245,7 @@ routers.App = Backbone.Router.extend({
 
                 if (app.description && app.description.length === 0){
                     if (app.donorDescription.length > 0) {
-                        $('#description p.desc').html(app.donorDescription + counts +' accoss the world.');
+                        $('#description p.desc').html(app.donorDescription + counts +' across the world.');
                     } else {
                         $('#description p.desc').html(app.defaultDescription);
                     }

@@ -790,14 +790,17 @@ f_out.close()
 
 # Process HDI
 # ************************
-hdi = csv.DictReader(open('hdi/hdi-csv-clean.csv', 'rb'), delimiter = ',', quotechar = '"')
+# Make sure you have a clean CSV. Run CSVkit to clean. 
+hdi = csv.DictReader(open('hdi/hdi-csv-clean.csv', 'rU'), delimiter = ',', quotechar = '"')
 geo = csv.DictReader(open('process_files/country-centroids.csv', 'rb'), delimiter = ',', quotechar = '"')
 
-hdi_sort = sorted(hdi, key = lambda x: x['hdi2011'], reverse = True)
+hdi_sort = sorted(hdi, key = lambda x: x['hdi2012'], reverse = True)
 country_sort = sorted(geo, key = lambda x: x['iso3'])
 
-years = [1980,1985,1990,1995,2000,2005,2006,2007,2008,2011]
-current_year = 2011
+# Add current year to the years array 
+years = [1980,1985,1990,1995,2000,2005,2006,2007,2008,2011,2012]
+# Set current year to the latest year of HDI Data
+current_year = 2012
 
 row_count = 0
 rank = 0
@@ -813,14 +816,15 @@ for val in iter(hdi_sort):
     change_year = {}
     for y in years:
         if val['hdi%d' % y] != '':
-            hdi_total.append([y,float(val['hdi%d' % y])])
-            hdi_health.append([y,float(val['health%d' % y])])
-            hdi_ed.append([y,float(val['ed%d' % y])])
-            hdi_inc.append([y,float(val['income%d' % y])])
-            if y != current_year:
-                change_year = float(val['hdi%d' % current_year]) - float(val['hdi%d' % y])
-                if len(change) == 0:
-                    change.append(change_year)
+            if val['ed%d' % y] != "" and val['health%d' % y] != "" and val['income%d' % y] != "":
+                hdi_total.append([y,round(float(val['hdi%d' % y]),3)])
+                hdi_health.append([y,round(float(val['health%d' % y]),3)])
+                hdi_ed.append([y,round(float(val['ed%d' % y]),3)])
+                hdi_inc.append([y,round(float(val['income%d' % y]),3)])
+                if y != current_year:
+                    change_year = round(float(val['hdi%d' % current_year]),3) - round(float(val['hdi%d' % y]),3)
+                    if len(change) == 0:
+                        change.append(change_year)
     if len(change) == 0:
         change.append("")
     for ctry in country_sort:

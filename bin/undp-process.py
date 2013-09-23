@@ -1,6 +1,8 @@
-# ------------------
-# UNDP Import Script
-# ------------------
+# ------------------------------------------
+# THIS SCRIPT IS NOW OUT OF DATE. 
+# ------------------------------------------
+# See undp-process-xml.py for updated script 
+# ------------------------------------------
 
 # This script runs Python commands to create the JSON API. 
 # Requirements: Python 2.6 or greater 

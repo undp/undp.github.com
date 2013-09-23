@@ -1,10 +1,7 @@
 import requests, csv, json
-#from xml.etree.ElementTree import ElementTree
-#from lxml import etree
-#from lxml import objectify
 
-hdi = csv.DictReader(open('hdi-csv-clean.csv', 'rb'), delimiter = ',', quotechar = '"')
-geo = csv.DictReader(open('../process_files/country-centroids.csv', 'rb'), delimiter = ',', quotechar = '"')
+hdi = csv.DictReader(open('hdi-csv-clean.csv', 'rU'), delimiter = ',', quotechar = '"')
+geo = csv.DictReader(open('../process_files/country-centroids.csv', 'rU'), delimiter = ',', quotechar = '"')
 
 hdi_sort = sorted(hdi, key = lambda x: x['hdi2012'], reverse = True)
 country_sort = sorted(geo, key = lambda x: x['iso3'])
@@ -24,15 +21,17 @@ for val in iter(hdi_sort):
     change = []
     change_year = {}
     for y in years:
-        if val['hdi%d' % y] != '':
-            hdi_total.append([y,float(val['hdi%d' % y])])
-            hdi_health.append([y,float(val['health%d' % y])])
-            hdi_ed.append([y,float(val['ed%d' % y])])
-            hdi_inc.append([y,float(val['income%d' % y])])
-            if y != current_year:
-                change_year = float(val['hdi%d' % current_year]) - float(val['hdi%d' % y])
-                if len(change) == 0:
-                    change.append(change_year)
+        print val
+        if val['hdi%d' % y] != "":
+            if val['ed%d' % y] != "" and val['health%d' % y] != "" and val['income%d' % y] != "":
+                hdi_total.append([y,round(float(val['hdi%d' % y]))])
+                hdi_health.append([y,round(float(val['health%d' % y]))])
+                hdi_ed.append([y,round(float(val['ed%d' % y]))])
+                hdi_inc.append([y,round(float(val['income%d' % y]))])
+                if y != current_year:
+                    change_year = round(float(val['hdi%d' % current_year])) - round(float(val['hdi%d' % y]))
+                    if len(change) == 0:
+                        change.append(change_year)
                 
     if len(change) == 0:
         change.append("")
@@ -82,6 +81,6 @@ hdi_index_sort = sorted(hdi_index, key = lambda x: x['rank'])
 print hdi_index_sort
 hdi_writeout = json.dumps(hdi_index_sort, sort_keys=True, separators=(',',':'))
 
-hdi_out = open('../api/hdi.json', 'wb')
+hdi_out = open('hdi.json', 'wb')
 hdi_out.writelines(hdi_writeout)
 hdi_out.close()

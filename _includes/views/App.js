@@ -218,7 +218,7 @@ views.App = Backbone.View.extend({
 
         defaultIframe = '<iframe src="{{site.baseurl}}/embed.html' + embedPath + '?' +
         widgetOpts.join('&') +
-        '" width="680" height="500" frameborder="0"> </iframe>';
+        '" width="100%" height="500" frameborder="0"> </iframe>';
         $('.widget-preview', context).html(defaultIframe);
         $('.widget-code', context)
             .val(defaultIframe.replace('src="{{site.baseurl}}/','src="' + BASE_URL))

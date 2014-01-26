@@ -57,7 +57,7 @@ views.Widget = Backbone.View.extend({
         if (widgetOpts.length !== 0) {
             view.widgetCode = '<iframe src="{{site.baseurl}}/' +
                 'embed.html' + view.path + '?' + widgetOpts.join('&') +
-                '" width="640" height="500" frameborder="0"> </iframe>';
+                '" width="100%" height="500" frameborder="0"> </iframe>';
 
             $('.widget-preview', view.$el).html(view.widgetCode);
             $('.widget-code', view.$el)

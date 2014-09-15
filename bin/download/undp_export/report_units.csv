@@ -1,201 +1,1 @@
-hq_co,bureau,operating_unit,iati_operating_unit,ou_descr,web,email
-CO,RBAP,AFG,AF,Afghanistan,,
-CO,RBEC,ALB,AL,Albania,,
-CO,RBAS,DZA,DZ,Algeria,,
-CO,RBA,AGO,AO,Angola,,
-CO,RBLAC,ATG,AG,Antigua and Barbuda,,
-CO,RBLAC,ARG,AR,Argentina,,
-CO,RBEC,ARM,AM,Armenia,,
-CO,RBEC,AZE,AZ,Azerbaijan,,
-CO,RBLAC,BHS,BS,Bahamas,,
-CO,RBAS,BHR,BH,Bahrain,,
-CO,RBAP,BGD,BD,Bangladesh,,
-CO,RBLAC,BRB,BB,Barbados,,
-HQ,BCPR,H10,,BCPR,,
-CO,RBEC,BLR,BY,"Belarus, Republic of",,
-CO,RBLAC,BLZ,BZ,Belize,,
-CO,RBA,BEN,BJ,Benin,,
-CO,RBAP,BTN,BT,Bhutan,,
-CO,RBLAC,BOL,BO,Bolivia,,
-HQ,BOM,H22,,BOM/Ofc of Asst Administrator,,
-CO,RBEC,BIH,BA,Bosnia and Herzegovina,,
-CO,RBA,BWA,BW,Botswana,,
-CO,RBEC,SVK,,Bratislava Regional Center,,
-CO,RBLAC,BRA,BR,Brazil,,
-CO,RBEC,BGR,BG,Bulgaria,,
-HQ,BDP,H21,,Bureau du Premier Ministre,,
-CO,RBA,BFA,BF,Burkina Faso,,
-CO,RBA,BDI,BI,Burundi,,
-CO,RBA,CIV,CI,C√¥te d'Ivoire,,
-CO,RBAS,R44,,Cairo Regional Center,,
-CO,RBAP,KHM,KH,Cambodia,,
-CO,RBA,CMR,CM,"Cameroon, Republic of",,
-CO,RBA,CPV,CV,Cape Verde,,
-CO,RBA,CAF,CF,Central African Republic,,
-CO,RBA,TCD,TD,Chad,,
-CO,RBLAC,CHL,CL,Chile,,
-CO,RBAP,CHN,CN,China,,
-CO,RBLAC,COL,CO,Colombia,,
-CO,RBA,COM,KM,Comoros,,
-CO,RBA,COG,CG,Congo,,
-CO,RBAP,COK,CK,Cook Islands,,
-CO,RBLAC,CRI,CR,Costa Rica,,
-CO,RBEC,HRV,HR,Croatia,,
-CO,RBLAC,CUB,CU,Cuba,,
-CO,RBLAC,CUV,CW,Curacao,,
-CO,RBEC,CYP,CY,Cyprus,,
-CO,RBA,R11,,Dakar Regional Service Centre,,
-CO,RBAP,PRK,KP,Democr People's Repub of Korea,,
-CO,RBA,COD,CD,Democratic Republic of Congo,,
-CO,RBAS,DJI,DJ,Djibouti,,
-CO,RBLAC,DMA,DM,Dominica,,
-CO,RBLAC,DOM,DO,Dominican Republic,,
-CO,RBLAC,ECU,EC,Ecuador,,
-CO,RBAS,EGY,EG,Egypt,,
-CO,RBLAC,SLV,SV,El Salvador,,
-CO,RBA,GNQ,GQ,Equatorial Guinea,,
-CO,RBA,ERI,ER,Eritrea,,
-CO,RBA,ETH,ET,Ethiopia,,
-HQ,EO,H11,,Evaluation Office,,
-CO,RBAP,FJI,FJ,Fiji,,
-CO,RBA,GAB,GA,Gabon,,
-CO,RBA,GMB,GM,Gambia,,
-CO,RBEC,GEO,GE,Georgia,,
-HQ,BDP,H58,,GFATM unit,,
-CO,RBA,GHA,GH,Ghana,,
-CO,RBLAC,GRD,GD,Grenada,,
-CO,RBLAC,GTM,GT,Guatemala,,
-CO,RBA,GIN,GN,Guinea,,
-CO,RBA,GNB,GW,Guinea-Bissau,,
-CO,RBLAC,GUY,GY,Guyana,,
-CO,RBLAC,HTI,HT,Haiti,,
-CO,RBLAC,HND,HN,Honduras,,
-HQ,HDRO,H43,,Human Development Report Ofc,,
-CO,RBAP,IND,IN,India,,
-CO,RBAP,IDN,ID,Indonesia,,
-CO,RBAP,IRN,IR,"Iran, Islamic Republic of",,
-CO,RBAS,IRQ,IQ,Iraq,,
-CO,RBLAC,JAM,JM,Jamaica,,
-CO,RBAS,JOR,JO,Jordan,,
-CO,RBEC,KAZ,KZ,Kazakhstan,,
-CO,RBA,KEN,KE,Kenya,,
-CO,RBAP,KIR,KI,Kiribati,,
-CO,RBAP,KOR,KR,"Korea, Republic of",,
-CO,RBEC,KOS,KO,Kosovo,,
-CO,RBAS,KWT,KW,Kuwait,,
-CO,RBEC,KGZ,KG,Kyrgyzstan,,
-CO,RBAP,LAO,LA,Lao People's Democratic Republ,,
-CO,RBEC,LVA,LV,"Latvia, Republic of",,
-CO,RBAS,LBN,LB,Lebanon,,
-CO,RBA,LSO,LS,Lesotho,,
-CO,RBA,LBR,LR,Liberia,,
-CO,RBAS,LBY,LY,Libya,,
-CO,RBEC,LTU,LT,"Lithuania, Republic of",,
-CO,RBEC,MKD,MK,"Macedonia, former Yugoslav Rep",,
-CO,RBA,MDG,MG,Madagascar,,
-CO,RBA,MWI,MW,Malawi,,
-CO,RBAP,MYS,MY,Malaysia,,
-CO,RBAP,MDV,MV,Maldives,,
-CO,RBA,MLI,ML,Mali,,
-CO,RBAP,MHL,MH,Marshall Islands,,
-CO,RBA,MRT,MR,Mauritania,,
-CO,RBA,MUS,MU,Mauritius,,
-CO,RBLAC,MEX,MX,Mexico,,
-CO,RBAP,FSM,FM,"Micronesia, Federated Statesof",,
-CO,RBEC,MDA,MD,"Moldova, Republic of",,
-CO,RBAP,MNG,MN,Mongolia,,
-CO,RBEC,MNE,ME,Montenegro,,
-CO,RBAS,MAR,MA,Morocco,,
-CO,RBA,MOZ,MZ,Mozambique,,
-CO,RBAP,MMR,MM,Myanmar,,
-CO,RBA,NAM,NA,Namibia,,
-CO,RBAP,NRU,NR,Nauru,,
-CO,RBAP,NPL,NP,Nepal,,
-CO,RBLAC,NIC,NI,Nicaragua,,
-CO,RBA,NER,NE,Niger,,
-CO,RBA,NGA,NG,Nigeria,,
-CO,RBAP,NIU,NU,Niue,,
-HQ,NS_HQ,H52,Unspecified (H52),Non Specific HQ,,
-HQ,BOM,H48,,Ofc of Info Systems&Technology,,
-HQ,ODS,H54,,Office for Development Studies,,
-HQ,BOM,H18,,Office of Human Resources,,
-HQ,OA,H13,,Office of the Administrator,,
-HQ,OSG,H20,,Operations Support Group,,
-CO,RBAP,PSC,,Pacific Centre (PC),,
-CO,RBAP,PAK,PK,Pakistan,,
-CO,RBLAC,PAN,PA,Panama,,
-CO,RBLAC,R46,,Panama Regional Center,,
-CO,RBAP,PNG,PG,Papua New Guinea,,
-CO,RBLAC,PRY,PY,Paraguay,,
-HQ,BERA,H23,,PB,,
-HQ,BERA,H27,,PB/Liaison/Brussels,,
-HQ,BERA,H28,,PB/Liaison/Copenhagen,,
-HQ,BERA,H24,,PB/Liaison/Geneva,,
-HQ,BERA,H25,,PB/Liaison/Tokyo,,
-HQ,BERA,H62,,PB/South Korea Liaison Office,,
-CO,RBLAC,PER,PE,Peru,,
-CO,RBAP,PHL,PH,Philippines,,
-CO,RBEC,POL,PL,Poland,,
-CO,RBAS,PAL,PS,Prog for Palestinian People,,
-HQ,RBAS,H05,Arab States,Reg Bur for Arab States,,
-HQ,RBEC,H02,Europe and CIS,Reg Bur for Europe & CIS,,
-HQ,RBLAC,H03,Latin American and the Caribbean,Reg Bur Latin Amer & Carib,,
-HQ,RBA,H01,Africa,Reg Bureau for Africa,,
-HQ,RBAP,H04,Asia and the Pacific,Reg Bureau for Asia & Pacific,,
-CO,RBA,RJB,,Regional SC - Johannesburg,,
-CO,RBAP,PLW,PW,Republic of Palau,,
-CO,RBAP,BRC,,Rgnl Center in Bangkok (RCB),,
-CO,RBAP,CRC,,Rgnl Centre in Colombo (RCC),,
-CO,RBLAC,R45,,Rgnl Ctr in Trinidad & Tobago,,
-CO,RBEC,ROU,RO,Romania,,
-CO,RBEC,RUS,RU,Russian Federation,,
-CO,RBA,RWA,RW,Rwanda,,
-CO,RBAP,WSM,WS,Samoa,,
-CO,RBA,STP,ST,Sao Tome and Principe,,
-CO,RBAS,SAU,SA,Saudi Arabia,,
-HQ,BOM,H46,,Security Operations,,
-CO,RBA,SEN,SN,Senegal,,
-CO,RBEC,SRB,RS,Serbia,,
-CO,RBA,SYC,SC,Seychelles,,
-CO,RBA,SLE,SL,Sierra Leone,,
-CO,RBAP,SLB,SB,Solomon Islands,,
-CO,RBAS,SOM,SO,Somalia,,
-CO,RBA,ZAF,ZA,South Africa,,
-CO,RBA,SSD,SS,"South Sudan, Republic of",,
-HQ,SU_TCDC,H42,,Spcl Unit for South South Coop,,
-CO,RBAP,LKA,LK,Sri Lanka,,
-CO,RBLAC,KNA,KN,St. Kitts and Nevis,,
-CO,RBLAC,LCA,LC,St. Lucia,,
-CO,RBLAC,VCT,VC,St. Vincent and the Grenadines,,
-CO,RBAS,SDN,SD,"Sudan, Republic of the",,
-CO,RBLAC,SUR,SR,Suriname,,
-CO,RBA,SWZ,SZ,Swaziland,,
-CO,RBAS,SYR,SY,Syria,,
-CO,RBEC,TJK,TJ,Tajikistan,,
-CO,RBAP,THA,TH,Thailand,,
-CO,RBAP,TLS,TL,Timor-Leste,,
-CO,RBA,TGO,TG,Togo,,
-CO,RBAP,TKL,TK,Tokelau,,
-CO,RBAP,TON,TO,Tonga,,
-CO,RBLAC,TTO,TT,Trinidad and Tobago,,
-CO,RBAS,TUN,TN,Tunisia,,
-CO,RBEC,TUR,TR,Turkey,,
-CO,RBEC,TKM,TM,Turkmenistan,,
-CO,RBAP,TUV,TV,Tuvalu,,
-CO,RBA,UGA,UG,Uganda,,
-CO,RBEC,UKR,UA,Ukraine,,
-HQ,UNCDF,H59,,UN Capital Development  Fund,,
-HQ,DOCO,H45,,UN Developmt Coordination Unit,,
-CO,RBAS,ARE,AE,United Arab Emirates,,
-HQ,UNV.,UNV,,United Nations Volunteers,,
-CO,RBA,TZA,TZ,United Republic of Tanzania,,
-CO,RBLAC,URY,UY,Uruguay,,
-CO,RBEC,UZB,UZ,Uzbekistan,,
-CO,RBAP,VUT,VU,Vanuatu,,
-CO,RBLAC,VEN,VE,Venezuela,,
-CO,RBAP,VNM,VN,Viet Nam,,
-CO,RBAS,YEM,YE,Yemen,,
-CO,RBA,ZMB,ZM,Zambia,,
-CO,RBA,ZWE,ZW,Zimbabwe,,
-HQ,RBA,R12,,Regional Center - Addis Ababa,,
-HQ,BDP,H21,,Bureau for Dev. Policy,, 
+hq_co,bureau,operating_unit,iati_operating_unit,ou_descr,web,email,fund_typeCO,RBAP,AFG,AF,Afghanistan,,,OtherCO,RBEC,ALB,AL,Albania,,,OtherCO,RBAS,DZA,DZ,Algeria,,,OtherCO,RBA,AGO,AO,Angola,,,OtherCO,RBLAC,ATG,AG,Antigua and Barbuda,,,OtherCO,RBLAC,ARG,AR,Argentina,,,LocalCO,RBEC,ARM,AM,Armenia,,,LocalCO,RBEC,AZE,AZ,Azerbaijan,,,LocalCO,RBLAC,BHS,BS,Bahamas,,,OtherCO,RBAS,BHR,BH,Bahrain,,,LocalCO,RBAP,BGD,BD,Bangladesh,,,OtherCO,RBLAC,BRB,BB,Barbados,,,OtherHQ,BCPR,H10,,BCPR,,,OtherCO,RBEC,BLR,BY,"Belarus, Republic of",,,OtherCO,RBLAC,BLZ,BZ,Belize,,,OtherCO,RBA,BEN,BJ,Benin,,,OtherCO,RBAP,BTN,BT,Bhutan,,,OtherCO,RBLAC,BOL,BO,Bolivia,,,OtherHQ,BOM,H22,,BOM/Ofc of Asst Administrator,,,OtherCO,RBEC,BIH,BA,Bosnia and Herzegovina,,,OtherCO,RBA,BWA,BW,Botswana,,,OtherCO,RBEC,SVK,,Bratislava Regional Center,,,OtherCO,RBLAC,BRA,BR,Brazil,,,LocalCO,RBEC,BGR,BG,Bulgaria,,,OtherHQ,BDP,H21,,Bureau du Premier Ministre,,,OtherCO,RBA,BFA,BF,Burkina Faso,,,OtherCO,RBA,BDI,BI,Burundi,,,OtherCO,RBA,CIV,CI,CÌ«te d'Ivoire,,,OtherCO,RBAS,R44,,Cairo Regional Center,,,OtherCO,RBAP,KHM,KH,Cambodia,,,OtherCO,RBA,CMR,CM,"Cameroon, Republic of",,,OtherCO,RBA,CPV,CV,Cape Verde,,,OtherCO,RBA,CAF,CF,Central African Republic,,,OtherCO,RBA,TCD,TD,Chad,,,OtherCO,RBLAC,CHL,CL,Chile,,,LocalCO,RBAP,CHN,CN,China,,,OtherCO,RBLAC,COL,CO,Colombia,,,LocalCO,RBA,COM,KM,Comoros,,,OtherCO,RBA,COG,CG,Congo,,,OtherCO,RBAP,COK,CK,Cook Islands,,,OtherCO,RBLAC,CRI,CR,Costa Rica,,,OtherCO,RBEC,HRV,HR,Croatia,,,OtherCO,RBLAC,CUB,CU,Cuba,,,OtherCO,RBLAC,CUV,CW,Curacao,,,OtherCO,RBEC,CYP,CY,Cyprus,,,OtherCO,RBA,R11,,Dakar Regional Service Centre,,,OtherCO,RBAP,PRK,KP,Democr People's Repub of Korea,,,OtherCO,RBA,COD,CD,Democratic Republic of Congo,,,OtherCO,RBAS,DJI,DJ,Djibouti,,,OtherCO,RBLAC,DMA,DM,Dominica,,,OtherCO,RBLAC,DOM,DO,Dominican Republic,,,LocalCO,RBLAC,ECU,EC,Ecuador,,,OtherCO,RBAS,EGY,EG,Egypt,,,LocalCO,RBLAC,SLV,SV,El Salvador,,,LocalCO,RBA,GNQ,GQ,Equatorial Guinea,,,LocalCO,RBA,ERI,ER,Eritrea,,,OtherCO,RBA,ETH,ET,Ethiopia,,,OtherHQ,EO,H11,,Evaluation Office,,,OtherCO,RBAP,FJI,FJ,Fiji,,,OtherCO,RBA,GAB,GA,Gabon,,,OtherCO,RBA,GMB,GM,Gambia,,,OtherCO,RBEC,GEO,GE,Georgia,,,OtherHQ,BDP,H58,,GFATM unit,,,OtherCO,RBA,GHA,GH,Ghana,,,OtherCO,RBLAC,GRD,GD,Grenada,,,OtherCO,RBLAC,GTM,GT,Guatemala,,,OtherCO,RBA,GIN,GN,Guinea,,,OtherCO,RBA,GNB,GW,Guinea-Bissau,,,OtherCO,RBLAC,GUY,GY,Guyana,,,OtherCO,RBLAC,HTI,HT,Haiti,,,OtherCO,RBLAC,HND,HN,Honduras,,,LocalHQ,HDRO,H43,,Human Development Report Ofc,,,OtherCO,RBAP,IND,IN,India,,,OtherCO,RBAP,IDN,ID,Indonesia,,,OtherCO,RBAP,IRN,IR,"Iran, Islamic Republic of",,,OtherCO,RBAS,IRQ,IQ,Iraq,,,OtherCO,RBLAC,JAM,JM,Jamaica,,,OtherCO,RBAS,JOR,JO,Jordan,,,OtherCO,RBEC,KAZ,KZ,Kazakhstan,,,OtherCO,RBA,KEN,KE,Kenya,,,OtherCO,RBAP,KIR,KI,Kiribati,,,OtherCO,RBAP,KOR,KR,"Korea, Republic of",,,OtherCO,RBEC,KOS,KO,Kosovo,,,OtherCO,RBAS,KWT,KW,Kuwait,,,LocalCO,RBEC,KGZ,KG,Kyrgyzstan,,,OtherCO,RBAP,LAO,LA,Lao People's Democratic Republ,,,OtherCO,RBEC,LVA,LV,"Latvia, Republic of",,,OtherCO,RBAS,LBN,LB,Lebanon,,,OtherCO,RBA,LSO,LS,Lesotho,,,OtherCO,RBA,LBR,LR,Liberia,,,OtherCO,RBAS,LBY,LY,Libya,,,OtherCO,RBEC,LTU,LT,"Lithuania, Republic of",,,LocalCO,RBEC,MKD,MK,"Macedonia, former Yugoslav Rep",,,LocalCO,RBA,MDG,MG,Madagascar,,,OtherCO,RBA,MWI,MW,Malawi,,,OtherCO,RBAP,MYS,MY,Malaysia,,,OtherCO,RBAP,MDV,MV,Maldives,,,OtherCO,RBA,MLI,ML,Mali,,,OtherCO,RBAP,MHL,MH,Marshall Islands,,,OtherCO,RBA,MRT,MR,Mauritania,,,OtherCO,RBA,MUS,MU,Mauritius,,,OtherCO,RBLAC,MEX,MX,Mexico,,,LocalCO,RBAP,FSM,FM,"Micronesia, Federated Statesof",,,OtherCO,RBEC,MDA,MD,"Moldova, Republic of",,,OtherCO,RBAP,MNG,MN,Mongolia,,,OtherCO,RBEC,MNE,ME,Montenegro,,,OtherCO,RBAS,MAR,MA,Morocco,,,LocalCO,RBA,MOZ,MZ,Mozambique,,,OtherCO,RBAP,MMR,MM,Myanmar,,,OtherCO,RBA,NAM,NA,Namibia,,,OtherCO,RBAP,NRU,NR,Nauru,,,OtherCO,RBAP,NPL,NP,Nepal,,,OtherCO,RBLAC,NIC,NI,Nicaragua,,,OtherCO,RBA,NER,NE,Niger,,,OtherCO,RBA,NGA,NG,Nigeria,,,OtherCO,RBAP,NIU,NU,Niue,,,OtherHQ,NS_HQ,H52,Unspecified (H52),Non Specific HQ,,,OtherHQ,BOM,H48,,Ofc of Info Systems&Technology,,,OtherHQ,ODS,H54,,Office for Development Studies,,,OtherHQ,BOM,H18,,Office of Human Resources,,,OtherHQ,OA,H13,,Office of the Administrator,,,OtherHQ,OSG,H20,,Operations Support Group,,,OtherCO,RBAP,PSC,,Pacific Centre (PC),,,OtherCO,RBAP,PAK,PK,Pakistan,,,OtherCO,RBLAC,PAN,PA,Panama,,,LocalCO,RBLAC,R46,,Panama Regional Center,,,OtherCO,RBAP,PNG,PG,Papua New Guinea,,,OtherCO,RBLAC,PRY,PY,Paraguay,,,LocalHQ,BERA,H23,,PB,,,OtherHQ,BERA,H27,,PB/Liaison/Brussels,,,OtherHQ,BERA,H28,,PB/Liaison/Copenhagen,,,OtherHQ,BERA,H24,,PB/Liaison/Geneva,,,OtherHQ,BERA,H25,,PB/Liaison/Tokyo,,,OtherHQ,BERA,H62,,PB/South Korea Liaison Office,,,OtherCO,RBLAC,PER,PE,Peru,,,LocalCO,RBAP,PHL,PH,Philippines,,,OtherCO,RBEC,POL,PL,Poland,,,LocalCO,PAPP,PAL,PS,Prog for Palestinian People,,,OtherHQ,RBAS,H05,Arab States,Reg Bur for Arab States,,,OtherHQ,RBEC,H02,Europe and CIS,Reg Bur for Europe & CIS,,,OtherHQ,RBLAC,H03,Latin American and the Caribbean,Reg Bur Latin Amer & Carib,,,OtherHQ,RBA,H01,Africa,Reg Bureau for Africa,,,OtherHQ,RBAP,H04,Asia and the Pacific,Reg Bureau for Asia & Pacific,,,OtherCO,RBA,RJB,,Regional SC - Johannesburg,,,OtherCO,RBAP,PLW,PW,Republic of Palau,,,OtherCO,RBAP,BRC,,Rgnl Center in Bangkok (RCB),,,OtherCO,RBAP,CRC,,Rgnl Centre in Colombo (RCC),,,OtherCO,RBLAC,R45,,Rgnl Ctr in Trinidad & Tobago,,,OtherCO,RBEC,ROU,RO,Romania,,,OtherCO,RBEC,RUS,RU,Russian Federation,,,OtherCO,RBA,RWA,RW,Rwanda,,,OtherCO,RBAP,WSM,WS,Samoa,,,OtherCO,RBA,STP,ST,Sao Tome and Principe,,,OtherCO,RBAS,SAU,SA,Saudi Arabia,,,LocalHQ,BOM,H46,,Security Operations,,,OtherCO,RBA,SEN,SN,Senegal,,,OtherCO,RBEC,SRB,RS,Serbia,,,OtherCO,RBA,SYC,SC,Seychelles,,,OtherCO,RBA,SLE,SL,Sierra Leone,,,OtherCO,RBAP,SLB,SB,Solomon Islands,,,OtherCO,RBAS,SOM,SO,Somalia,,,OtherCO,RBA,ZAF,ZA,South Africa,,,OtherCO,RBA,SSD,SS,"South Sudan, Republic of",,,OtherHQ,SU_TCDC,H42,,Spcl Unit for South South Coop,,,OtherCO,RBAP,LKA,LK,Sri Lanka,,,OtherCO,RBLAC,KNA,KN,St. Kitts and Nevis,,,OtherCO,RBLAC,LCA,LC,St. Lucia,,,OtherCO,RBLAC,VCT,VC,St. Vincent and the Grenadines,,,OtherCO,RBAS,SDN,SD,"Sudan, Republic of the",,,OtherCO,RBLAC,SUR,SR,Suriname,,,OtherCO,RBA,SWZ,SZ,Swaziland,,,OtherCO,RBAS,SYR,SY,Syria,,,OtherCO,RBEC,TJK,TJ,Tajikistan,,,OtherCO,RBAP,THA,TH,Thailand,,,OtherCO,RBAP,TLS,TL,Timor-Leste,,,OtherCO,RBA,TGO,TG,Togo,,,OtherCO,RBAP,TKL,TK,Tokelau,,,OtherCO,RBAP,TON,TO,Tonga,,,OtherCO,RBLAC,TTO,TT,Trinidad and Tobago,,,LocalCO,RBAS,TUN,TN,Tunisia,,,OtherCO,RBEC,TUR,TR,Turkey,,,LocalCO,RBEC,TKM,TM,Turkmenistan,,,OtherCO,RBAP,TUV,TV,Tuvalu,,,OtherCO,RBA,UGA,UG,Uganda,,,OtherCO,RBEC,UKR,UA,Ukraine,,,OtherHQ,UNCDF,H59,,UN Capital Development  Fund,,,OtherHQ,DOCO,H45,,UN Developmt Coordination Unit,,,OtherCO,RBAS,ARE,AE,United Arab Emirates,,,LocalHQ,UNV.,UNV,,United Nations Volunteers,,,OtherCO,RBA,TZA,TZ,United Republic of Tanzania,,,OtherCO,RBLAC,URY,UY,Uruguay,,,LocalCO,RBEC,UZB,UZ,Uzbekistan,,,OtherCO,RBAP,VUT,VU,Vanuatu,,,OtherCO,RBLAC,VEN,VE,Venezuela,,,LocalCO,RBAP,VNM,VN,Viet Nam,,,OtherCO,RBAS,YEM,YE,Yemen,,,OtherCO,RBA,ZMB,ZM,Zambia,,,OtherCO,RBA,ZWE,ZW,Zimbabwe,,,OtherHQ,RBA,R12,,Regional Center - Addis Ababa,,,OtherHQ,BDP,H21,,Bureau for Dev. Policy,, ,Other

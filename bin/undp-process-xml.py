@@ -19,7 +19,7 @@ xmlFiles = []
 os.chdir("download/undp_export/iati-xml-annual/")
 for fn in os.listdir('.'):
     if fn.endswith(".xml"):
-        fileY = fn[-8:-4]
+        fileY = fn[-8:-4]  # grab YEAR from file of form "atlas_projects_YEAR.xml"
         tmpYears.append(int(fileY))
         xmlFiles.append(fn)
 os.chdir("../../../")
@@ -452,7 +452,7 @@ projectsHeader = [
         'operating_unit_website','project_title','project_descr','start','end','inst_id',
         'inst_descr','inst_type_id','document_name'
         ]
-units = csv.DictReader(open('download/undp_export/report_units.csv', 'rb'), delimiter = ',', quotechar = '"')
+units = csv.DictReader(open('download/undp_export/report_units.csv', 'rU'), delimiter = ',', quotechar = '"')
 units_sort = sorted(units, key = lambda x: x['operating_unit'])
 iati_regions = csv.DictReader(open('download/undp_export/iati_regions.csv', 'rb'), delimiter = ',', quotechar = '"')
 iati_regions_sort = sorted(iati_regions, key = lambda x: x['code'])
@@ -1077,13 +1077,14 @@ currentYear = fiscalYears[0]
 opIndex = []
 opIndexHeader =  [
         'id','name','project_count','funding_sources_count',
-        'budget_sum','expenditure_sum','lat','lon','iso_num'
+        'budget_sum','expenditure_sum','lat','lon','iso_num', 'fund_type'
         ]
 for unit in opUnits:
     opTemp = {}
     donors = []
     budgetT = []
     expendT = []
+    fundType = ''
     for ctry in country_sort:
         if ctry['iso3'] == unit:
             opTemp['name'] = ctry['name']
@@ -1118,16 +1119,22 @@ for unit in opUnits:
                                 budgetT.append(b)
                             if e is not None:
                                 expendT.append(e)
+    # get the fund type for this operating unit
+    for row in units_sort:
+      if (unit == row['operating_unit'] or
+          unit == row['iati_operating_unit']):
+        fundType = row['fund_type']
 
     opTemp['funding_sources_count'] = len(donors)
     opTemp['budget_sum'] = sum(budgetT)
     opTemp['expenditure_sum'] = sum(expendT)
     opTemp['id'] = unit
     opTemp['project_count'] = projectCount
+    opTemp['fund_type'] = fundType
     opIndex.append(opTemp)
 
 writeout = json.dumps(opIndex, sort_keys=True, separators=(',',':'))
-f_out = open('../api/operating-unit-index.json', 'wb')
+f_out = open('../api/operating-unit-index-test.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
 print "Operating Unit Index Process Count: %d" % row_count

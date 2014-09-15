@@ -363,7 +363,8 @@ views.Map = Backbone.View.extend({
             var circles = [];
             // render HDI
             _(country.models).each(function(model){
-                if (unit.operating_unit[model.id] && model.lon){
+                if (unit.operating_unit[model.id] && model.lon) {
+                    fund_type = model.fund_type;
                     count = unit.operating_unit[model.id];
                     sources = (unit.donorID) ? false : unit.operating_unitSources[model.id];
                     budget = (unit.donorID && _.size(unit.operating_unit)) ? unit.donorBudget[unit.donorID] : unit.operating_unitBudget[model.id];
@@ -388,23 +389,30 @@ views.Map = Backbone.View.extend({
                     model.centroid.properties.hdi = hdi;
                     model.centroid.properties.popup = view.circlePopup(layer,model.centroid);
                     model.centroid.properties.radius = view.radius(view.scale(layer,model.centroid));
+                    model.centroid.properties.type = fund_type;
 
                     circles.push(model.centroid);
                 }
             });
-            var defaultCircle = {
-                color:"#fff",
-                weight:1,
-                opacity:1,
-                fillColor: "#0055aa",
-                fillOpacity: 0.6
-            };
+            // var defaultCircle = {
+            //     color:"#fff",
+            //     weight:1,
+            //     opacity:1,
+            //     fillColor: "#0055aa",
+            //     fillOpacity: 0.6
+            // };
             var circleLayer = L.geoJson({
                 "type":"FeatureCollection",
                 "features":_(circles).sortBy(function(f) { return -f.properties[layer]; })
             },{
                 pointToLayer:function(feature,latlng){
-                    return L.circleMarker(latlng,defaultCircle).setRadius(feature.properties.radius);
+                    return L.circleMarker(latlng, {
+                        color:"#fff",
+                        weight:1,
+                        opacity:1,
+                        fillColor: ((feature.properties.type === "Other")?"#0055aa":"green"),
+                        fillOpacity: 0.6
+                    }).setRadius(feature.properties.radius);
                 },
                 onEachFeature:function(feature, layer){
                     var brief = L.popup({
@@ -414,10 +422,18 @@ views.Map = Backbone.View.extend({
                     layer.on('mouseover',function(e){
                         brief.setLatLng(this.getLatLng());
                         view.map.openPopup(brief);
-                        view.circleHighlight(e,{color:'#0055aa',weight:2});
-                    }).on('mouseout',function(e){
+                        view.circleHighlight(e,{
+                            color: ((feature.properties.type === "Other")?"#0055aa":"green"),
+                            fillColor:((feature.properties.type === "Other")?"#0055aa":"green"),
+                            weight:2
+                        });
+                    }).on('mouseout',function(e){   
                         view.map.closePopup(brief);
-                        view.circleHighlight(e);
+                        view.circleHighlight(e,{
+                            color: "#fff",
+                            fillColor:((feature.properties.type === "Other")?"#0055aa":"green"),
+                            weight:2
+                        });
                     }).on('click',function(e){
                          if (!view.options.embed){
                             var prevPath = location.hash;

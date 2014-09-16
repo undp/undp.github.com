@@ -394,25 +394,39 @@ views.Map = Backbone.View.extend({
                     circles.push(model.centroid);
                 }
             });
-            // var defaultCircle = {
-            //     color:"#fff",
-            //     weight:1,
-            //     opacity:1,
-            //     fillColor: "#0055aa",
-            //     fillOpacity: 0.6
-            // };
+            
+            var otherFundedCircle = {
+                color:"#fff",
+                weight:1,
+                opacity:1,
+                fillColor: "#0055aa",
+                fillOpacity: 0.6
+            };
+
+            var localFundedCircle = {
+                color:"#0055aa",
+                weight:1,
+                opacity:1,
+                fillColor: "#0055aa",
+                fillOpacity: 0.1
+            };
+
+            var hoverCircle = {
+                color:"green",
+                weight:2,
+                opacity:1,
+                fillColor: "#0055aa",
+                fillOpacity: 0.3
+            };
+
             var circleLayer = L.geoJson({
                 "type":"FeatureCollection",
                 "features":_(circles).sortBy(function(f) { return -f.properties[layer]; })
             },{
                 pointToLayer:function(feature,latlng){
-                    return L.circleMarker(latlng, {
-                        color:"#fff",
-                        weight:1,
-                        opacity:1,
-                        fillColor: ((feature.properties.type === "Other")?"#0055aa":"green"),
-                        fillOpacity: 0.6
-                    }).setRadius(feature.properties.radius);
+                    return L.circleMarker(latlng, 
+                        ((feature.properties.type === "Other")?otherFundedCircle:localFundedCircle)
+                    ).setRadius(feature.properties.radius);
                 },
                 onEachFeature:function(feature, layer){
                     var brief = L.popup({
@@ -422,18 +436,12 @@ views.Map = Backbone.View.extend({
                     layer.on('mouseover',function(e){
                         brief.setLatLng(this.getLatLng());
                         view.map.openPopup(brief);
-                        view.circleHighlight(e,{
-                            color: ((feature.properties.type === "Other")?"#0055aa":"green"),
-                            fillColor:((feature.properties.type === "Other")?"#0055aa":"green"),
-                            weight:2
-                        });
+                        view.circleHighlight(e,hoverCircle);
                     }).on('mouseout',function(e){   
                         view.map.closePopup(brief);
-                        view.circleHighlight(e,{
-                            color: "#fff",
-                            fillColor:((feature.properties.type === "Other")?"#0055aa":"green"),
-                            weight:2
-                        });
+                        view.circleHighlight(e,
+                            ((feature.properties.type === "Other")?otherFundedCircle:localFundedCircle)
+                        );
                     }).on('click',function(e){
                          if (!view.options.embed){
                             var prevPath = location.hash;

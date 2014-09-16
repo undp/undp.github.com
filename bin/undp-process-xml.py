@@ -1134,7 +1134,7 @@ for unit in opUnits:
     opIndex.append(opTemp)
 
 writeout = json.dumps(opIndex, sort_keys=True, separators=(',',':'))
-f_out = open('../api/operating-unit-index-test.json', 'wb')
+f_out = open('../api/operating-unit-index.json', 'wb')
 f_out.writelines(writeout)
 f_out.close()
 print "Operating Unit Index Process Count: %d" % row_count

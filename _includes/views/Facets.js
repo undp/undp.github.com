@@ -1,40 +1,42 @@
 views.Facets = Backbone.View.extend({
 	el: '#filter-items',
-	template:_.template('<div id="<%= id %>" class="topics"></div>'),
+	template:_.template($('#facet').html()),
 	initialize:function(){
+		_.bindAll(this,'render');
 		this.collection = new Facets();
 		this.render();
 	},
 	render:function(){
-		var that = this;
 		var facetHTML = '';
 
-		global.app.views = {}; // what is the views
-
-		// create the topics divs
 		this.collection.each(function(facet){
-			facetHTML += that.template(facet);
 
-			facet.subCollection.fetch({
-				success: function (data) {
-					global.app.views[facet.id] = new views.Filters({
-					el: '#' + facet.id,
-					collection: facet.subCollection
-				});
+			facetHTML += this.template({
+				id: facet.get('id'),
+				name: facet.get('name')
+			});
 
-				_.each(global.processedFacets, function (obj) {
-					if (obj.collection === facet.id) {
-				 		global.app.views[facet.id].active = true;
-					}
-				});
-				facet.subCollection.watch();
+			//set up filters (values in the collection) for the facet
+	        facet.subFilters = new Filters();
 
-				// that.counter++;
-				// if (that.counter === facets.length) updateDescription();
+	        facet.subFilters.id = facet.get('id');
+	        facet.subFilters.name = facet.get('name');
+	        facet.subFilters.url = facet.get('url');
+
+			facet.subFilters.fetch({
+				success: function () {
+
+			        new views.Filters({
+						el:'#' + facet.id,
+						collection: facet.subFilters
+			        });
+
+					facet.subFilters.watch();
 				}
 			});
-		})
 
-		this.$el.html(facetHTML);
+		},this) // ensure the context refers to the view, so that var that = this is not needed
+
+		this.$el.html(facetHTML); // create the topics/facets divs
 	}
 });

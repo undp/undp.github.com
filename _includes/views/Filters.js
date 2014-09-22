@@ -29,11 +29,15 @@ views.Filters = Backbone.View.extend({
             $('#' + this.collection.id + '-' + model.id).toggleClass('active', model.get('active'));
         },this);
 
+        // accoding to the html structure here's "filtered" should be
+        // add to the "topics"
+        $('.filter.active').parent().parent().parent().addClass('filtered');
+
         // TODO temporary disable map loading - map conatiner init problem
         if (!keypress) global.projects.map.render();
         this.renderCharts();
-},
-renderCharts: function(){
+    },
+    renderCharts: function(){
         var view = this;
 
         // chartModels
@@ -56,7 +60,6 @@ renderCharts: function(){
                 .value();
         }
 
-        console.log(this.chartModels)
         // start chart rendering
         $('#chart-' + this.collection.id + '.rows').empty();
 

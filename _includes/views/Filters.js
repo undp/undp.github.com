@@ -80,17 +80,18 @@ views.Filters = Backbone.View.extend({
             global.filtercounter = (global.filtercounter) ? global.filtercounter + 1 : 2;
         } else {
             global.filtercounter = 0;
-            if (!keypress) global.projects.map.render();
+           if (!keypress) global.projects.map.render();
         }
 
         // render map
-        // if (!keypress) global.projects.map.render();
+        if (!keypress) global.projects.map.render();
         if (!keypress) new views.Map();
         this.renderCharts();
     },
 
     renderCharts: function(){
-            var view = this;
+        var view = this;
+        this.chartModels = [];
 
         //***********************
         // GET DATA
@@ -121,16 +122,12 @@ views.Filters = Backbone.View.extend({
         // START RENDERING
         //***************************
         $('#chart-' + this.collection.id + ' .rows').empty();
-            // update hash for charts
-            if (global.processedFacets.length === 0 ){
-                var pathTo = '#filter/';
-            } else {
-                pathTo = document.location.hash + "/";
-            };
-
-        if (this.chartModels.length <= 1 && this.collection.id !== 'focus_area' && !this.donorCountry) {
-            $('#chart-' + this.collection.id).css('display','none');
-        }
+        // update hash for charts
+        if (global.processedFacets.length === 0 ){
+            var pathTo = '#' + CURRENT_YR +'/filter/';
+        } else {
+            pathTo = document.location.hash + "/";
+        };
 
         // What does full do??
         if ($('.stat-chart').hasClass('full')) {
@@ -155,15 +152,27 @@ views.Filters = Backbone.View.extend({
         //****************************
 
         if (this.collection.id === 'donors') {
-            renderBudgetSourcesChart(this.chartModels, pathTo, view);
+            if (this.chartModels.length > 0 || this.donorCountry) {
+                renderBudgetSourcesChart(this.chartModels, pathTo, view);
+            } else {
+                $('#chart-' + this.collection.id).hide();
+            }
         }
 
         //******************************************
         // RENDER Recipient Offices Chart
         //******************************************
         if (this.collection.id === 'operating_unit') {
-            renderRecipientOfficesChart(this.chartModels, view, pathTo)
+            if (this.chartModels.length > 0 || this.donorCountry) {
+                renderRecipientOfficesChart(this.chartModels, view, pathTo)
+            } else {
+                $('#chart-' + this.collection.id).css('display','none');
+            }
         }
+
+        if (this.chartModels.length <= 1 && this.collection.id !== 'focus_area' && !this.donorCountry) {
+            $('#chart-' + this.collection.id).css('display','none');
+        } 
 
     }
 });

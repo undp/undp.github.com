@@ -69,9 +69,9 @@ function calculateStatistic(budgetSource, donorCountry, operating_unit) {
 }
 
 function setMapInfo(donorInfo, model, budgetSource) {
-    // if (budgetSource) global.projects.mapView.collection.donorID = false;
-    // global.projects.mapView.collection.operating_unitBudget[model.get('id')] = donorInfo.budget;
-    // global.projects.mapView.collection.operating_unitExpenditure[model.get('id')] = donorInfo.expenditure;
+    if (budgetSource) global.projects.map.collection.donorID = false;
+    global.projects.map.collection.operating_unitBudget[model.get('id')] = donorInfo.budget;
+    global.projects.map.collection.operating_unitExpenditure[model.get('id')] = donorInfo.expenditure;
 }
 
 function setBudgetHTML(donorInfo, model, isFiltered, pathTo) {
@@ -103,6 +103,7 @@ function setBudgetHTML(donorInfo, model, isFiltered, pathTo) {
 }
 
 function addRows(selector, rows, view) {
+    rows = _(rows).filter(function(row) { return row;}); //removes undefined
     rows = _(rows).sortBy('sort');
     var max = rows[0].sort * -1;
     rows = rows.slice(0,19);
@@ -118,9 +119,8 @@ function addRows(selector, rows, view) {
 }
 
 function renderBudgetSourcesChart(chartData, pathTo, view) {
-    var donorCountry = (_(global.processedFacets).find(function(filter) {
-        return filter.facet === 'donor_countries';
-    }) || {id: 0}).id;
+    var isThereDonorCountry = _(global.processedFacets).findWhere({ facet: 'donor_countries' }),
+            donorCountry = (isThereDonorCountry) ? isThereDonorCountry.id : false;
 
     var rows = [];
 
@@ -128,33 +128,29 @@ function renderBudgetSourcesChart(chartData, pathTo, view) {
         donorInfo = calculateStatistic(model.id, donorCountry)
         setMapInfo(donorInfo, model, model.id);
         var rowHTML = setBudgetHTML(donorInfo, model, true, pathTo)
-        rows.push(rowHTML);
+        if (rowHTML) rows.push(rowHTML);
     }, view)
-
 
     if (rows.length > 0 ) addRows($('#chart-' + view.collection.id + ' .rows'), rows, view);
 }
 
 function renderRecipientOfficesChart(chartData, view, pathTo) {
-
     var budgetSource = (_(global.processedFacets).find(function(filter) {
         return filter.facet === 'donors';
     }) || {id: 0}).id;
 
-    var donorCountry = (_(global.processedFacets).find(function(filter) {
-        return filter.facet === 'donor_countries';
-    }) || {id: 0}).id;
+    var isThereDonorCountry = _(global.processedFacets).findWhere({ facet: 'donor_countries' }),
+            donorCountry = (isThereDonorCountry) ? isThereDonorCountry.id : false;
 
     var localRows = [];
     var otherRows = [];
    _(chartData).each(function(model) {
-
         donorInfo = calculateStatistic(budgetSource, donorCountry, model.id);
         if (budgetSource || donorCountry) {
             setMapInfo(donorInfo, model, budgetSource);
         }
         var rowHTML = setBudgetHTML(donorInfo, model, (budgetSource || donorCountry), pathTo)
-        if (rowHTML.fund_type === 'Local') {
+        if (rowHTML && rowHTML.fund_type === 'Local') {
             localRows.push(rowHTML);
         } else {
             otherRows.push(rowHTML);

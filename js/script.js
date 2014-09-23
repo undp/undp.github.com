@@ -174,6 +174,7 @@ $(document).ready(function() {
 
     // Views
     {% include views/App.js %}
+    {% include views/Chart.js %}
     {% include views/Filters.js %}
     {% include views/Nav.js %}
     {% include views/Projects.js %}

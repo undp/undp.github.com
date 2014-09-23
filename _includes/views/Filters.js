@@ -121,7 +121,6 @@ views.Filters = Backbone.View.extend({
         // START RENDERING
         //***************************
         $('#chart-' + this.collection.id + ' .rows').empty();
-
             // update hash for charts
             if (global.processedFacets.length === 0 ){
                 var pathTo = '#filter/';

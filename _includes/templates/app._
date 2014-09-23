@@ -201,16 +201,30 @@
 
           <!--/ #chart-operating_unit -->
           <!--Chart Four -->
-          <div class='span6 chart stat-chart' id='chart-operating_unit'>
+           <div class='span6 chart stat-chart' id='chart-operating_unit'>
             <h3>Top Recipient Offices</h3>
-            <p>&#8277; The ranking of the top recipient offices includes funding originating from within the country. <a href='#top-recipient-note' data-toggle='modal'>Read More</a></p>
             <span class='chart-legend'>
               <div class='thick-bar clearfix'><span></span>Budget</div>
               <div class='thin-bar'><span></span>Expense</div>
             </span>
-            <table class='table table-unstyled'>
-              <tbody class='rows'></tbody>
-            </table>
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#partnerTab" data-toggle='tab'>Partner Resources</a></li>
+              <li><a href="#localTab" data-toggle='tab'>Local Resources</a></li>
+            </ul>
+            <div>
+              <div class="tab-content">
+              <div class='tab-pane active' id='partnerTab'>
+                  <table class='table table-unstyled'>
+                    <tbody class='rows'></tbody>
+                  </table>
+                </div>
+                <div class='tab-pane' id='localTab'>
+                  <table class='table table-unstyled'>
+                    <tbody class='rows'></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
           <div class='span6 chart stat-chart' id='chart-donors'>
             <h3>Top Budget Sources</h3>

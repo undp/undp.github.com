@@ -33,6 +33,25 @@
   </div>
 </script>
 
+
+<script id='focusAreaItemTemplate' type='text/html'>
+  <li class='focus fa<%= id %>'>
+    <a href='<%= path %>' class='focus-title'> <%= focusName %> </a>
+    <p class='pct'><span class='<%= focusIconClass %>'></span></p>
+  </li>
+</script>
+
+<script id='budgetChartItemTemplate' type='text/html'>
+  <tr>
+    <td><a href='<%= path %>'><%= name %></a></td>
+    <td class='right'><%= budget %></td>
+    <td class='data'>
+      <div class='budgetdata' data-budget='<%= budgetWidth %>'></div>
+      <div class='subdata' data-expenditure='<%= expenditureWidth %>'></div>
+    </td>
+  </tr>
+</script>
+
 <!-- Google Analytics -->
 <script type="text/javascript">
 

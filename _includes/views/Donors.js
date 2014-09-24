@@ -39,8 +39,8 @@ views.Donors = Backbone.View.extend({
     },
     render: function() {
         var that = this;
-        var donorFilter =_(app.app.filters).findWhere({collection:"donor_countries"}),
-            donor = donorFilter.id;
+        var donor = _(global.processedFacets).where({ collection: 'donor_countries' });
+            donor = (donor.length) ? donor[0].id : false;
 
         // total and donor related items from collection
         // are being calculated

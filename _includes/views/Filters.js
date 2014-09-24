@@ -133,12 +133,16 @@ views.Filters = Backbone.View.extend({
     
             $('#chart-' + view.collection.id + '.rows').empty();
 
+            var pathTo;
             // update hash for charts
             if (global.processedFacets.length === 0 ){
-                var pathTo = '#' + CURRENT_YR +'/filter/';
+                pathTo = '#' + CURRENT_YR +'/filter/';
             } else {
                 pathTo = document.location.hash + "/";
             };
+
+            //Fixes hrefs for embed
+           pathTo = (pathTo.split('?')[0] + '/').replace('widget', 'filter');
 
             if (chartModels.length <= 1 && view.collection.id !== 'focus_area' && !donorCountry) {
                 $('#chart-' + view.collection.id)
@@ -173,7 +177,7 @@ views.Filters = Backbone.View.extend({
 
                         $el.append(
                             '<li class="focus fa' + model.id + '">' +
-                            '  <a href="'+ pathTo + view.collection.id + '-' + model.id + '" class="focus-title">' + focusName + '</a>' +
+                            '  <a target="_blank" href="' + '/'+ pathTo + view.collection.id + '-' + model.id + '" class="focus-title">' + focusName + '</a>' +
                             '  <p class="pct"><span class="' + focusIconClass + '"></span></p>' +
                             '</li>'
                         );
@@ -295,7 +299,7 @@ views.Filters = Backbone.View.extend({
                             var budgetWidth = (donor || donor_ctry) ? (donorBudget) : (model.get('budget'));
                             var expenditureWidth = (donor || donor_ctry) ? (donorExpenditure) : (model.get('expenditure'));
 
-                            var caption = '<a href="' + pathTo + model.collection.id + '-' + model.get('id') +
+                            var caption = '<a target="_blank" href="' + '/' + pathTo + model.collection.id + '-' + model.get('id') +
                                 '">' + model.get('name').toLowerCase().toTitleCase() + '</a>';
                             var bar = '<div class="budgetdata" data-budget="' + budgetWidth + '"></div>' + '<div class="subdata" data-expenditure="' + expenditureWidth + '"></div>';
                             if (budget!='$0'){

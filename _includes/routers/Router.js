@@ -139,8 +139,18 @@ routers.Global = Backbone.Router.extend({
                 that.projects.map.map.remove();
             }
             // from that.allProjects get new projects based on the facets
-            // that.projects = new Projects(that.allProjects.filter(getProjectFromFacets));
-            that.projects = new Projects(that.allProjects.filter(getProjectFromFacets));
+           var facettedProjects = that.allProjects.filter(getProjectFromFacets);
+
+            //Create coreProjects array for projects that are funded by UNDP regular resources
+           var coreProjects = [];
+           if (that.donorCountry === 'JPN') {
+                coreProjects = that.allProjects.filter(function(project) {
+                    var isCore = _(project.attributes.donors).contains('00012');
+                   return ( isCore && !_(project.attributes.donor_countries).contains('JPN'));
+                });
+            }
+
+            that.projects = new Projects(facettedProjects.concat(coreProjects));
 
             // start the project calculations
             that.projects.watch();
@@ -158,7 +168,16 @@ routers.Global = Backbone.Router.extend({
         } else {
             // if that.allProjects are already present
             that.projects.excecuteAfterCalculation = that.updateDescription;
-            that.projects.reset(this.allProjects.filter(getProjectFromFacets));
+
+            //Create coreProjects array for projects that are funded by UNDP regular resources
+           var coreProjects = [];
+           if (that.donorCountry === 'JPN') {
+                coreProjects = that.allProjects.filter(function(project) {
+                    var isCore = _(project.attributes.donors).contains('00012');
+                   return ( isCore && !_(project.attributes.donor_countries).contains('JPN'));
+                });
+            }
+            that.projects.reset(this.allProjects.filter(getProjectFromFacets).concat(coreProjects));
         }
 
         // Check for funding countries to show donor visualization

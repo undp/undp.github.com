@@ -469,7 +469,20 @@ views.Map = Backbone.View.extend({
                                 path = prevPath = 'filter/operating_unit-' + e.target.feature.properties.id;
                             }
                         } else {
-                            path = prevPath + '/operating_unit-' +  e.target.feature.properties.id;
+                            // If a core donor country is selected and the marker isn't necessarily funded
+                            // by that country, change the hash to be UNDP regular resources, donors-00012
+                            if (global.projects.chain()
+                                .filter(function(project) { 
+                                    return project.get('operating_unit')  === e.target.feature.properties.id;
+                                })
+                                .filter(function(project) { return _(project.get('donor_countries'))
+                                    .contains(donorCountry) 
+                                }).value().length > 0)  
+                            {
+                                path = prevPath + '/operating_unit-' +  e.target.feature.properties.id;
+                            } else {
+                                path = '#' + CURRENT_YR +'/filter/donors-00012/operating_unit-' + e.target.feature.properties.id;
+                            }
                         }
 
                         view.goToLink(path);

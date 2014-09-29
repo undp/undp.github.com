@@ -7,7 +7,6 @@ views.Projects = Backbone.View.extend({
     },
 
     initialize: function() {
-        
         this.$el.html(templates.projects(this));
         this.collection.on('update', this.render, this);
         $('#projects input[type="search"]').on('keyup', _.bind(this.search, this));
